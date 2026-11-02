@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a221b" />
+  <meta name="description" content="Layar waktu salat Jakarta: jam WIB, countdown real-time, jadwal Kemenag, dan azan otomatis." />
+  <title>Ruang Salat — Jakarta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{color-scheme:dark;--bg:#071b16;--panel:#102a23;--panel-border:#315046;--ink:#f5f8ef;--muted:#a9bfb3;--lime:#d7f1b8;--font:'Plus Jakarta Sans','DM Sans',system-ui,-apple-system,Segoe UI,sans-serif}
+    *{box-sizing:border-box}html{height:100%;background:var(--bg)}body{margin:0;min-height:100%;font-family:var(--font);color:var(--ink);background:radial-gradient(ellipse at 7% 0%,#2246389c,transparent 44%),radial-gradient(ellipse at 93% 74%,#20433992,transparent 35%),#071b16;-webkit-font-smoothing:antialiased}
+    button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #d7f1b8;outline-offset:3px}
+    .shell{height:100vh;height:100svh;min-height:660px;max-width:2400px;margin:auto;display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;gap:clamp(15px,2.1vh,28px);padding:clamp(20px,2.7vw,55px) clamp(22px,4.0vw,88px) clamp(19px,2.4vw,44px)}
+    .topbar,.brand,.header-right,.location,.inline-actions,.pill-button,.clock-info,.next-at,.section-header,.section-top,.footbar,.status-cell,.audio-state{display:flex;align-items:center}
+    .topbar{justify-content:space-between;min-height:47px;gap:16px}.brand{gap:14px;flex-shrink:0}.brand-icon{width:41px;height:41px;border:1px solid #71957e66;background:#cce4af16;border-radius:14px;display:grid;place-items:center;color:var(--lime)}
+    .brand-heading{font-size:clamp(16px,1.2vw,22px);font-weight:700;letter-spacing:-.06em;line-height:1.14}.brand-sub{display:block;font-size:11px;letter-spacing:.19em;text-transform:uppercase;font-weight:600;color:#9eb9a9;margin-top:5px}
+    .header-right{gap:clamp(11px,1.4vw,20px)}.location{gap:7px;font-size:clamp(11px,.77vw,14px);color:#d0e2d2;font-weight:600;white-space:nowrap}.location svg{color:#b3dfa6}.clock-info{gap:12px;border-left:1px solid #ffffff23;padding-left:clamp(10px,1.3vw,24px);white-space:nowrap}.top-time{font-size:clamp(15px,1.15vw,22px);font-weight:700;letter-spacing:-.045em;font-variant-numeric:tabular-nums}.top-zone{font-size:11px;font-weight:700;letter-spacing:.12em;color:#b9d9bd}
+    .inline-actions{gap:8px}.pill-button{gap:9px;justify-content:center;border:1px solid #83a79555;border-radius:100px;padding:12px 16px;color:#eaf7ea;background:#ffffff09;transition:.2s background,.2s border-color;white-space:nowrap;font-size:12px;font-weight:700}.pill-button:hover{background:#ffffff17;border-color:#a3c1acb8}.pill-button.activated{background:#d7f1b81d;color:var(--lime);border-color:#c4eaa482}.pill-button svg{width:17px;height:17px;stroke-width:1.8}.icon-only{width:43px;height:43px;padding:0}.sound-button{min-width:139px}
+    .hero{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(350px,.86fr);min-height:0;gap:clamp(12px,2vw,35px);border:1px solid #7895852e;background:linear-gradient(120deg,#ffffff07,#ffffff01 65%);border-radius:clamp(24px,2vw,35px);padding:clamp(25px,3.15vw,62px);position:relative;overflow:hidden;isolation:isolate}.hero:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 37% 55%,#537d5130,transparent 45%);pointer-events:none}.hero-left{z-index:1;display:flex;flex-direction:column;justify-content:center;min-width:0}
+    .eyebrow{display:flex;gap:11px;align-items:center;color:#b5cbbb;font-weight:700;letter-spacing:.23em;font-size:clamp(10px,.81vw,15px);text-transform:uppercase}.indicator{width:8px;height:8px;border-radius:50%;background:#d5f6b1;box-shadow:0 0 0 6px #b4e28b16,0 0 24px #c1ef99b0;flex-shrink:0}.hero-title{font-size:clamp(78px,8.1vw,174px);line-height:1.11;letter-spacing:-.09em;font-weight:600;margin:clamp(5px,.8vh,14px) 0 3px;overflow-wrap:anywhere}.count-label{font-size:clamp(13px,.98vw,20px);color:#b4d0bc;font-weight:500;margin:clamp(12px,1.4vh,23px) 0 7px}.countdown{font-size:clamp(47px,5.5vw,116px);line-height:1.19;font-weight:600;letter-spacing:-.07em;font-variant-numeric:tabular-nums;color:var(--lime);white-space:nowrap}.countdown .colon{opacity:.4;margin:0 .03em}.next-at{margin-top:clamp(15px,2.4vh,33px);gap:13px;flex-wrap:wrap;color:#c1d5c6;font-size:clamp(12px,.9vw,17px)}.next-time{color:#f0f7e9;font-weight:700}.tiny-sep{width:4px;height:4px;border-radius:50%;background:#8dae9d}
+    .scene{position:relative;min-height:240px;isolation:isolate;display:flex;align-items:center;justify-content:center}.scene:before{content:'';position:absolute;inset:8% 2% 0 2%;border-radius:50% 50% 30% 30%;background:radial-gradient(ellipse at 50% 42%,#c3d99534,transparent 46%),radial-gradient(ellipse at 45% 70%,#5b8f7040,transparent 55%);filter:blur(18px)}.scene-svg{position:absolute;width:100%;height:100%;max-width:700px;overflow:visible}.scene-caption{position:absolute;bottom:5%;right:4%;text-align:right;display:flex;flex-direction:column;gap:6px;z-index:2}.scene-arabic{color:#e0e9ce;font-family:Georgia,'Times New Roman',serif;font-size:clamp(27px,2.5vw,50px);font-weight:400}.scene-caption small{color:#c6d6c7;font-size:11px;letter-spacing:.09em;font-weight:500}.orb-float{animation:float 8s ease-in-out infinite}@keyframes float{50%{transform:translateY(-9px)}}
+    .schedule-block{min-width:0}.section-header{justify-content:space-between;gap:15px;margin:1px 3px 17px}.section-title{font-size:clamp(16px,1.19vw,23px);font-weight:700;letter-spacing:-.035em}.date-label{font-size:clamp(11px,.89vw,16px);color:#bdccbf;font-weight:500}.schedule{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(9px,1.2vw,20px)}.prayer{border:1px solid #73917e36;background:#ffffff07;border-radius:clamp(15px,1.22vw,23px);padding:clamp(16px,1.5vw,27px) clamp(14px,1.5vw,29px);min-height:clamp(98px,9.8vh,155px);display:flex;flex-direction:column;justify-content:space-between;gap:14px;transition:background .25s,border-color .25s,color .25s}.prayer-name{font-size:clamp(13px,1vw,19px);font-weight:600;color:#b5cdbd;display:flex;justify-content:space-between;align-items:center;gap:8px}.prayer-time{font-size:clamp(27px,2.42vw,52px);line-height:1;letter-spacing:-.065em;font-weight:700;font-variant-numeric:tabular-nums}.prayer.is-next{background:#d7edbd;color:#142d23;border-color:#f3ffda}.prayer.is-next .prayer-name{color:#345744}.prayer.is-current:not(.is-next){background:#d8ecbb10;border-color:#aace984a}.prayer.is-current:not(.is-next) .prayer-name{color:#e4eecf}.prayer .mini-tag{font-size:9px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:#375f3d;background:#365a321b;border-radius:999px;padding:5px 7px}.footbar{justify-content:space-between;gap:15px;font-size:clamp(10px,.74vw,13px);color:#89a699;min-width:0}.foot-left{display:flex;align-items:center;gap:9px;min-width:0}.source-dot{width:6px;height:6px;border-radius:50%;background:#a7e9ac;flex-shrink:0}.source-dot.error{background:#e5b28e}.foot-link{color:#accbb3;text-decoration:none}.foot-link:hover{text-decoration:underline}.foot-right{display:flex;align-items:center;gap:14px;white-space:nowrap}.text-btn{border:0;background:transparent;color:#c3dec8;font-size:11px;font-weight:600;padding:5px}.text-btn:hover{text-decoration:underline}
+    .toast{position:fixed;z-index:30;bottom:24px;left:50%;transform:translate(-50%,30px);background:#ecf6dd;color:#173428;padding:14px 21px;border-radius:15px;box-shadow:0 10px 60px #0008;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:.2s;max-width:calc(100vw - 28px);text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+    .azan-overlay{position:fixed;inset:0;z-index:20;background:#071b16ef;backdrop-filter:blur(24px);display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}.azan-overlay.visible{opacity:1;visibility:visible}.azan-content{max-width:760px;width:100%;display:flex;flex-direction:column;align-items:center}.azan-halo{width:120px;height:120px;border:1px solid #bff1b26b;border-radius:50%;display:grid;place-items:center;background:#cbedb41a;margin-bottom:34px;box-shadow:0 0 0 26px #bfdca409,0 0 0 61px #bfdca405;animation:halo 4s infinite}.azan-halo svg{width:46px;height:46px;color:#d7f1b8}@keyframes halo{50%{box-shadow:0 0 0 34px #bfdca409,0 0 0 72px #bfdca404}}.azan-kicker{letter-spacing:.22em;font-size:12px;font-weight:700;color:#b1c8b7}.azan-name{font-size:clamp(72px,10vw,156px);font-weight:600;letter-spacing:-.09em;line-height:1.2;margin:10px 0}.azan-message{font-size:clamp(15px,1.5vw,23px);color:#cadbc7;line-height:1.6;margin:0 0 35px}.azan-stop{padding:15px 32px;border:0;border-radius:999px;background:#d7edbd;color:#173b29;font-size:14px;font-weight:800}.azan-close{position:absolute;top:25px;right:28px;background:transparent;border:0;color:#dceadd;padding:10px}
+    dialog{max-height:92dvh;overflow-y:auto;border:1px solid #90ad9966;border-radius:26px;background:#122e26;color:#eff7ed;padding:0;width:min(480px,calc(100vw - 28px));box-shadow:0 25px 80px #000a}dialog::backdrop{background:#03120de3;backdrop-filter:blur(8px)}.modal-in{padding:28px}.modal-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.modal-title{font-size:22px;font-weight:700;letter-spacing:-.05em}.modal-close{background:#ffffff13;border:1px solid #ffffff18;color:white;border-radius:50%;width:34px;height:34px;font-size:19px}.modal-desc{font-size:13px;color:#abc4b3;line-height:1.65;margin-bottom:26px}.setting-label{font-size:12px;color:#bad4bc;font-weight:700;display:flex;justify-content:space-between}.volume{width:100%;accent-color:#d7edbd;margin:15px 0 22px}.setting-divider{height:1px;background:#ffffff1b;margin:8px 0 24px}.volume-help{font-size:11px;color:#abc4b3;line-height:1.65;margin:-12px 0 22px}.file-btn{display:block;width:100%;text-align:center;border:1px dashed #94be9d88;padding:14px 16px;border-radius:12px;font-weight:700;cursor:pointer;background:#ffffff08;font-size:13px}.file-btn:hover{background:#ffffff17}.file-btn input{display:none}.audio-state{margin:12px 0 0;justify-content:space-between;gap:8px;font-size:11px;color:#9dbba8}.reset{font-size:11px;color:#d6f1c7;text-decoration:underline;background:none;border:0}.modal-help{font-size:11px;color:#91af9f;line-height:1.6;margin:23px 0 0}
+    @media (min-width:1700px){.shell{gap:clamp(20px,2.4vh,45px)}.scene{min-height:320px}.prayer{min-height:clamp(125px,13vh,198px)}.section-header{margin-bottom:21px}}
+    @media (max-width:1090px){.shell{padding:23px 28px;gap:16px}.hero{grid-template-columns:1.15fr .85fr;padding:30px}.hero-title{font-size:clamp(70px,9vw,116px)}.countdown{font-size:clamp(45px,6vw,74px)}.scene-caption{bottom:2%}.prayer{padding:17px}.prayer-time{font-size:clamp(23px,2.55vw,35px)}.location{display:none}}
+    @media (max-width:760px){.shell{height:auto;min-height:100svh;grid-template-rows:auto minmax(330px,1fr) auto auto;padding:20px 16px 17px;gap:19px}.brand-icon{width:37px;height:37px}.brand-heading{font-size:16px}.brand-sub{display:none}.topbar{gap:5px}.header-right{gap:7px}.clock-info{padding-left:0;border:0;gap:6px}.top-time{font-size:14px}.top-zone{font-size:9px}.sound-button{min-width:0}.sound-button span{display:none}.pill-button{width:36px;height:36px;padding:0}.icon-only{width:36px;height:36px}.hero{display:flex;align-items:center;min-height:330px;padding:34px 25px}.hero-left{width:100%}.hero-title{font-size:clamp(76px,15vw,118px)}.countdown{font-size:clamp(44px,9.3vw,72px)}.scene{display:none}.schedule{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.prayer{min-height:90px;padding:15px 12px;gap:16px;border-radius:15px}.prayer-time{font-size:clamp(23px,5vw,33px)}.prayer-name{font-size:12px}.prayer .mini-tag{display:none}.section-header{margin-bottom:11px}.footbar{align-items:flex-start}.foot-right{gap:7px;flex-direction:column;align-items:flex-end}}
+    @media (max-width:380px){.top-time{font-size:12px}.hero-title{font-size:68px}.countdown{font-size:39px}.prayer-time{font-size:21px}.pill-button{width:33px;height:33px}}
+    @media (max-height:850px) and (min-width:761px){.shell{min-height:600px;padding-top:19px;padding-bottom:18px;gap:12px}.hero{padding:clamp(20px,2.4vw,40px)}.hero-title{font-size:clamp(73px,7vw,125px)}.countdown{font-size:clamp(49px,4.9vw,90px)}.count-label{margin-top:8px}.next-at{margin-top:10px}.prayer{min-height:88px;padding:13px 19px}.section-header{margin-bottom:11px}.scene-caption{bottom:0}}
+    @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  
+    .audio-options{display:grid;gap:8px;margin:12px 0 12px}
+    .audio-option{display:flex;align-items:center;justify-content:space-between;text-align:left;width:100%;gap:12px;padding:13px 14px;border-radius:13px;background:#ffffff08;color:#eef8ed;border:1px solid #ffffff1c;cursor:pointer;font:inherit;transition:background .2s,border-color .2s}
+    .audio-option:hover{background:#ffffff15}
+    .audio-option.active{border-color:#c5eca0;background:#c9efaf16}
+    .audio-option strong{display:block;font-size:13px;font-weight:650;letter-spacing:-.01em}
+    .audio-option small{display:block;color:#abc7b5;font-size:11px;margin-top:4px;line-height:1.4}
+    .audio-mark{width:18px;height:18px;flex:0 0 18px;border:1px solid #819b8c;border-radius:50%;display:grid;place-items:center}
+    .audio-option.active .audio-mark{border-color:#c5eca0}
+    .audio-option.active .audio-mark:after{content:'';width:8px;height:8px;border-radius:50%;background:#c5eca0}
+    .audio-preview{border:1px solid #d7edbd8a;background:#d7edbd1c;color:#ebf5e4;padding:11px 14px;border-radius:11px;cursor:pointer;font:inherit;font-size:12px;font-weight:700;width:100%;margin:2px 0 13px}
+    .audio-preview:hover{background:#d7edbd33}
+    .audio-license{font-size:10px;color:#8eac9b;line-height:1.5;margin:9px 0 10px}
+    .audio-license a{color:#c9ebc4;text-decoration:underline;text-underline-offset:3px}
+    dialog{max-height:calc(100dvh - 32px);overflow:auto}
+  </style>
+</head>
+<body>
+  <main class="shell" id="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7.5 7.5 0 1 0 9.4 9.4A9 9 0 1 1 12 2Z"/><path d="m18 3 .35 1.65L20 5l-1.65.35L18 7l-.35-1.65L16 5l1.65-.35L18 3Z"/></svg></div>
+        <div><div class="brand-heading">ruang<span style="color:#d6edb7">salat.</span></div><span class="brand-sub">Waktu yang bermakna</span></div>
+      </div>
+      <div class="header-right">
+        <div class="location"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>DKI Jakarta, Indonesia</div>
+        <div class="clock-info" aria-live="off"><span class="top-time" id="clock">--:--:--</span><span class="top-zone">WIB</span></div>
+        <div class="inline-actions">
+          <button id="soundBtn" class="pill-button sound-button" title="Aktifkan audio azan" aria-pressed="false"><svg id="soundIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19 6a9 9 0 0 1 0 12"/></svg><span id="soundText">Aktifkan azan</span></button>
+          <button id="settingsBtn" class="pill-button icon-only" aria-label="Pengaturan audio" title="Pengaturan audio"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M19.4 15a2 2 0 0 0 .4 2.3l.1.1-2.5 2.5-.1-.1a2 2 0 0 0-2.3-.4 2 2 0 0 0-1.2 1.9v.2h-3.6v-.2A2 2 0 0 0 9 19.4a2 2 0 0 0-2.3.4l-.1.1-2.5-2.5.1-.1a2 2 0 0 0 .4-2.3 2 2 0 0 0-1.9-1.2h-.2v-3.6h.2A2 2 0 0 0 4.6 9a2 2 0 0 0-.4-2.3l-.1-.1 2.5-2.5.1.1A2 2 0 0 0 9 4.6a2 2 0 0 0 1.2-1.9v-.2h3.6v.2A2 2 0 0 0 15 4.6a2 2 0 0 0 2.3-.4l.1-.1 2.5 2.5-.1.1a2 2 0 0 0-.4 2.3 2 2 0 0 0 1.9 1.2h.2v3.6h-.2A2 2 0 0 0 19.4 15Z"/></svg></button>
+          <button id="fullscreenBtn" class="pill-button icon-only" aria-label="Mode layar penuh" title="Layar penuh (atau F11)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3m13 5h3a2 2 0 0 0 2-2v-3"/></svg></button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero" aria-label="Hitung mundur waktu salat berikutnya">
+      <div class="hero-left">
+        <div class="eyebrow"><i class="indicator" aria-hidden="true"></i><span id="kicker">WAKTU SALAT BERIKUTNYA</span></div>
+        <h1 id="nextPrayer" class="hero-title">—</h1>
+        <div class="count-label" id="countLabel">Menghitung waktu menuju salat</div>
+        <div id="countdown" class="countdown" aria-label="Hitung mundur">--<span class="colon">:</span>--<span class="colon">:</span>--</div>
+        <div class="next-at"><svg width="18" height="18" fill="none" stroke="#c0e0b9" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="nextDescription">Menyiapkan jadwal Jakarta…</span><span class="tiny-sep" aria-hidden="true"></span><span id="nextDay">Asia/Jakarta</span></div>
+      </div>
+      <div class="scene" aria-hidden="true">
+        <svg class="scene-svg" viewBox="0 0 560 470" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><radialGradient id="moonGlow"><stop offset="0" stop-color="#d7ebbb" stop-opacity=".48"/><stop offset=".28" stop-color="#d7ebbb" stop-opacity=".15"/><stop offset="1" stop-color="#d7ebbb" stop-opacity="0"/></radialGradient><linearGradient id="moon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0f7d9"/><stop offset="1" stop-color="#bdd89d"/></linearGradient><linearGradient id="building" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#6a9375"/><stop offset=".52" stop-color="#40634f"/><stop offset="1" stop-color="#16362b"/></linearGradient><linearGradient id="far" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2e5e48"/><stop offset="1" stop-color="#112f25"/></linearGradient></defs>
+          <circle cx="295" cy="171" r="165" fill="url(#moonGlow)"/><g class="orb-float"><circle cx="308" cy="137" r="43" fill="url(#moon)"/><circle cx="328" cy="119" r="38" fill="#274737"/></g>
+          <g fill="#c3dcb0" opacity=".75"><circle cx="174" cy="105" r="1.9"/><circle cx="430" cy="80" r="1.8"/><circle cx="482" cy="181" r="1.2"/><circle cx="105" cy="168" r="1.7"/><circle cx="385" cy="226" r="1.2"/><circle cx="229" cy="58" r="1.3"/><path d="m115 85 1.6 4.5 4.5 1.6-4.5 1.6-1.6 4.5-1.6-4.5-4.5-1.6 4.5-1.6z" opacity=".65"/><path d="m450 140 1.4 3.5 3.5 1.4-3.5 1.4-1.4 3.5-1.4-3.5-3.5-1.4 3.5-1.4z" opacity=".7"/></g>
+          <path d="M-25 372C77 351 155 377 224 357S401 344 590 362V478H-25Z" fill="#1c4434" opacity=".76"/>
+          <g fill="url(#far)" opacity=".72"><path d="M15 339h34v-94h12v94h29v139H15z"/><path d="M38 221l17 23H21z"/><path d="M455 330h28V212h12v118h29v150h-69z"/><path d="m489 185 16 27h-32z"/></g>
+          <path d="M154 473V316c0-75 59-116 131-132 72 16 131 57 131 132v157Z" fill="url(#building)"/><path d="M175 302c9-55 56-84 110-97 54 13 101 42 110 97" stroke="#b5d2a3" stroke-width="3" opacity=".38"/>
+          <path d="M272 181c0-13 9-20 13-27 4 7 13 14 13 27Z" fill="#adc6a3"/><path d="M283 150v-13" stroke="#c0d4ac" stroke-width="4" stroke-linecap="round"/>
+          <g fill="url(#building)"><path d="M87 470V273h41v197z"/><path d="M94 271v-45h27v45z"/><path d="M107.5 188c10 11 18 20 18 38h-36c0-18 8-27 18-38Z"/><path d="M101 190v-23h13v23z"/><path d="M107.5 153v15" stroke="#bfd7b0" stroke-width="3" stroke-linecap="round"/><path d="M442 470V273h41v197z"/><path d="M449 271v-45h27v45z"/><path d="M462.5 188c10 11 18 20 18 38h-36c0-18 8-27 18-38Z"/><path d="M456 190v-23h13v23z"/><path d="M462.5 153v15" stroke="#bfd7b0" stroke-width="3" stroke-linecap="round"/></g>
+          <path d="M244 473v-76c0-22 18-40 41-48 23 8 41 26 41 48v76" fill="#103329" stroke="#bdd3aa" stroke-opacity=".32" stroke-width="2"/>
+          <g fill="#12372b"><path d="M192 364c0-29 14-43 30-51 16 8 30 22 30 51v37h-60Z"/><path d="M318 364c0-29 14-43 30-51 16 8 30 22 30 51v37h-60Z"/></g><path d="M0 422c110-14 175 9 278 1s176-12 282 1v50H0Z" fill="#102a22" opacity=".92"/>
+          <path d="M12 449c109-10 167 13 273 2s175-11 270 0" stroke="#7e9b76" stroke-opacity=".24" stroke-width="2"/>
+        </svg>
+        <div class="scene-caption"><span class="scene-arabic" lang="ar" dir="rtl">الصلاة نور</span><small>Salat adalah cahaya.</small></div>
+      </div>
+    </section>
+
+    <section class="schedule-block" aria-labelledby="scheduleTitle">
+      <div class="section-header"><div class="section-title" id="scheduleTitle">Jadwal salat hari ini</div><div class="date-label" id="dateLabel">—</div></div>
+      <div class="schedule" id="schedule">
+        <div class="prayer" data-prayer="subuh"><div class="prayer-name">Subuh <span class="mini-tag" hidden>Berikutnya</span></div><div class="prayer-time">--:--</div></div>
+        <div class="prayer" data-prayer="dzuhur"><div class="prayer-name">Dzuhur <span class="mini-tag" hidden>Berikutnya</span></div><div class="prayer-time">--:--</div></div>
+        <div class="prayer" data-prayer="ashar"><div class="prayer-name">Ashar <span class="mini-tag" hidden>Berikutnya</span></div><div class="prayer-time">--:--</div></div>
+        <div class="prayer" data-prayer="maghrib"><div class="prayer-name">Maghrib <span class="mini-tag" hidden>Berikutnya</span></div><div class="prayer-time">--:--</div></div>
+        <div class="prayer" data-prayer="isya"><div class="prayer-name">Isya <span class="mini-tag" hidden>Berikutnya</span></div><div class="prayer-time">--:--</div></div>
+      </div>
+    </section>
+    <footer class="footbar">
+      <div class="foot-left"><span id="sourceDot" class="source-dot error"></span><span id="sourceText">Memuat jadwal waktu salat …</span></div>
+      <div class="foot-right"><button class="text-btn" id="testBtn">▶ Uji suara azan</button><span>Jakarta · UTC+7</span></div>
+    </footer>
+  </main>
+
+  <div class="azan-overlay" id="azanOverlay" role="dialog" aria-modal="true" aria-labelledby="azanName" aria-hidden="true">
+    <button class="azan-close" id="azanClose" aria-label="Tutup pemberitahuan azan">✕</button>
+    <div class="azan-content"><div class="azan-halo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3a8 8 0 0 1 16 0v3M2 15v4h5v-4H2Zm15 0v4h5v-4h-5Z"/><path d="M4 19c1 2 3 3 6 3h4c3 0 5-1 6-3"/></svg></div><div class="azan-kicker" id="azanKicker">TELAH TIBA WAKTU SALAT</div><div class="azan-name" id="azanName">Maghrib</div><p class="azan-message">Saatnya menunaikan salat.<br>Semoga hari ini dipenuhi keberkahan.</p><button class="azan-stop" id="stopAzanBtn">Hentikan azan</button></div>
+  </div>
+
+  <dialog id="settingsDialog" aria-labelledby="settingsTitle"><div class="modal-in"><div class="modal-top"><div class="modal-title" id="settingsTitle">Pengaturan azan</div><button class="modal-close" aria-label="Tutup pengaturan" id="closeSettings">×</button></div><p class="modal-desc">Azan diputar otomatis untuk lima waktu salat Jakarta. Rekaman Kurdi Alafasy memakai versi Subuh tersendiri. Aktifkan audio melalui tombol di atas terlebih dahulu.</p><label for="volumeSlider" class="setting-label"><span>Volume azan</span><span id="volumeValue">250%</span></label><input type="range" id="volumeSlider" class="volume" min="0" max="400" step="10" value="250"><p class="volume-help">100% = normal · 250% = lebih keras · maksimal 400%. Penguat suara memakai pembatas puncak untuk mengurangi risiko suara pecah.</p><div class="setting-divider"></div><label class="setting-label">Pilih suara azan</label>
+      <div class="audio-options" role="group" aria-label="Pilih rekaman azan">
+        <button class="audio-option active" type="button" data-azan-preset="kurdi" aria-pressed="true"><span><strong>Sheikh Mishary Alafasy · Kurdi</strong><small>Pilihan utama · Subuh &amp; salat lainnya (versi berbeda)</small></span><span class="audio-mark" aria-hidden="true"></span></button>
+        <button class="audio-option" type="button" data-azan-preset="lantang" aria-pressed="false"><span><strong>Azan lengkap</strong><small>2:34 · Wikimedia Commons · CC0</small></span><span class="audio-mark" aria-hidden="true"></span></button>
+        <button class="audio-option" type="button" data-azan-preset="tegas" aria-pressed="false"><span><strong>Azan Aaqib Azeez</strong><small>1:27 · versi ringkas · CC BY-SA 4.0</small></span><span class="audio-mark" aria-hidden="true"></span></button>
+        <button class="audio-option" type="button" data-azan-preset="lama" aria-pressed="false"><span><strong>Suara sebelumnya</strong><small>1:42 · rekaman awal · CC0</small></span><span class="audio-mark" aria-hidden="true"></span></button>
+      </div>
+      <button class="audio-preview" type="button" id="previewSelected">▶ Dengarkan azan pilihan</button>
+      <button class="audio-preview" type="button" id="previewFajr" style="margin-top:-6px;background:transparent">▶ Dengarkan versi Subuh</button>
+      <p class="audio-license" id="audioLicense">Sumber: <a id="audioCreditLink" target="_blank" rel="noopener noreferrer" href="https://alafasyinshad.blogspot.com/2014/07/azan-kard-al-fajr-mp3.html">Mishary Alafasy · MP3 Kurdi 2014 (Internet Archive)</a></p>
+      <p class="audio-license" id="audioRightsNote">Rekaman tersedia publik untuk didengarkan. Izin redistribusi tidak diverifikasi; audio diputar langsung dari host asli dan tidak disertakan dalam ZIP.</p>
+      <label class="file-btn">Atau pakai MP3 / audio sendiri<input type="file" id="audioFile" accept="audio/*"></label><div class="audio-state"><span id="audioSource">Sheikh Mishary Alafasy · Kurdi</span><button id="resetAudio" class="reset" type="button">Kembalikan bawaan</button></div><p class="modal-help">Untuk penggunaan layar masjid/kantor, unggah file azan lokal agar tidak bergantung koneksi audio. File disimpan hanya di browser perangkat ini. Jangan tutup tab jika ingin azan berbunyi tepat waktu.</p></div></dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <audio id="azanAudio" preload="auto" crossorigin="anonymous"></audio>
+  <script>
+  (() => {
+    'use strict';
+    const TZ = 'Asia/Jakarta';
+    const PRAYERS = [
+      {key:'subuh', name:'Subuh'}, {key:'dzuhur', name:'Dzuhur'},
+      {key:'ashar', name:'Ashar'}, {key:'maghrib', name:'Maghrib'}, {key:'isya', name:'Isya'}
+    ];
+    // Public access is not a redistribution license. Kurdi streams from its external host, never bundled.
+    const AUDIO_PRESETS = {
+      kurdi: {url:'https://archive.org/download/azan-alafasy/azan-kard-2014-other.mp3', fajrUrl:'https://archive.org/download/azan-alafasy/azan-kard-2014-al-fajr.mp3', name:'Sheikh Mishary Alafasy · Kurdi', page:'https://alafasyinshad.blogspot.com/2014/07/azan-kard-al-fajr-mp3.html', credit:'Mishary Alafasy · Kurd 2014 · arsip audio publik (izin redistribusi belum dikonfirmasi)', host:'Internet Archive'},
+      lantang: {url:'https://upload.wikimedia.org/wikipedia/commons/b/b0/Beautiful_adhan.ogg', name:'Azan lengkap', page:'https://commons.wikimedia.org/wiki/File:Beautiful_adhan.ogg', credit:'Adam-synagda · CC0 1.0'},
+      tegas: {url:'https://upload.wikimedia.org/wikipedia/commons/7/7d/The_Adhan_-_Muslim_Call_to_Prayer_-_Aaqib_Azeez.mp3', name:'Azan Aaqib Azeez', page:'https://commons.wikimedia.org/wiki/File:The_Adhan_-_Muslim_Call_to_Prayer_-_Aaqib_Azeez.mp3', credit:'Atcovi · CC BY-SA 4.0'},
+      lama: {url:'https://upload.wikimedia.org/wikipedia/commons/a/a9/Muslim_calling_to_prayer.ogg', name:'Suara sebelumnya', page:'https://commons.wikimedia.org/wiki/File:Muslim_calling_to_prayer.ogg', credit:'Aishatu98 · CC0 1.0'}
+    };
+    const DEFAULT_PRESET = 'kurdi';
+    function savedPreset(){try{const val=localStorage.getItem('ruangsalat:audioPreset:v2');return AUDIO_PRESETS[val]?val:DEFAULT_PRESET}catch{return DEFAULT_PRESET}}
+    const $ = id => document.getElementById(id);
+    const state = { schedules:new Map(), yearJobs:new Map(), monthJobs:new Map(), date:'', next:null, nextMs:0, current:'', audioEnabled:false, playing:false, demo:false, lastTickMs:Date.now(), source:'', customUrl:null, audioPreset:savedPreset(), audioContext:null, audioNode:null, audioGain:null, audioLimiter:null, retryAt:0, loading:false };
+    const audio=$('azanAudio');
+    audio.src=AUDIO_PRESETS[state.audioPreset].url;
+    audio.preload='auto';
+    const fmtTime=new Intl.DateTimeFormat('en-GB',{timeZone:TZ,hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
+    const fmtDate=new Intl.DateTimeFormat('id-ID',{timeZone:TZ,weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    const fmtParts=new Intl.DateTimeFormat('en-GB',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit'});
+    const toastEl=$('toast'); let toastTimer;
+    function toast(msg){toastEl.textContent=msg;toastEl.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toastEl.classList.remove('show'),3600)}
+    function localDate(timestamp=Date.now()){const p=Object.fromEntries(fmtParts.formatToParts(new Date(timestamp)).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return `${p.year}-${p.month}-${p.day}`}
+    function nextDate(date){return localDate(Date.parse(date+'T12:00:00+07:00')+86400000)}
+    function toMs(date,time){return Date.parse(`${date}T${time}:00+07:00`)}
+    function isHHMM(s){return typeof s==='string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(s)}
+    function normalise(obj){const d={};for(const p of PRAYERS){if(!isHHMM(obj[p.key]))return null;d[p.key]=obj[p.key]}return d}
+    function changeSource(text,ok){$('sourceText').textContent=text;$('sourceDot').classList.toggle('error',!ok)}
+    function setSchedule(date,values,source){const d=normalise(values);if(!d)return false;const old=state.schedules.get(date);if(!old||source==='Kemenag RI · Sajadah'){state.schedules.set(date,{...d,source});try{localStorage.setItem('ruangsalat:'+date,JSON.stringify({...d,source}))}catch{}}return true}
+    function useCache(date){if(state.schedules.has(date))return true;try{const v=JSON.parse(localStorage.getItem('ruangsalat:'+date));const d=v&&normalise(v);if(d){state.schedules.set(date,{...d,source:'Cache lokal · '+(v.source||'jadwal tersimpan')});return true}}catch{}return false}
+    async function fetchJson(url){const c=new AbortController(),timer=setTimeout(()=>c.abort(),9000);try{const res=await fetch(url,{signal:c.signal,cache:'no-cache'});if(!res.ok)throw Error('HTTP '+res.status);return await res.json()}finally{clearTimeout(timer)}}
+    async function loadYear(year){if(state.yearJobs.has(year))return state.yearJobs.get(year);const job=(async()=>{const j=await fetchJson(`https://sajadah.org/api/v1/times/id/kota-jakarta/${year}.json`);if(j.schema!==1||j.region?.id!=='kota-jakarta'||!Array.isArray(j.fields)||!Array.isArray(j.days))throw Error('Format data Sajadah tidak valid');let count=0;for(const day of j.days){const o=Object.fromEntries(j.fields.map((k,i)=>[k,day[i]]));if(/^\d{4}-\d{2}-\d{2}$/.test(o.date)&&setSchedule(o.date,{subuh:o.fajr,dzuhur:o.dhuhr,ashar:o.asr,maghrib:o.maghrib,isya:o.isha},'Kemenag RI · Sajadah'))count++}if(count<300)throw Error('Data belum lengkap');})();state.yearJobs.set(year,job);try{return await job}catch(err){state.yearJobs.delete(year);throw err}}
+    async function loadMonth(year,month){const key=year+'-'+month;if(state.monthJobs.has(key))return state.monthJobs.get(key);const job=(async()=>{const j=await fetchJson(`https://api.myquran.com/v2/sholat/jadwal/1301/${year}/${month}`);if(j.status!==true||!j.data?.jadwal)throw Error('Data myQuran tidak valid');const rows=Array.isArray(j.data.jadwal)?j.data.jadwal:Object.values(j.data.jadwal);let count=0;for(const o of rows){const date=/^\d{4}-\d{2}-\d{2}$/.test(o.tanggal)?o.tanggal:(/^\d{4}-\d{2}-\d{2}$/.test(o.date)?o.date:null);if(date&&setSchedule(date,{subuh:o.subuh,dzuhur:o.dzuhur,ashar:o.ashar,maghrib:o.maghrib,isya:o.isya},'Kemenag RI · myQuran'))count++}if(!count)throw Error('Jadwal kosong');})();state.monthJobs.set(key,job);try{return await job}catch(err){state.monthJobs.delete(key);throw err}}
+    async function ensureSchedules(){if(state.loading)return;state.loading=true;try{const today=localDate(),tomorrow=nextDate(today);useCache(today);useCache(tomorrow);if(state.schedules.has(today)&&state.schedules.has(tomorrow))update();const years=[...new Set([Number(today.slice(0,4)),Number(tomorrow.slice(0,4))])];try{await Promise.all(years.map(loadYear))}catch(err){console.warn('Sajadah tidak tersedia:',err.message)}if(!state.schedules.has(today)||!state.schedules.has(tomorrow)){const months=[...new Set([today.slice(0,7),tomorrow.slice(0,7)])];await Promise.allSettled(months.map(s=>loadMonth(Number(s.slice(0,4)),Number(s.slice(5,7)))))}update();if(!state.schedules.has(today)){changeSource('Jadwal gagal dimuat · cek koneksi internet',false);state.retryAt=Date.now()+60000}else state.retryAt=0}finally{state.loading=false}}
+    function getTimeline(day, data){return PRAYERS.map(p=>({...p,day,time:data[p.key],ms:toMs(day,data[p.key])}))}
+    function renderClock(now){$('clock').textContent=fmtTime.format(new Date(now));$('dateLabel').textContent=fmtDate.format(new Date(now))}
+    function update(){const now=Date.now(),day=localDate(now);renderClock(now);if(state.date!==day){state.date=day;const prev=state.schedules.get(day);if(!prev){useCache(day);ensureSchedules().catch(err=>console.warn('Schedule:',err));}}
+      const today=state.schedules.get(day),tomorrow=state.schedules.get(nextDate(day));
+      if(!today){$('nextPrayer').textContent='—';$('countdown').textContent='--:--:--';$('nextDescription').textContent='Jadwal Jakarta belum tersedia';state.lastTickMs=now;if(state.retryAt&&now>=state.retryAt){state.retryAt=now+60000;ensureSchedules().catch(()=>{})}return}
+      changeSource('Jadwal '+today.source+' · WIB',true);
+      const timeline=getTimeline(day,today);const upcoming=timeline.find(p=>p.ms>now)|| (tomorrow?getTimeline(nextDate(day),tomorrow)[0]:null);
+      const latest=[...timeline].reverse().find(p=>p.ms<=now);state.current=latest?.key||'';state.next=upcoming;state.nextMs=upcoming?.ms||0;
+      for(const p of PRAYERS){const el=document.querySelector(`.prayer[data-prayer="${p.key}"]`);el.querySelector('.prayer-time').textContent=today[p.key];el.classList.toggle('is-current',p.key===state.current);const isNext=upcoming?.day===day&&upcoming.key===p.key;el.classList.toggle('is-next',isNext);el.querySelector('.mini-tag').hidden=!isNext;}
+      if(upcoming){$('nextPrayer').textContent=upcoming.name;$('kicker').textContent='WAKTU SALAT BERIKUTNYA';$('countLabel').textContent='Waktu tersisa menuju '+upcoming.name;$('nextDescription').textContent=upcoming.time+' WIB';$('nextDay').textContent=upcoming.day===day?'Hari ini':'Besok';let seconds=Math.max(0,Math.ceil((upcoming.ms-now)/1000));const hrs=Math.floor(seconds/3600);seconds%=3600;const mins=Math.floor(seconds/60),secs=seconds%60;$('countdown').innerHTML=`${String(hrs).padStart(2,'0')}<span class="colon">:</span>${String(mins).padStart(2,'0')}<span class="colon">:</span>${String(secs).padStart(2,'0')}`;}else{$('nextPrayer').textContent='Subuh';$('countdown').textContent='--:--:--';$('nextDescription').textContent='Menyiapkan jadwal besok';$('nextDay').textContent='';if(!tomorrow&&now>=state.retryAt&&!state.loading){state.retryAt=now+60000;ensureSchedules().catch(()=>{})}}
+      // Only fire after we actually pass a prayer boundary while this page is open.
+      // The lastTick guard prevents a newly opened page from replaying an earlier azan.
+      for(const p of timeline){if(state.lastTickMs<p.ms && now>=p.ms && now-p.ms<120000)onPrayerStarts(p)}
+      state.lastTickMs=now;
+    }
+    function storeLastFired(p){try{localStorage.setItem('ruangsalat:lastazan',p.day+'-'+p.key)}catch{}}
+    function alreadyFired(p){try{return localStorage.getItem('ruangsalat:lastazan')===p.day+'-'+p.key}catch{return false}}
+    function onPrayerStarts(p){if(alreadyFired(p))return;storeLastFired(p);if(state.audioEnabled){playAzan(p.name,false)}else{toast('Waktu '+p.name+' telah tiba · aktifkan suara untuk azan berikutnya')}}
+    function showOverlay(name,isDemo){$('azanName').textContent=name;$('azanKicker').textContent=isDemo?'PRATINJAU SUARA AZAN':'TELAH TIBA WAKTU SALAT';$('azanOverlay').classList.add('visible');$('azanOverlay').setAttribute('aria-hidden','false');$('stopAzanBtn').focus({preventScroll:true})}
+    function hideOverlay(){ $('azanOverlay').classList.remove('visible');$('azanOverlay').setAttribute('aria-hidden','true') }
+    function stopAzan(){audio.pause();try{audio.currentTime=0}catch{}state.playing=false;state.demo=false;hideOverlay()}
+    async function activateAudio(){if(state.audioEnabled){state.audioEnabled=false;stopAzan();setSoundUi();toast('Audio azan dinonaktifkan');return}try{
+        // Resume Web Audio in the user's gesture. Media is connected so subsequent
+        // scheduled playbacks are still audible in browsers with gesture restrictions.
+        const AC=window.AudioContext||window.webkitAudioContext;
+        if(AC&&!state.audioContext){
+          state.audioContext=new AC();
+          state.audioNode=state.audioContext.createMediaElementSource(audio);
+          state.audioGain=state.audioContext.createGain();
+          // Amplify quiet recordings, then constrain peaks to minimize clipping.
+          state.audioLimiter=state.audioContext.createDynamicsCompressor();
+          state.audioLimiter.threshold.value=-12;
+          state.audioLimiter.knee.value=6;
+          state.audioLimiter.ratio.value=14;
+          state.audioLimiter.attack.value=0.003;
+          state.audioLimiter.release.value=0.2;
+          state.audioNode.connect(state.audioGain);
+          state.audioGain.connect(state.audioLimiter);
+          state.audioLimiter.connect(state.audioContext.destination);
+          applyVolume();
+        }
+        if(state.audioContext?.state==='suspended')await state.audioContext.resume();
+        state.audioEnabled=true;setSoundUi();toast('Azan aktif · pastikan tab tetap terbuka');
+      }catch(err){console.warn(err);state.audioEnabled=false;setSoundUi();toast('Gagal mengaktifkan audio. Coba lagi.')}
+    }
+    function setSoundUi(){const on=state.audioEnabled;$('soundBtn').classList.toggle('activated',on);$('soundBtn').setAttribute('aria-pressed',String(on));$('soundText').textContent=on?'Azan aktif':'Aktifkan azan';$('soundBtn').title=on?'Nonaktifkan audio':'Aktifkan audio azan';$('soundIcon').innerHTML=on?'<path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19 6a9 9 0 0 1 0 12"/>':'<path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m16 9 5 6m0-6-5 6"/>'}
+    function currentTrack(name){
+      if(state.customUrl)return state.customUrl;
+      const entry=AUDIO_PRESETS[state.audioPreset];
+      return name==='Subuh'&&entry.fajrUrl?entry.fajrUrl:entry.url;
+    }
+    async function playAzan(name,demo){
+      if(state.playing)stopAzan();
+      const track=currentTrack(name);
+      if(audio.src!==track){audio.src=track;audio.load()}
+      showOverlay(name,demo);state.demo=demo;applyVolume();audio.muted=false;try{audio.currentTime=0}catch{}try{if(state.audioContext?.state==='suspended')await state.audioContext.resume();await audio.play();state.playing=true}catch(err){console.warn('Audio tidak dapat diputar:',err);hideOverlay();state.playing=false;toast('Audio gagal diputar. Cek koneksi, browser, atau pilih audio lokal di pengaturan.')}}
+    audio.addEventListener('ended',()=>{state.playing=false;state.demo=false;hideOverlay()});audio.addEventListener('error',()=>{if(state.playing){state.playing=false;hideOverlay();toast('Rekaman azan tidak dapat dimuat; pilih file lokal di pengaturan.')}});
+    $('soundBtn').addEventListener('click',activateAudio);
+    $('testBtn').addEventListener('click',async()=>{if(!state.audioEnabled){await activateAudio();if(!state.audioEnabled)return}playAzan('Tes Azan',true)});
+    $('stopAzanBtn').addEventListener('click',stopAzan);$('azanClose').addEventListener('click',stopAzan);
+    $('fullscreenBtn').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{toast('Gunakan F11 untuk masuk layar penuh')}});
+    $('settingsBtn').addEventListener('click',()=>$('settingsDialog').showModal());$('closeSettings').addEventListener('click',()=>$('settingsDialog').close());
+    $('settingsDialog').addEventListener('click',e=>{if(e.target===$('settingsDialog'))$('settingsDialog').close()});
+    // Audio volume can exceed 100% through Web Audio amplification.
+    // A fresh setting key deliberately defaults previous low-volume installs to 250%.
+    function applyVolume(){
+      const v=Math.min(400,Math.max(0,Number($('volumeSlider').value)||0));
+      audio.volume=Math.min(v,100)/100;
+      if(state.audioGain&&state.audioContext){
+        const boost=Math.max(1,v/100);
+        state.audioGain.gain.setTargetAtTime(boost,state.audioContext.currentTime,0.015);
+      }
+      $('volumeValue').textContent=v+'%';
+    }
+    try{$('volumeSlider').value=localStorage.getItem('ruangsalat:volumeBoost')??250}catch{$('volumeSlider').value=250}
+    applyVolume();
+    $('volumeSlider').addEventListener('input',()=>{applyVolume();try{localStorage.setItem('ruangsalat:volumeBoost',$('volumeSlider').value)}catch{}});
+    function reflectPreset(){
+      document.querySelectorAll('[data-azan-preset]').forEach(btn=>{
+        const current=btn.dataset.azanPreset===state.audioPreset&&!state.customUrl;
+        btn.classList.toggle('active',current);btn.setAttribute('aria-pressed',String(current));
+      });
+      const entry=AUDIO_PRESETS[state.audioPreset];
+      $('audioSource').textContent=state.customUrl?'Audio lokal pilihanmu':entry.name+' · '+(entry.host||'Wikimedia Commons');
+      $('previewFajr').hidden=Boolean(state.customUrl||!entry.fajrUrl);
+      $('audioRightsNote').hidden=Boolean(state.customUrl||!entry.fajrUrl);
+      const link=$('audioCreditLink');link.href=entry.page;link.textContent=entry.credit;
+      $('audioLicense').hidden=Boolean(state.customUrl);
+    }
+    function openDB(){return new Promise((resolve,reject)=>{if(!('indexedDB'in window))return reject(Error('IndexedDB tidak tersedia'));const req=indexedDB.open('RuangSalatAudio',1);req.onupgradeneeded=()=>req.result.createObjectStore('audio');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+    async function saveAudio(file){const db=await openDB();await new Promise((resolve,reject)=>{const tx=db.transaction('audio','readwrite');tx.objectStore('audio').put({blob:file,name:file.name},'custom');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});db.close()}
+    async function removeCustom(){
+      try{const db=await openDB();await new Promise((resolve,reject)=>{const tx=db.transaction('audio','readwrite');tx.objectStore('audio').delete('custom');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});db.close()}catch(err){console.warn('Reset audio lokal:',err)}
+      if(state.customUrl)URL.revokeObjectURL(state.customUrl);
+      state.customUrl=null;
+    }
+    function setPreset(key){
+      if(!AUDIO_PRESETS[key])return;
+      stopAzan();state.audioPreset=key;
+      try{localStorage.setItem('ruangsalat:audioPreset:v2',key)}catch{}
+      if(state.customUrl)URL.revokeObjectURL(state.customUrl);
+      state.customUrl=null;
+      audio.src=AUDIO_PRESETS[key].url;audio.load();reflectPreset();
+    }
+    async function loadCustom(){try{const db=await openDB();const data=await new Promise((resolve,reject)=>{const req=db.transaction('audio','readonly').objectStore('audio').get('custom');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});db.close();if(data?.blob){if(state.customUrl)URL.revokeObjectURL(state.customUrl);state.customUrl=URL.createObjectURL(data.blob);audio.src=state.customUrl;audio.load();reflectPreset();$('audioSource').textContent=data.name;return true}}catch(err){console.warn('Local audio:',err)}reflectPreset();return false}
+    document.querySelectorAll('[data-azan-preset]').forEach(btn=>btn.addEventListener('click',async()=>{
+      // Switching preset also clears a previously uploaded custom audio.
+      await removeCustom();setPreset(btn.dataset.azanPreset);toast('Suara dipilih · tekan Dengarkan untuk mengetes');
+    }));
+    async function previewAzan(prayer){
+      $('settingsDialog').close();
+      if(!state.audioEnabled){await activateAudio();if(!state.audioEnabled)return}
+      await playAzan(prayer,true);
+    }
+    $('previewSelected').addEventListener('click',()=>previewAzan('Tes Azan'));
+    $('previewFajr').addEventListener('click',()=>previewAzan('Subuh'));
+    $('audioFile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;if(!file.type.startsWith('audio/')){toast('Pilih berkas audio yang valid');return}if(file.size>20*1024*1024){toast('Ukuran audio maksimal 20 MB');return}try{stopAzan();await saveAudio(file);await loadCustom();toast('Rekaman azan lokal berhasil disimpan')}catch(err){console.warn(err);toast('Gagal menyimpan audio. Coba browser lain.')}e.target.value=''});
+    $('resetAudio').addEventListener('click',async()=>{await removeCustom();setPreset(DEFAULT_PRESET);toast('Azan bawaan dipulihkan')});
+    reflectPreset();
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden){update();if(!state.schedules.has(localDate()))ensureSchedules().catch(()=>{})}});
+    window.addEventListener('online',()=>ensureSchedules().catch(()=>{}));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('azanOverlay').classList.contains('visible'))stopAzan()});
+    // Keep an explicit last-tick boundary (no retrospective alert when tab is first opened).
+    state.lastTickMs=Date.now();
+    setSoundUi();loadCustom();update();ensureSchedules().catch(err=>{console.warn(err);changeSource('Jadwal gagal dimuat · cek koneksi internet',false);state.retryAt=Date.now()+60000});
+    setInterval(update,500);
+  })();
+  </script>
+</body>
+</html>
