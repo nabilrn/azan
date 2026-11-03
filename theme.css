@@ -1,0 +1,93 @@
+/* Ruang Salat | Dynamic sunlight, cloud, rain and night sky */
+:root{--art-cloud:#edf8f9;--rain-color:#81b9d5}
+html,body,.hero,.prayer,.pill-button,.brand-icon{transition:background-color .85s ease,background .85s ease,border-color .85s ease,color .6s ease,box-shadow .85s ease}
+html[data-phase="night"]{--art-cloud:#557386;--rain-color:#a4c3e2}
+html[data-phase="night"] body{background:radial-gradient(ellipse at 88% 8%,#1c4860a1,transparent 47%),radial-gradient(ellipse at 0% 100%,#113c36ad,transparent 45%),linear-gradient(145deg,#071824,#0a222a 55%,#0a261d)}
+html[data-phase="night"] .hero{background:linear-gradient(125deg,#ffffff09,#3b8e9c13 85%),#0b2627;border-color:#91b0b043;box-shadow:0 24px 90px #02111a28}
+html[data-phase="night"] .weather-badge{background:#e0f8ff12;border-color:#aad2d22d;color:#d9eeea}
+html[data-phase="night"] .weather-caption{color:#a5c3be}
+html[data-phase="night"] .weather-caption a{color:#d5ede3}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]){color-scheme:light;--bg:#e8f6fd;--ink:#163949;--muted:#547081;--lime:#057e94;--art-cloud:#fff;--rain-color:#77b2d3}
+html[data-phase="day"] body{background:radial-gradient(ellipse at 85% 0%,#b7e6f7 0%,transparent 53%),radial-gradient(ellipse at 2% 100%,#e6f3dc 0%,transparent 48%),linear-gradient(155deg,#f5fcff,#eaf7fd 52%,#e6f1f5)}
+html[data-phase="dawn"] body{background:radial-gradient(ellipse at 85% 3%,#fbdcc8b3,transparent 53%),linear-gradient(155deg,#fff7f0,#f0f6fb 48%,#e6eef5)}
+html[data-phase="sunset"] body{background:radial-gradient(ellipse at 87% 10%,#f8b98fb8,transparent 54%),linear-gradient(155deg,#fff4e9,#f1e9e6 50%,#dce9ef)}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .brand-heading{color:#183b4d}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .brand-heading span{color:#07869a!important}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .brand-sub{color:#627f8d}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .brand-icon{background:#ffffffa8;border-color:#b3dce5;color:#037e93;box-shadow:0 6px 20px #4eafc411}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .location{color:#416374}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .location svg{color:#1089a2}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .clock-info{border-color:#9ec4cf72}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .top-zone{color:#537487}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .pill-button{background:#ffffffb3;color:#245369;border-color:#aaceda8c;box-shadow:0 4px 16px #34748c0b}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .pill-button:hover{background:#ffffff;border-color:#5fa6bc}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .pill-button.activated{background:#e0f5ef;color:#087f70;border-color:#6aafaa}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .hero{background:linear-gradient(122deg,#ffffffcf 0%,#e0f6ffba 69%,#d0eefa82);border-color:#ffffff;box-shadow:0 25px 85px #6eb4d42b,0 1px 2px #3e8ba51a}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .hero:before{background:radial-gradient(circle at 80% 35%,#b1e7fd7e,transparent 49%)}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .eyebrow{color:#53798a}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .indicator{background:#18a6a0;box-shadow:0 0 0 6px #23bbaf19,0 0 22px #51cfbc65}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .hero-title{color:#193c51}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .countdown{color:#007a93}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .count-label{color:#618092}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .next-at{color:#4d7182}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .next-at svg{stroke:#4d8a9d}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .tiny-sep{background:#799cab}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .scene:before{background:radial-gradient(ellipse at 50% 45%,#a9e2e999,transparent 63%)}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .scene-arabic{color:#25596a}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .scene-caption small{color:#527887}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .date-label{color:#5a7886}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .prayer{background:#ffffffbc;border-color:#b8d8e3;box-shadow:0 6px 23px #3b85a112}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .prayer-name{color:#557483}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .prayer.is-next{background:#125e72;color:#fff;border-color:#125e72;box-shadow:0 12px 34px #267c993a}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .prayer.is-next .prayer-name{color:#d8f3ef}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .prayer.is-next .mini-tag{background:#ffffff2a;color:#f0fff9}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .prayer.is-current:not(.is-next){background:#b5e7ed7a;border-color:#8ccbd6}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .prayer.is-current:not(.is-next) .prayer-name{color:#406878}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .footbar{color:#688691}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .foot-link{color:#276f88}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .text-btn{color:#226982}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .source-dot{background:#2caca1}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .source-dot.error{background:#d28e61}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .weather-badge{background:#ffffffba;border-color:#a0cbd7ac;color:#22546a;box-shadow:0 7px 24px #63a1b322}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .weather-caption{color:#5a7b89}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .weather-caption a{color:#19768d}
+
+html[data-phase="dawn"] .hero{background:linear-gradient(125deg,#fffaf1dd,#e5f3f5cf 85%)}
+html[data-phase="sunset"] .hero{background:linear-gradient(125deg,#fffaf3db,#ffe6d3b8 68%,#f3d4c2a3)}
+html[data-phase="sunset"] .countdown{color:#ad6031}
+html[data-phase="day"]:is([data-weather="cloudy"],[data-weather="overcast"]) body{background:radial-gradient(ellipse at 85% 12%,#c0dce9,transparent 52%),linear-gradient(155deg,#eff7fa,#e1edf3 60%,#d8e8ef)}
+html[data-phase="day"]:is([data-weather="cloudy"],[data-weather="overcast"]) .hero{background:linear-gradient(125deg,#f8fbfdea,#d5e9f2dd)}
+html[data-phase="day"]:is([data-weather="rain"],[data-weather="storm"]) body{background:radial-gradient(ellipse at 80% 0%,#aec5d6 0%,transparent 49%),linear-gradient(150deg,#e6f0f5,#cbdde9 65%,#bed7e3)}
+html[data-phase="day"]:is([data-weather="rain"],[data-weather="storm"]) .hero{background:linear-gradient(130deg,#eaf6fbe9,#bcd6e6d9);box-shadow:0 24px 70px #6686a535}
+html[data-phase="day"]:is([data-weather="rain"],[data-weather="storm"]) .countdown{color:#21668b}
+html[data-phase="night"]:is([data-weather="rain"],[data-weather="storm"]) body{background:radial-gradient(ellipse at 86% 10%,#204366aa,transparent 50%),linear-gradient(145deg,#081425,#101e35 60%,#102839)}
+html[data-phase="night"]:is([data-weather="rain"],[data-weather="storm"]) .hero{background:linear-gradient(135deg,#12243f,#142c3f)}
+.weather-badge{position:absolute;top:clamp(19px,2vw,32px);right:clamp(19px,2vw,33px);z-index:5;display:flex;align-items:center;gap:11px;max-width:245px;padding:10px 14px 10px 10px;border:1px solid #a8d3c933;border-radius:17px;background:#ffffff10;backdrop-filter:blur(16px);color:#e9f6f0;box-shadow:0 7px 26px #04111d11}
+.weather-symbol{flex:0 0 36px;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:#83c9cd20}
+.weather-symbol svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.65}
+.weather-lines{display:flex;flex-direction:column;gap:3px;min-width:0}.weather-main{font-size:12px;font-weight:800;line-height:1.2;letter-spacing:-.025em;white-space:nowrap}
+.weather-caption{color:#bbd6cb;font-size:10px;white-space:nowrap;line-height:1.35}.weather-caption a{color:inherit;text-underline-offset:2px}.weather-caption a:hover{opacity:.75}
+.weather-art{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.sky-sun{position:absolute;top:13%;left:53%;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 33% 27%,#fffef3 0%,#ffe9a2 58%,#fac983 100%);box-shadow:0 0 0 28px #ffefb84a,0 0 0 62px #fff2c825,0 0 110px 56px #ffebb866;opacity:0;transform:scale(.7);transition:opacity 1s,transform 1s}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .sky-sun{opacity:1;transform:scale(1)}
+html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .scene-svg .orb-float,html:is([data-phase="day"],[data-phase="dawn"],[data-phase="sunset"]) .scene-svg > circle:first-of-type{opacity:0}
+html:is([data-phase="dawn"],[data-phase="sunset"]) .sky-sun{background:radial-gradient(circle at 30% 30%,#fff9d8,#f9bc85 75%);box-shadow:0 0 0 32px #f8bb8e44,0 0 95px 58px #f9c79c7e}
+.weather-cloud{position:absolute;width:150px;height:50px;border-radius:60px;background:var(--art-cloud);opacity:0;filter:drop-shadow(0 12px 20px #314f5b12);transition:opacity .9s ease}
+.weather-cloud:before{content:"";position:absolute;left:21px;bottom:19px;width:64px;height:66px;border-radius:50%;background:inherit}
+.weather-cloud:after{content:"";position:absolute;right:18px;bottom:18px;width:65px;height:54px;border-radius:50%;background:inherit}
+.weather-cloud.one{top:27%;left:13%;transform:scale(.83)}.weather-cloud.two{top:46%;right:3%;transform:scale(.62)}
+html[data-weather="cloudy"] .weather-cloud.one{opacity:.78}html[data-weather="cloudy"] .weather-cloud.two{opacity:.55}
+html:is([data-weather="overcast"],[data-weather="rain"],[data-weather="storm"]) .weather-cloud{opacity:.9}
+html:is([data-weather="overcast"],[data-weather="rain"],[data-weather="storm"]) .sky-sun{opacity:.25}
+html[data-phase="night"] .weather-cloud{opacity:0}
+html[data-phase="night"][data-weather="cloudy"] .weather-cloud.one{opacity:.28}
+html[data-phase="night"][data-weather="overcast"] .weather-cloud{opacity:.35}
+html[data-phase="night"]:is([data-weather="rain"],[data-weather="storm"]) .weather-cloud{opacity:.4}
+.weather-rain{position:absolute;inset:8% 3% 3% 6%;opacity:0;background:repeating-linear-gradient(115deg,transparent 0px,transparent 34px,var(--rain-color) 35px,var(--rain-color) 37px,transparent 38px,transparent 62px);mask-image:linear-gradient(to bottom,transparent 10%,#000 38%,transparent 100%);transform:translateY(-10px);transition:opacity .6s}
+html:is([data-weather="rain"],[data-weather="storm"]) .weather-rain{opacity:.42;animation:weather-rain 3s linear infinite}
+@keyframes weather-rain{to{background-position:35px 100px}}
+html[data-weather="storm"] .weather-rain{opacity:.65}
+@media(max-width:1090px){.weather-badge{top:17px;right:17px;max-width:210px;padding:8px 10px}.weather-symbol{flex-basis:30px;width:30px;height:30px}.weather-symbol svg{width:21px;height:21px}.weather-main{font-size:11px}.weather-caption{font-size:9px}}
+@media(max-width:760px){.weather-badge{position:static;max-width:max-content;align-self:flex-start;padding:8px 11px;margin-bottom:19px;gap:8px;border-radius:13px}.hero .hero-left{display:flex;flex-direction:column}.weather-symbol{width:27px;height:27px;flex-basis:27px;border-radius:9px}.weather-main{font-size:11px}.weather-caption{font-size:9px}.hero{isolation:isolate}.hero:after{content:"";position:absolute;width:270px;height:270px;right:-135px;top:-140px;border-radius:50%;background:radial-gradient(circle,#f7d89855,transparent 70%);pointer-events:none;z-index:-1}html[data-phase="night"] .hero:after{background:radial-gradient(circle,#5d8fba32,transparent 70%)}html:is([data-weather="rain"],[data-weather="storm"]) .hero:after{background:radial-gradient(circle,#83a7cd5c,transparent 70%)}}
+@media(max-width:380px){.weather-badge{margin-bottom:14px}.weather-main{font-size:10px}}
+@media(prefers-reduced-motion:reduce){html,body,.hero,.prayer,.pill-button,.brand-icon,.sky-sun,.weather-cloud{transition:none!important}.weather-rain{animation:none!important}}
