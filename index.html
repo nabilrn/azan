@@ -1,223 +1,84 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" data-phase="day" data-weather="clear">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0a221b" />
-  <meta name="description" content="Layar waktu salat Jakarta: jam WIB, countdown real-time, jadwal Kemenag, dan azan otomatis." />
-  <title>Ruang Salat — Jakarta</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    :root{color-scheme:dark;--bg:#071b16;--panel:#102a23;--panel-border:#315046;--ink:#f5f8ef;--muted:#a9bfb3;--lime:#d7f1b8;--font:'Plus Jakarta Sans','DM Sans',system-ui,-apple-system,Segoe UI,sans-serif}
-    *{box-sizing:border-box}html{height:100%;background:var(--bg)}body{margin:0;min-height:100%;font-family:var(--font);color:var(--ink);background:radial-gradient(ellipse at 7% 0%,#2246389c,transparent 44%),radial-gradient(ellipse at 93% 74%,#20433992,transparent 35%),#071b16;-webkit-font-smoothing:antialiased}
-    button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #d7f1b8;outline-offset:3px}
-    .shell{height:100vh;height:100svh;min-height:660px;max-width:2400px;margin:auto;display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;gap:clamp(15px,2.1vh,28px);padding:clamp(20px,2.7vw,55px) clamp(22px,4.0vw,88px) clamp(19px,2.4vw,44px)}
-    .topbar,.brand,.header-right,.location,.inline-actions,.pill-button,.clock-info,.next-at,.section-header,.section-top,.footbar,.status-cell,.audio-state{display:flex;align-items:center}
-    .topbar{justify-content:space-between;min-height:47px;gap:16px}.brand{gap:14px;flex-shrink:0}.brand-icon{width:41px;height:41px;border:1px solid #71957e66;background:#cce4af16;border-radius:14px;display:grid;place-items:center;color:var(--lime)}
-    .brand-heading{font-size:clamp(16px,1.2vw,22px);font-weight:700;letter-spacing:-.06em;line-height:1.14}.brand-sub{display:block;font-size:11px;letter-spacing:.19em;text-transform:uppercase;font-weight:600;color:#9eb9a9;margin-top:5px}
-    .header-right{gap:clamp(11px,1.4vw,20px)}.location{gap:7px;font-size:clamp(11px,.77vw,14px);color:#d0e2d2;font-weight:600;white-space:nowrap}.location svg{color:#b3dfa6}.clock-info{gap:12px;border-left:1px solid #ffffff23;padding-left:clamp(10px,1.3vw,24px);white-space:nowrap}.top-time{font-size:clamp(15px,1.15vw,22px);font-weight:700;letter-spacing:-.045em;font-variant-numeric:tabular-nums}.top-zone{font-size:11px;font-weight:700;letter-spacing:.12em;color:#b9d9bd}
-    .inline-actions{gap:8px}.pill-button{gap:9px;justify-content:center;border:1px solid #83a79555;border-radius:100px;padding:12px 16px;color:#eaf7ea;background:#ffffff09;transition:.2s background,.2s border-color;white-space:nowrap;font-size:12px;font-weight:700}.pill-button:hover{background:#ffffff17;border-color:#a3c1acb8}.pill-button.activated{background:#d7f1b81d;color:var(--lime);border-color:#c4eaa482}.pill-button svg{width:17px;height:17px;stroke-width:1.8}.icon-only{width:43px;height:43px;padding:0}.sound-button{min-width:139px}
-    .hero{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(350px,.86fr);min-height:0;gap:clamp(12px,2vw,35px);border:1px solid #7895852e;background:linear-gradient(120deg,#ffffff07,#ffffff01 65%);border-radius:clamp(24px,2vw,35px);padding:clamp(25px,3.15vw,62px);position:relative;overflow:hidden;isolation:isolate}.hero:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 37% 55%,#537d5130,transparent 45%);pointer-events:none}.hero-left{z-index:1;display:flex;flex-direction:column;justify-content:center;min-width:0}
-    .eyebrow{display:flex;gap:11px;align-items:center;color:#b5cbbb;font-weight:700;letter-spacing:.23em;font-size:clamp(10px,.81vw,15px);text-transform:uppercase}.indicator{width:8px;height:8px;border-radius:50%;background:#d5f6b1;box-shadow:0 0 0 6px #b4e28b16,0 0 24px #c1ef99b0;flex-shrink:0}.hero-title{font-size:clamp(78px,8.1vw,174px);line-height:1.11;letter-spacing:-.09em;font-weight:600;margin:clamp(5px,.8vh,14px) 0 3px;overflow-wrap:anywhere}.count-label{font-size:clamp(13px,.98vw,20px);color:#b4d0bc;font-weight:500;margin:clamp(12px,1.4vh,23px) 0 7px}.countdown{font-size:clamp(47px,5.5vw,116px);line-height:1.19;font-weight:600;letter-spacing:-.07em;font-variant-numeric:tabular-nums;color:var(--lime);white-space:nowrap}.countdown .colon{opacity:.4;margin:0 .03em}.next-at{margin-top:clamp(15px,2.4vh,33px);gap:13px;flex-wrap:wrap;color:#c1d5c6;font-size:clamp(12px,.9vw,17px)}.next-time{color:#f0f7e9;font-weight:700}.tiny-sep{width:4px;height:4px;border-radius:50%;background:#8dae9d}
-    .scene{position:relative;min-height:240px;isolation:isolate;display:flex;align-items:center;justify-content:center}.scene:before{content:'';position:absolute;inset:8% 2% 0 2%;border-radius:50% 50% 30% 30%;background:radial-gradient(ellipse at 50% 42%,#c3d99534,transparent 46%),radial-gradient(ellipse at 45% 70%,#5b8f7040,transparent 55%);filter:blur(18px)}.scene-svg{position:absolute;width:100%;height:100%;max-width:700px;overflow:visible}.scene-caption{position:absolute;bottom:5%;right:4%;text-align:right;display:flex;flex-direction:column;gap:6px;z-index:2}.scene-arabic{color:#e0e9ce;font-family:Georgia,'Times New Roman',serif;font-size:clamp(27px,2.5vw,50px);font-weight:400}.scene-caption small{color:#c6d6c7;font-size:11px;letter-spacing:.09em;font-weight:500}.orb-float{animation:float 8s ease-in-out infinite}@keyframes float{50%{transform:translateY(-9px)}}
-    .schedule-block{min-width:0}.section-header{justify-content:space-between;gap:15px;margin:1px 3px 17px}.section-title{font-size:clamp(16px,1.19vw,23px);font-weight:700;letter-spacing:-.035em}.date-label{font-size:clamp(11px,.89vw,16px);color:#bdccbf;font-weight:500}.schedule{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(9px,1.2vw,20px)}.prayer{border:1px solid #73917e36;background:#ffffff07;border-radius:clamp(15px,1.22vw,23px);padding:clamp(16px,1.5vw,27px) clamp(14px,1.5vw,29px);min-height:clamp(98px,9.8vh,155px);display:flex;flex-direction:column;justify-content:space-between;gap:14px;transition:background .25s,border-color .25s,color .25s}.prayer-name{font-size:clamp(13px,1vw,19px);font-weight:600;color:#b5cdbd;display:flex;justify-content:space-between;align-items:center;gap:8px}.prayer-time{font-size:clamp(27px,2.42vw,52px);line-height:1;letter-spacing:-.065em;font-weight:700;font-variant-numeric:tabular-nums}.prayer.is-next{background:#d7edbd;color:#142d23;border-color:#f3ffda}.prayer.is-next .prayer-name{color:#345744}.prayer.is-current:not(.is-next){background:#d8ecbb10;border-color:#aace984a}.prayer.is-current:not(.is-next) .prayer-name{color:#e4eecf}.prayer .mini-tag{font-size:9px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:#375f3d;background:#365a321b;border-radius:999px;padding:5px 7px}.footbar{justify-content:space-between;gap:15px;font-size:clamp(10px,.74vw,13px);color:#89a699;min-width:0}.foot-left{display:flex;align-items:center;gap:9px;min-width:0}.source-dot{width:6px;height:6px;border-radius:50%;background:#a7e9ac;flex-shrink:0}.source-dot.error{background:#e5b28e}.foot-link{color:#accbb3;text-decoration:none}.foot-link:hover{text-decoration:underline}.foot-right{display:flex;align-items:center;gap:14px;white-space:nowrap}.text-btn{border:0;background:transparent;color:#c3dec8;font-size:11px;font-weight:600;padding:5px}.text-btn:hover{text-decoration:underline}
-    .toast{position:fixed;z-index:30;bottom:24px;left:50%;transform:translate(-50%,30px);background:#ecf6dd;color:#173428;padding:14px 21px;border-radius:15px;box-shadow:0 10px 60px #0008;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:.2s;max-width:calc(100vw - 28px);text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
-    .azan-overlay{position:fixed;inset:0;z-index:20;background:#071b16ef;backdrop-filter:blur(24px);display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}.azan-overlay.visible{opacity:1;visibility:visible}.azan-content{max-width:760px;width:100%;display:flex;flex-direction:column;align-items:center}.azan-halo{width:120px;height:120px;border:1px solid #bff1b26b;border-radius:50%;display:grid;place-items:center;background:#cbedb41a;margin-bottom:34px;box-shadow:0 0 0 26px #bfdca409,0 0 0 61px #bfdca405;animation:halo 4s infinite}.azan-halo svg{width:46px;height:46px;color:#d7f1b8}@keyframes halo{50%{box-shadow:0 0 0 34px #bfdca409,0 0 0 72px #bfdca404}}.azan-kicker{letter-spacing:.22em;font-size:12px;font-weight:700;color:#b1c8b7}.azan-name{font-size:clamp(72px,10vw,156px);font-weight:600;letter-spacing:-.09em;line-height:1.2;margin:10px 0}.azan-message{font-size:clamp(15px,1.5vw,23px);color:#cadbc7;line-height:1.6;margin:0 0 35px}.azan-stop{padding:15px 32px;border:0;border-radius:999px;background:#d7edbd;color:#173b29;font-size:14px;font-weight:800}.azan-close{position:absolute;top:25px;right:28px;background:transparent;border:0;color:#dceadd;padding:10px}
-    dialog{max-height:92dvh;overflow-y:auto;border:1px solid #90ad9966;border-radius:26px;background:#122e26;color:#eff7ed;padding:0;width:min(480px,calc(100vw - 28px));box-shadow:0 25px 80px #000a}dialog::backdrop{background:#03120de3;backdrop-filter:blur(8px)}.modal-in{padding:28px}.modal-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.modal-title{font-size:22px;font-weight:700;letter-spacing:-.05em}.modal-close{background:#ffffff13;border:1px solid #ffffff18;color:white;border-radius:50%;width:34px;height:34px;font-size:19px}.modal-desc{font-size:13px;color:#abc4b3;line-height:1.65;margin-bottom:26px}.setting-label{font-size:12px;color:#bad4bc;font-weight:700;display:flex;justify-content:space-between}.volume{width:100%;accent-color:#d7edbd;margin:15px 0 22px}.setting-divider{height:1px;background:#ffffff1b;margin:8px 0 24px}.volume-help{font-size:11px;color:#abc4b3;line-height:1.65;margin:-12px 0 22px}.file-btn{display:block;width:100%;text-align:center;border:1px dashed #94be9d88;padding:14px 16px;border-radius:12px;font-weight:700;cursor:pointer;background:#ffffff08;font-size:13px}.file-btn:hover{background:#ffffff17}.file-btn input{display:none}.audio-state{margin:12px 0 0;justify-content:space-between;gap:8px;font-size:11px;color:#9dbba8}.reset{font-size:11px;color:#d6f1c7;text-decoration:underline;background:none;border:0}.modal-help{font-size:11px;color:#91af9f;line-height:1.6;margin:23px 0 0}
-    @media (min-width:1700px){.shell{gap:clamp(20px,2.4vh,45px)}.scene{min-height:320px}.prayer{min-height:clamp(125px,13vh,198px)}.section-header{margin-bottom:21px}}
-    @media (max-width:1090px){.shell{padding:23px 28px;gap:16px}.hero{grid-template-columns:1.15fr .85fr;padding:30px}.hero-title{font-size:clamp(70px,9vw,116px)}.countdown{font-size:clamp(45px,6vw,74px)}.scene-caption{bottom:2%}.prayer{padding:17px}.prayer-time{font-size:clamp(23px,2.55vw,35px)}.location{display:none}}
-    @media (max-width:760px){.shell{height:auto;min-height:100svh;grid-template-rows:auto minmax(330px,1fr) auto auto;padding:20px 16px 17px;gap:19px}.brand-icon{width:37px;height:37px}.brand-heading{font-size:16px}.brand-sub{display:none}.topbar{gap:5px}.header-right{gap:7px}.clock-info{padding-left:0;border:0;gap:6px}.top-time{font-size:14px}.top-zone{font-size:9px}.sound-button{min-width:0}.sound-button span{display:none}.pill-button{width:36px;height:36px;padding:0}.icon-only{width:36px;height:36px}.hero{display:flex;align-items:center;min-height:330px;padding:34px 25px}.hero-left{width:100%}.hero-title{font-size:clamp(76px,15vw,118px)}.countdown{font-size:clamp(44px,9.3vw,72px)}.scene{display:none}.schedule{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.prayer{min-height:90px;padding:15px 12px;gap:16px;border-radius:15px}.prayer-time{font-size:clamp(23px,5vw,33px)}.prayer-name{font-size:12px}.prayer .mini-tag{display:none}.section-header{margin-bottom:11px}.footbar{align-items:flex-start}.foot-right{gap:7px;flex-direction:column;align-items:flex-end}}
-    @media (max-width:380px){.top-time{font-size:12px}.hero-title{font-size:68px}.countdown{font-size:39px}.prayer-time{font-size:21px}.pill-button{width:33px;height:33px}}
-    @media (max-height:850px) and (min-width:761px){.shell{min-height:600px;padding-top:19px;padding-bottom:18px;gap:12px}.hero{padding:clamp(20px,2.4vw,40px)}.hero-title{font-size:clamp(73px,7vw,125px)}.countdown{font-size:clamp(49px,4.9vw,90px)}.count-label{margin-top:8px}.next-at{margin-top:10px}.prayer{min-height:88px;padding:13px 19px}.section-header{margin-bottom:11px}.scene-caption{bottom:0}}
-    @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-  
-    .audio-options{display:grid;gap:8px;margin:12px 0 12px}
-    .audio-option{display:flex;align-items:center;justify-content:space-between;text-align:left;width:100%;gap:12px;padding:13px 14px;border-radius:13px;background:#ffffff08;color:#eef8ed;border:1px solid #ffffff1c;cursor:pointer;font:inherit;transition:background .2s,border-color .2s}
-    .audio-option:hover{background:#ffffff15}
-    .audio-option.active{border-color:#c5eca0;background:#c9efaf16}
-    .audio-option strong{display:block;font-size:13px;font-weight:650;letter-spacing:-.01em}
-    .audio-option small{display:block;color:#abc7b5;font-size:11px;margin-top:4px;line-height:1.4}
-    .audio-mark{width:18px;height:18px;flex:0 0 18px;border:1px solid #819b8c;border-radius:50%;display:grid;place-items:center}
-    .audio-option.active .audio-mark{border-color:#c5eca0}
-    .audio-option.active .audio-mark:after{content:'';width:8px;height:8px;border-radius:50%;background:#c5eca0}
-    .audio-preview{border:1px solid #d7edbd8a;background:#d7edbd1c;color:#ebf5e4;padding:11px 14px;border-radius:11px;cursor:pointer;font:inherit;font-size:12px;font-weight:700;width:100%;margin:2px 0 13px}
-    .audio-preview:hover{background:#d7edbd33}
-    .audio-license{font-size:10px;color:#8eac9b;line-height:1.5;margin:9px 0 10px}
-    .audio-license a{color:#c9ebc4;text-decoration:underline;text-underline-offset:3px}
-    dialog{max-height:calc(100dvh - 32px);overflow:auto}
-  
-
-/* --- Premium sky refresh: realistic cloud + blue sky, less illustrative --- */
-:root{
-  --sky-clear:url("https://commons.wikimedia.org/wiki/Special:FilePath/Blue%20Sky%20and%20beautiful%20white%20clouds.jpg");
-  --sky-clear-alt:url("https://commons.wikimedia.org/wiki/Special:FilePath/Blue%20sky%20with%20white%20clouds%202025.jpg");
-  --sky-cloudy:url("https://commons.wikimedia.org/wiki/Special:FilePath/Image%20Cloudy%20blue%20sky.jpg");
-  --ui-white:rgba(255,255,255,.74);
-  --ui-border:rgba(255,255,255,.45);
-}
-html,body,.hero,.prayer,.pill-button,.brand-icon,.toast,dialog{transition:background .55s ease,border-color .55s ease,color .35s ease,box-shadow .55s ease,backdrop-filter .55s ease}
-html{background:#d8effa}
-body{position:relative;overflow-x:hidden;background:linear-gradient(180deg,#dbf1fb,#ecf7fd 40%,#edf6fb)!important}
-body::before{content:"";position:fixed;inset:0;z-index:-3;background:
-  linear-gradient(180deg,rgba(232,245,252,.42),rgba(238,247,252,.82) 42%,rgba(241,247,250,.96)),
-  var(--sky-clear-alt) center/cover no-repeat;filter:saturate(1.02) contrast(1.02);transform:scale(1.02)}
-body::after{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 12% 14%,rgba(255,255,255,.78),transparent 30%),radial-gradient(circle at 88% 10%,rgba(255,255,255,.48),transparent 26%),linear-gradient(180deg,rgba(243,249,253,.18),rgba(243,249,253,.72));pointer-events:none}
-.shell{max-width:1920px;gap:18px;padding:clamp(18px,2.4vw,42px) clamp(18px,3vw,64px) clamp(16px,2vw,28px)}
-.topbar{padding:4px 0 2px}
-.brand-icon{background:rgba(255,255,255,.55);border-color:rgba(114,177,214,.35);color:#2b90bf;box-shadow:0 12px 30px rgba(75,154,196,.12)}
-.brand-heading{color:#184a66}.brand-heading span{color:#3f93bd!important}.brand-sub{color:#6f91a7}
-.location{color:#4c738a}.location svg{color:#5ea8cc}.clock-info{border-left-color:rgba(95,149,178,.28)}.top-time{color:#184a66}.top-zone{color:#6d90a5}
-.pill-button{background:rgba(255,255,255,.56);border-color:rgba(103,171,208,.28);color:#24536d;backdrop-filter:blur(14px);box-shadow:0 12px 32px rgba(67,133,170,.10)}
-.pill-button:hover{background:rgba(255,255,255,.78);border-color:rgba(79,157,203,.52)}
-.pill-button.activated{background:rgba(52,167,200,.14);border-color:rgba(45,151,187,.45);color:#11739a}
-.hero{grid-template-columns:minmax(0,1.18fr) minmax(360px,.82fr);padding:clamp(24px,2.8vw,52px);border-radius:34px;border:1px solid rgba(255,255,255,.52);background:
-  linear-gradient(110deg,rgba(255,255,255,.76) 0%,rgba(255,255,255,.44) 43%,rgba(255,255,255,.18) 66%,rgba(255,255,255,.10) 100%),
-  var(--sky-clear) center/cover no-repeat;
-  box-shadow:0 28px 80px rgba(78,149,192,.18),inset 0 1px 0 rgba(255,255,255,.45);backdrop-filter:blur(18px)}
-.hero:before{background:linear-gradient(90deg,rgba(255,255,255,.42),transparent 60%);pointer-events:none}
-.hero-left{justify-content:flex-start;gap:0;max-width:760px}
-.eyebrow{color:#6a8aa0;letter-spacing:.18em}
-.indicator{background:#49a8d1;box-shadow:0 0 0 6px rgba(73,168,209,.18),0 0 28px rgba(86,181,222,.34)}
-.hero-title{color:#173b52;font-size:clamp(76px,7.4vw,148px);line-height:1.03;margin-top:6px;text-shadow:0 2px 18px rgba(255,255,255,.28)}
-.count-label{color:#58758c;font-size:clamp(13px,.96vw,18px);margin-top:18px}
-.countdown{color:#1180b3;font-size:clamp(48px,5.2vw,100px);text-shadow:0 2px 18px rgba(255,255,255,.32)}
-.next-at{margin-top:18px;color:#4e6e82;font-size:clamp(12px,.88vw,16px)}
-.next-at svg{stroke:#4d9fc5}.tiny-sep{background:#7aa4ba}.next-time{color:#173b52}
-.scene{min-height:420px;border-radius:30px;overflow:hidden;border:1px solid rgba(255,255,255,.4);background:
-   linear-gradient(180deg,rgba(255,255,255,.03),rgba(17,46,71,.14)),
-   var(--sky-clear-alt) center/cover no-repeat;
-   box-shadow:inset 0 0 0 1px rgba(255,255,255,.18),0 16px 46px rgba(73,132,164,.18)}
-.scene:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(14,44,69,.16) 88%);border-radius:inherit;filter:none}
-.scene:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 16%,rgba(255,255,255,.62),transparent 18%),linear-gradient(180deg,rgba(255,255,255,.12),transparent 28%,rgba(10,34,53,.08) 100%);mix-blend-mode:screen;pointer-events:none}
-.scene-svg{display:none!important}
-.scene-caption{right:20px;left:20px;bottom:18px;align-items:flex-start;text-align:left;gap:4px;padding:16px 18px;border-radius:18px;background:linear-gradient(180deg,rgba(8,31,47,.28),rgba(8,31,47,.52));backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18)}
-.scene-arabic{font-family:var(--font);font-size:clamp(22px,2.2vw,32px);font-weight:700;letter-spacing:-.03em;color:#ffffff}
-.scene-caption small{font-size:11px;color:rgba(255,255,255,.82);letter-spacing:.04em}
-.weather-badge{display:inline-flex;align-items:flex-start;gap:10px;max-width:fit-content;margin-bottom:18px;padding:11px 14px;border-radius:16px;background:rgba(255,255,255,.56);border:1px solid rgba(98,175,214,.26);backdrop-filter:blur(12px);box-shadow:0 10px 28px rgba(72,146,190,.12)}
-.weather-badge .weather-dot{width:10px;height:10px;border-radius:999px;background:#59b7e2;box-shadow:0 0 0 6px rgba(88,182,224,.12);margin-top:4px;flex:0 0 10px}
-.weather-lines{display:flex;flex-direction:column;gap:3px;min-width:0}
-.weather-main{font-size:12px;font-weight:800;letter-spacing:-.02em;color:#25506c}.weather-caption{font-size:10px;color:#6e8ca1;line-height:1.35}.weather-caption a{color:#2f8ab5;text-decoration:none}.weather-caption a:hover{text-decoration:underline}
-.schedule-block{padding:6px 0 0}
-.section-title{color:#193d53}.date-label{color:#6c8aa0}
-.schedule{gap:14px}
-.prayer{background:rgba(255,255,255,.56);border:1px solid rgba(116,188,222,.26);box-shadow:0 15px 40px rgba(83,148,186,.10);backdrop-filter:blur(12px)}
-.prayer-name{color:#648197}.prayer-time{color:#163c52}.prayer.is-next{background:linear-gradient(180deg,#1092c6,#0978ab);border-color:rgba(9,120,171,.72);box-shadow:0 18px 40px rgba(16,146,198,.22);color:#fff}.prayer.is-next .prayer-name{color:#dff6ff}.prayer .mini-tag{background:rgba(13,73,108,.08);color:#0b6690}.prayer.is-next .mini-tag{background:rgba(255,255,255,.18);color:#fff}.prayer.is-current:not(.is-next){background:rgba(222,243,252,.72);border-color:rgba(120,191,224,.42)}.prayer.is-current:not(.is-next) .prayer-name{color:#356278}
-.footbar{color:#628195}.foot-link,.text-btn{color:#2a769c}.source-dot{background:#58b4dc}.source-dot.error{background:#d38d6e}
-.toast{background:rgba(255,255,255,.92);color:#19435b;box-shadow:0 16px 52px rgba(68,128,159,.18)}
-.azan-overlay{background:radial-gradient(circle at 50% 10%,rgba(76,119,162,.18),transparent 28%),rgba(8,18,36,.74)}
-.azan-kicker{color:#b9d8e9}.azan-name{color:#ffffff}.azan-message{color:#d7e8f2}.azan-stop{background:#ffffff;color:#164159}
-.azan-halo{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25)}.azan-halo svg{color:#eaf6fd}
- dialog{background:rgba(241,248,252,.94);color:#173b52;border-color:rgba(139,189,214,.44);backdrop-filter:blur(24px)}
- dialog::backdrop{background:rgba(16,34,53,.45)}
- .modal-title{color:#163b52}.modal-close{background:rgba(20,72,101,.08);border-color:rgba(20,72,101,.10);color:#2b5d79}.modal-desc,.volume-help,.modal-help,.audio-state{color:#658296}.setting-label{color:#335972}.setting-divider{background:rgba(72,123,155,.12)}.file-btn{background:rgba(255,255,255,.72);border-color:rgba(113,181,215,.35);color:#23516c}.file-btn:hover{background:#fff}.audio-option{background:rgba(255,255,255,.72);border-color:rgba(113,181,215,.26);color:#16415a}.audio-option small{color:#69869a}.audio-option.active{background:rgba(80,176,217,.12);border-color:rgba(72,165,209,.42)}.audio-preview{background:rgba(56,167,209,.10);border-color:rgba(61,169,211,.35);color:#1c5a78}.audio-license{color:#7b95a7}.audio-license a{color:#2d86af}.reset{color:#1f7ca8}
-
-html[data-weather="cloudy"] body::before,
-html[data-weather="overcast"] body::before,
-html[data-weather="rain"] body::before,
-html[data-weather="storm"] body::before{background:linear-gradient(180deg,rgba(232,240,245,.48),rgba(236,242,246,.88) 45%,rgba(236,241,245,.96)),var(--sky-cloudy) center/cover no-repeat}
-html[data-weather="cloudy"] .hero,
-html[data-weather="overcast"] .hero{background:linear-gradient(110deg,rgba(255,255,255,.82),rgba(255,255,255,.54) 38%,rgba(255,255,255,.20) 72%),var(--sky-cloudy) center/cover no-repeat}
-html[data-weather="cloudy"] .scene,
-html[data-weather="overcast"] .scene{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(10,34,53,.18)),var(--sky-cloudy) center/cover no-repeat}
-html[data-weather="rain"] .hero,
-html[data-weather="storm"] .hero{background:linear-gradient(110deg,rgba(250,253,255,.82),rgba(247,251,253,.54) 38%,rgba(220,232,239,.34) 76%),var(--sky-cloudy) center/cover no-repeat}
-html[data-weather="rain"] .scene,
-html[data-weather="storm"] .scene{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(10,34,53,.28)),var(--sky-cloudy) center/cover no-repeat}
-html[data-weather="rain"] .scene::after,
-html[data-weather="storm"] .scene::after{background:repeating-linear-gradient(115deg,rgba(255,255,255,0) 0 22px,rgba(173,205,224,.78) 22px 24px,rgba(255,255,255,0) 24px 42px),linear-gradient(180deg,rgba(255,255,255,.12),transparent 26%,rgba(10,34,53,.10) 100%);opacity:.35;animation:softRain 12s linear infinite}
-@keyframes softRain{to{background-position:38px 100px,0 0}}
-
-html[data-phase="night"]{color-scheme:dark;--ink:#f2f8fd;--lime:#c5eaff}
-html[data-phase="night"] body{background:linear-gradient(180deg,#071728,#081e30 56%,#0b2130)!important}
-html[data-phase="night"] body::before{background:radial-gradient(circle at 50% -8%,rgba(73,121,178,.34),transparent 24%),radial-gradient(circle at 82% 16%,rgba(255,255,255,.06),transparent 1px),radial-gradient(circle at 68% 28%,rgba(255,255,255,.07),transparent 1px),radial-gradient(circle at 20% 14%,rgba(255,255,255,.07),transparent 1px),linear-gradient(180deg,#091522,#0a2031 52%,#0b2230);background-size:auto,6px 6px,5px 5px,7px 7px,cover;transform:none;filter:none}
-html[data-phase="night"] body::after{background:radial-gradient(circle at 82% 12%,rgba(255,255,255,.08),transparent 10%),linear-gradient(180deg,rgba(4,10,18,.22),rgba(5,12,19,.32))}
-html[data-phase="night"] .brand-icon{background:rgba(255,255,255,.06);border-color:rgba(164,210,236,.16);color:#b8e5ff;box-shadow:none}
-html[data-phase="night"] .brand-heading{color:#edf5fa}html[data-phase="night"] .brand-heading span{color:#a9e0ff!important}html[data-phase="night"] .brand-sub,html[data-phase="night"] .location,html[data-phase="night"] .top-zone,html[data-phase="night"] .date-label,html[data-phase="night"] .footbar{color:#9db7c8}html[data-phase="night"] .location svg{color:#a7dfff}html[data-phase="night"] .top-time{color:#f1f7fd}html[data-phase="night"] .clock-info{border-left-color:rgba(255,255,255,.14)}
-html[data-phase="night"] .pill-button{background:rgba(255,255,255,.08);border-color:rgba(196,225,244,.14);color:#ebf5fc;box-shadow:0 16px 36px rgba(4,11,18,.28)}
-html[data-phase="night"] .pill-button:hover{background:rgba(255,255,255,.12);border-color:rgba(196,225,244,.22)}
-html[data-phase="night"] .pill-button.activated{background:rgba(144,216,255,.14);border-color:rgba(144,216,255,.30);color:#c7ecff}
-html[data-phase="night"] .hero{background:linear-gradient(140deg,rgba(10,25,42,.92),rgba(9,29,45,.66) 48%,rgba(10,35,51,.48) 100%);border-color:rgba(255,255,255,.12);box-shadow:0 28px 90px rgba(2,7,12,.34)}
-html[data-phase="night"] .hero:before{background:linear-gradient(90deg,rgba(255,255,255,.03),transparent 60%)}
-html[data-phase="night"] .eyebrow{color:#aac4d5}html[data-phase="night"] .indicator{background:#83d6ff;box-shadow:0 0 0 6px rgba(131,214,255,.14),0 0 22px rgba(131,214,255,.24)}html[data-phase="night"] .hero-title{color:#f5fbff;text-shadow:none}html[data-phase="night"] .count-label{color:#a8c1d1}html[data-phase="night"] .countdown{color:#b5e5ff;text-shadow:none}html[data-phase="night"] .next-at{color:#c6d9e6}html[data-phase="night"] .next-at svg{stroke:#9fe0ff}html[data-phase="night"] .next-time{color:#fff}html[data-phase="night"] .tiny-sep{background:#92aabc}
-html[data-phase="night"] .scene{background:linear-gradient(180deg,rgba(21,44,74,.18),rgba(10,16,28,.52));border-color:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 16px 40px rgba(2,7,12,.18)}html[data-phase="night"] .scene:before{background:radial-gradient(circle at 72% 18%,rgba(255,255,255,.86) 0 8%,rgba(255,255,255,.18) 8% 13%,transparent 14%),radial-gradient(circle at 72% 18%,rgba(186,218,255,.28),transparent 24%),linear-gradient(180deg,rgba(14,32,53,.10),rgba(5,14,26,.18))}html[data-phase="night"] .scene:after{background:radial-gradient(circle at 18% 16%,rgba(255,255,255,.08),transparent 18%)}
-html[data-phase="night"] .scene-caption{background:linear-gradient(180deg,rgba(5,15,25,.42),rgba(5,15,25,.62));border-color:rgba(255,255,255,.10)}html[data-phase="night"] .scene-caption small{color:rgba(255,255,255,.74)}
-html[data-phase="night"] .weather-badge{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.10);box-shadow:0 12px 30px rgba(2,7,12,.22)}html[data-phase="night"] .weather-badge .weather-dot{background:#9be5ff;box-shadow:0 0 0 6px rgba(155,229,255,.10)}html[data-phase="night"] .weather-main{color:#eff8ff}html[data-phase="night"] .weather-caption{color:#a9c3d4}html[data-phase="night"] .weather-caption a{color:#d7effd}
-html[data-phase="night"] .section-title{color:#eaf5fb}html[data-phase="night"] .prayer{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.10);box-shadow:0 16px 42px rgba(2,7,12,.18)}html[data-phase="night"] .prayer-name{color:#afc6d5}html[data-phase="night"] .prayer-time{color:#f2f9ff}html[data-phase="night"] .prayer.is-next{background:linear-gradient(180deg,#86d9ff,#55b3e0);color:#052133;border-color:rgba(134,217,255,.55)}html[data-phase="night"] .prayer.is-next .prayer-name{color:#073046}html[data-phase="night"] .prayer.is-current:not(.is-next){background:rgba(128,196,230,.12);border-color:rgba(132,205,243,.18)}html[data-phase="night"] .prayer.is-current:not(.is-next) .prayer-name{color:#e6f5ff}html[data-phase="night"] .prayer .mini-tag{background:rgba(255,255,255,.12);color:#d8f5ff}
-html[data-phase="night"] dialog{background:rgba(10,23,37,.94);color:#eef8fd;border-color:rgba(255,255,255,.12)}html[data-phase="night"] .modal-title{color:#eff8fd}html[data-phase="night"] .modal-desc,html[data-phase="night"] .volume-help,html[data-phase="night"] .modal-help,html[data-phase="night"] .audio-state,html[data-phase="night"] .audio-license{color:#9eb8c8}html[data-phase="night"] .setting-label{color:#d3ebfa}html[data-phase="night"] .setting-divider{background:rgba(255,255,255,.10)}html[data-phase="night"] .audio-option,html[data-phase="night"] .file-btn{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.10);color:#eef8fd}html[data-phase="night"] .audio-option small{color:#9eb8c8}html[data-phase="night"] .audio-option.active{background:rgba(155,229,255,.08);border-color:rgba(155,229,255,.26)}html[data-phase="night"] .audio-preview{background:rgba(155,229,255,.10);border-color:rgba(155,229,255,.26);color:#e3f7ff}html[data-phase="night"] .modal-close{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.09);color:#eef8fd}html[data-phase="night"] .reset{color:#bde9ff}
-
-@media (max-width:1090px){
-  .hero{grid-template-columns:1.05fr .78fr;padding:28px}
-  .scene{min-height:360px}
-}
-@media (max-width:760px){
-  body::before{background:linear-gradient(180deg,rgba(232,245,252,.36),rgba(238,247,252,.86) 45%,rgba(241,247,250,.98)),var(--sky-clear-alt) center/cover no-repeat}
-  .hero{display:flex;flex-direction:column;align-items:stretch;min-height:0;padding:24px;background:linear-gradient(180deg,rgba(255,255,255,.76),rgba(255,255,255,.16) 60%),var(--sky-clear) center/cover no-repeat}
-  .hero-left{max-width:none}
-  .weather-badge{margin-bottom:14px;padding:9px 12px;border-radius:14px}
-  .weather-main{font-size:11px}.weather-caption{font-size:9px}
-  .hero-title{font-size:clamp(64px,15vw,104px)}
-  .countdown{font-size:clamp(36px,9vw,60px)}
-  .scene{display:block;min-height:220px;margin-top:10px}
-  .scene-caption{left:14px;right:14px;bottom:14px;padding:12px 14px;border-radius:15px}
-  .scene-arabic{font-size:20px}
-  .schedule{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-}
-@media (max-width:520px){
-  .header-right{gap:6px}.topbar{align-items:flex-start}.brand{min-width:0}.brand-heading{font-size:15px}
-  .weather-badge{max-width:100%}
-}
-@media (prefers-reduced-motion:reduce){.scene::after{animation:none!important}}
-
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#4489cd" />
+<meta name="description" content="Ruang Salat Jakarta: jam WIB, waktu salat, hitung mundur, cuaca otomatis dan azan pilihan." />
+<title>ruangsalat. — Jakarta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>/* Ruang Salat — sky-first, quiet UI. Inspired by atmospheric weather interfaces. */
+:root{color-scheme:dark;--ink:#fff;--ink-secondary:rgba(255,255,255,.8);--line:rgba(255,255,255,.24);--glass:rgba(30,89,144,.24);--font:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:var(--font)}
+html{background:#438dd0}body{color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid #fff;outline-offset:4px}
+[hidden]{display:none!important}
+.atmosphere{position:fixed;inset:0;z-index:-2;pointer-events:none;background-color:#3c8ccf;background-image:linear-gradient(180deg,rgba(25,100,169,.30) 0%,rgba(25,91,158,.33) 38%,rgba(14,69,128,.75) 100%),url("https://commons.wikimedia.org/wiki/Special:FilePath/BlueSkyWhiteClouds22.jpg");background-size:cover;background-position:center 53%;transition:filter 1.4s ease,background-color 1.4s ease}
+.atmosphere:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 8%,rgba(255,255,255,.16),transparent 85%),linear-gradient(180deg,transparent 35%,rgba(9,54,115,.24) 100%)}
+html[data-phase="dawn"] .atmosphere,html[data-phase="sunset"] .atmosphere{background-color:#be7e89;background-image:linear-gradient(180deg,rgba(166,112,155,.32),rgba(204,123,123,.33) 45%,rgba(64,80,153,.75)),url("https://commons.wikimedia.org/wiki/Special:FilePath/BlueSkyWhiteClouds22.jpg")}
+html[data-weather="cloudy"] .atmosphere,html[data-weather="overcast"] .atmosphere,html[data-weather="fog"] .atmosphere{background-color:#66869f;filter:saturate(.75);background-image:linear-gradient(180deg,rgba(59,105,152,.45),rgba(47,92,145,.62) 65%,rgba(38,80,124,.83)),url("https://commons.wikimedia.org/wiki/Special:FilePath/BlueSkyWhiteClouds22.jpg")}
+html:is([data-weather="rain"],[data-weather="storm"]) .atmosphere{background-color:#31445b;filter:saturate(.42);background-image:linear-gradient(180deg,rgba(21,46,76,.70),rgba(19,54,90,.76)),url("https://commons.wikimedia.org/wiki/Special:FilePath/BlueSkyWhiteClouds22.jpg")}
+html[data-phase="night"]{background:#0a1730}
+html[data-phase="night"] .atmosphere{filter:none;background-color:#0c2141;background-image:radial-gradient(ellipse at 48% -16%,rgba(83,143,205,.43),transparent 53%),radial-gradient(circle at 78% 14%,rgba(227,237,255,.16),transparent 16%),linear-gradient(180deg,#142f58,#0c1c37 62%,#081527)}
+html[data-phase="night"] .atmosphere:after{background:radial-gradient(1px 1px at 14% 17%,#ffffffa0 98%,transparent),radial-gradient(1px 1px at 63% 21%,#ffffff77 98%,transparent),radial-gradient(1px 1px at 81% 34%,#ffffff66 98%,transparent),radial-gradient(1px 1px at 29% 41%,#ffffff66 98%,transparent),radial-gradient(1px 1px at 77% 59%,#ffffff77 98%,transparent)}
+html[data-phase="night"] .schedule-block{background:rgba(26,49,82,.30)}
+.app{height:100vh;height:100svh;min-height:690px;max-width:1920px;margin:0 auto;display:grid;grid-template-rows:56px minmax(0,1fr) auto 22px;gap:clamp(14px,1.8vh,22px);padding:clamp(24px,2.5vw,42px) clamp(28px,4.4vw,82px) clamp(18px,2vw,32px)}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:baseline;gap:12px;white-space:nowrap;min-width:0}.brand-heading{font-weight:650;font-size:clamp(20px,1.45vw,27px);letter-spacing:-.065em;line-height:1}.brand-heading span{font-weight:450;color:rgba(255,255,255,.9)}.brand-sub{font-size:12px;color:var(--ink-secondary);font-weight:450;letter-spacing:.015em}
+.header-right{display:flex;align-items:center;gap:clamp(16px,1.8vw,30px)}.location{color:var(--ink-secondary);font-size:13px;font-weight:480;white-space:nowrap}.clock-info{display:flex;align-items:baseline;gap:6px;font-variant-numeric:tabular-nums;white-space:nowrap}.top-time{font-size:16px;font-weight:580;letter-spacing:-.025em}.top-zone{font-size:11px;color:var(--ink-secondary);font-weight:550}
+.inline-actions{display:flex;align-items:center;gap:8px}.pill-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:41px;border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:0 13px;color:#fff;background:rgba(255,255,255,.11);backdrop-filter:blur(18px);font-size:12px;font-weight:570;white-space:nowrap;transition:background .22s,border-color .22s}.pill-button:hover{background:rgba(255,255,255,.2)}.pill-button.activated{background:rgba(255,255,255,.28);border-color:rgba(255,255,255,.5)}.pill-button svg{width:16px;height:16px;stroke-width:1.7}.icon-only{width:41px;padding:0}
+.hero{position:relative;min-height:0;display:flex;justify-content:center;align-items:center;text-align:center}
+.hero-left{position:relative;width:100%;max-width:1050px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 18px 0}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:550;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.86);margin-bottom:12px}.indicator{width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.14)}
+.hero-title{margin:0;font-size:clamp(84px,10vw,163px);font-weight:350;line-height:1.05;letter-spacing:-.095em;overflow-wrap:anywhere;text-shadow:0 5px 35px rgba(4,38,78,.13)}
+.count-label{margin:clamp(15px,2.4vh,25px) 0 4px;font-size:clamp(13px,1.08vw,17px);font-weight:430;color:rgba(255,255,255,.87)}
+.countdown{font-size:clamp(59px,6.7vw,112px);line-height:1.17;font-weight:320;letter-spacing:-.075em;white-space:nowrap;font-variant-numeric:tabular-nums;text-shadow:0 4px 24px rgba(4,38,78,.1)}.countdown .colon{opacity:.68;margin:0 .045em}
+.next-at{display:flex;justify-content:center;align-items:center;gap:9px;margin-top:clamp(12px,1.8vh,24px);font-size:clamp(12px,.87vw,14px);color:rgba(255,255,255,.92)}.next-at svg{display:none}.tiny-sep{width:3px;height:3px;background:rgba(255,255,255,.8);border-radius:50%}
+.weather-badge{position:absolute;top:4px;right:0;display:flex;align-items:center;gap:7px;padding:8px 0 8px 12px;color:#fff;text-align:right;z-index:2}.weather-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 0 4px rgba(255,255,255,.13)}.weather-lines{display:flex;flex-direction:column;gap:3px;align-items:flex-end}.weather-main{font-size:13px;font-weight:530;line-height:1.2}.weather-caption{font-size:10px;color:rgba(255,255,255,.74);font-weight:450}.weather-caption a{color:inherit;text-decoration:none}.weather-caption a:hover{text-decoration:underline}
+.schedule-block{position:relative;border-radius:24px;background:rgba(15,67,130,.26);border:1px solid rgba(255,255,255,.24);backdrop-filter:blur(32px) saturate(1.1);box-shadow:0 18px 55px rgba(8,50,102,.12);padding:20px 27px 23px;min-width:0}
+.section-header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:12px}.section-title{font-size:13px;font-weight:610;letter-spacing:-.01em}.date-label{font-size:12px;color:var(--ink-secondary);font-weight:430}
+.schedule{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;min-width:0}.prayer{padding:12px clamp(9px,1.6vw,24px) 8px;border-right:1px solid rgba(255,255,255,.23);min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:14px;min-height:92px}.prayer:first-child{padding-left:8px}.prayer:last-child{border-right:0}.prayer-name{font-size:13px;font-weight:480;color:rgba(255,255,255,.72);display:flex;justify-content:space-between;align-items:center;width:100%;gap:7px}.prayer-time{font-size:clamp(26px,2.3vw,38px);font-weight:470;line-height:1.03;letter-spacing:-.055em;font-variant-numeric:tabular-nums}.prayer.is-next{background:rgba(255,255,255,.19);border-radius:16px;border-right-color:transparent;box-shadow:0 7px 24px rgba(13,62,113,.10)}.prayer.is-next .prayer-name{color:#fff;font-weight:630}.prayer.is-current:not(.is-next) .prayer-name{color:#fff}.prayer .mini-tag{font-size:9px;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.035em;font-weight:660}
+.footbar{display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:11px;color:rgba(255,255,255,.72);min-width:0}.foot-left{display:flex;align-items:center;gap:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.source-dot{width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:#b5efff}.source-dot.error{background:#ffb6a0}#sourceText{overflow:hidden;text-overflow:ellipsis}.foot-right{display:flex;align-items:center;gap:16px;white-space:nowrap}.text-btn{border:0;background:none;padding:4px 0;color:#fff;font-weight:500;font-size:11px}.text-btn:hover{text-decoration:underline}
+.toast{position:fixed;z-index:40;bottom:24px;left:50%;transform:translate(-50%,24px);background:rgba(255,255,255,.95);color:#163b56;padding:12px 20px;box-shadow:0 15px 48px #081e3340;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+.azan-overlay{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;background:rgba(6,27,50,.90);backdrop-filter:blur(24px);color:#fff;opacity:0;visibility:hidden;transition:.3s; padding:25px;text-align:center}.azan-overlay.visible{opacity:1;visibility:visible}.azan-content{width:min(620px,100%);display:flex;flex-direction:column;align-items:center}.azan-halo{width:92px;height:92px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);display:grid;place-items:center;border-radius:50%;margin-bottom:32px;box-shadow:0 0 0 20px #ffffff07,0 0 0 50px #ffffff06}.azan-halo svg{width:36px;height:36px}.azan-kicker{letter-spacing:.18em;font-size:11px;color:rgba(255,255,255,.7);font-weight:650}.azan-name{font-size:clamp(70px,10vw,140px);font-weight:350;letter-spacing:-.09em;line-height:1.1;margin:16px 0}.azan-message{font-size:17px;line-height:1.7;color:rgba(255,255,255,.8);margin:0 0 35px}.azan-stop{border:0;background:white;border-radius:999px;padding:14px 28px;color:#194c74;font-size:13px;font-weight:650}.azan-close{position:absolute;right:24px;top:20px;border:0;background:none;color:white;font-size:24px}
+dialog{width:min(490px,calc(100vw - 30px));max-height:calc(100dvh - 40px);overflow:auto;padding:0;border-radius:22px;border:1px solid rgba(255,255,255,.25);color:#fff;background:rgba(20,51,87,.98);box-shadow:0 30px 100px #061328aa;font-family:var(--font)}dialog::backdrop{background:rgba(6,22,44,.7);backdrop-filter:blur(10px)}.modal-in{padding:27px}.modal-top{display:flex;justify-content:space-between;align-items:center}.modal-title{font-weight:650;font-size:21px;letter-spacing:-.04em}.modal-close{border:1px solid #ffffff24;color:#fff;border-radius:50%;background:#ffffff10;width:34px;height:34px;font-size:20px}.modal-desc{font-size:12px;color:#b9d0e2;line-height:1.7;margin:16px 0 28px}.setting-label{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#d8eaf5;font-weight:600}.volume{width:100%;accent-color:#cceeff;margin:14px 0 20px}.volume-help,.modal-help{font-size:11px;line-height:1.6;color:#9eb8ce;margin:-7px 0 22px}.setting-divider{height:1px;background:#ffffff1c;margin:16px 0 21px}.audio-options{display:grid;gap:8px;margin:12px 0}.audio-option{display:flex;justify-content:space-between;align-items:center;width:100%;padding:12px 14px;gap:12px;border:1px solid #ffffff1e;border-radius:12px;text-align:left;color:#fff;background:#ffffff08}.audio-option:hover{background:#ffffff14}.audio-option.active{border-color:#b4ddf0;background:#ffffff17}.audio-option strong{display:block;font-size:12px;font-weight:600}.audio-option small{display:block;color:#adcadb;font-size:11px;margin-top:5px;line-height:1.3}.audio-mark{width:17px;height:17px;flex-shrink:0;border-radius:50%;border:1px solid #b0c6d5;display:grid;place-items:center}.audio-option.active .audio-mark{border-color:#d2f5ff}.audio-option.active .audio-mark:after{content:"";width:7px;height:7px;border-radius:50%;background:#d2f5ff}.audio-preview{width:100%;border-radius:11px;border:1px solid #b9dff04a;background:#ffffff14;color:#fff;padding:12px 14px;font-size:12px;font-weight:620;margin:5px 0}.audio-license{font-size:10px;line-height:1.6;color:#a4bfd0}.audio-license a{color:#c0e8ff}.file-btn{display:block;border:1px dashed #b9dff059;border-radius:12px;padding:12px;text-align:center;font-size:12px;font-weight:600;color:#e7f5ff;background:#ffffff08;cursor:pointer}.file-btn input{display:none}.audio-state{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;color:#b6cddc;font-size:10px}.reset{background:none;border:0;color:#c6ebff;font-size:11px;text-decoration:underline}.modal-help{margin:22px 0 0}
+@media(max-width:1100px){.location{display:none}.app{padding-left:36px;padding-right:36px}.hero-title{font-size:clamp(76px,10vw,134px)}.countdown{font-size:clamp(58px,7vw,98px)}.prayer{padding-left:14px;padding-right:14px}}
+@media(max-height:800px) and (min-width:761px){.app{min-height:610px;grid-template-rows:48px minmax(0,1fr) auto 20px;gap:12px;padding-top:22px;padding-bottom:18px}.hero-title{font-size:clamp(78px,8.7vw,130px)}.countdown{font-size:clamp(55px,6vw,91px)}.count-label{margin-top:13px}.next-at{margin-top:10px}.schedule-block{padding:15px 24px 17px}.prayer{min-height:81px;padding-top:10px;padding-bottom:6px;gap:10px}}
+@media(max-width:760px){body{overflow:auto}.app{height:auto;min-height:100svh;display:grid;grid-template-rows:auto minmax(310px,1fr) auto auto;gap:21px;padding:23px 17px 24px}.brand{gap:5px}.brand-heading{font-size:19px}.brand-sub{display:none}.header-right{gap:10px}.clock-info{gap:4px}.top-time{font-size:13px}.top-zone{font-size:9px}.inline-actions{gap:5px}.pill-button{width:36px;height:36px;padding:0}.sound-button span{display:none}.pill-button svg{width:16px;height:16px}.hero{min-height:330px}.hero-left{padding:54px 0 14px}.weather-badge{top:0;left:50%;right:auto;transform:translateX(-50%);white-space:nowrap;padding:0}.weather-dot{width:6px;height:6px}.weather-caption{display:none}.weather-lines{align-items:center}.weather-main{font-size:11px}.eyebrow{font-size:10px;margin-bottom:13px;letter-spacing:.11em}.hero-title{font-size:clamp(74px,17vw,112px)}.count-label{margin-top:21px;font-size:12px}.countdown{font-size:clamp(45px,10.6vw,71px);line-height:1.25}.next-at{font-size:12px}.schedule-block{padding:18px;border-radius:21px}.section-header{margin-bottom:16px}.section-title{font-size:13px}.date-label{font-size:10px;text-align:right}.schedule{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.prayer{border:0;border-bottom:1px solid #ffffff27;min-height:76px;gap:10px;padding:11px 12px}.prayer:first-child{padding-left:12px}.prayer:last-child{border-bottom:0}.prayer.is-next{background:#ffffff24;border-radius:13px}.prayer-name{font-size:12px}.prayer-time{font-size:28px}.footbar{flex-direction:column;align-items:flex-start;gap:9px;font-size:10px}.foot-right{justify-content:space-between;width:100%}}
+@media(max-width:390px){.top-time{font-size:12px}.brand-heading{font-size:17px}.app{padding-left:14px;padding-right:14px}.hero-title{font-size:clamp(68px,16vw,89px)}.countdown{font-size:42px}.section-header{align-items:flex-start}.prayer-time{font-size:26px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
+</style>
 </head>
 <body>
-  <main class="shell" id="app">
+<div class="atmosphere" aria-hidden="true"></div>
+  <main class="app" id="app">
     <header class="topbar">
-      <div class="brand">
-        <div class="brand-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7.5 7.5 0 1 0 9.4 9.4A9 9 0 1 1 12 2Z"/><path d="m18 3 .35 1.65L20 5l-1.65.35L18 7l-.35-1.65L16 5l1.65-.35L18 3Z"/></svg></div>
-        <div><div class="brand-heading">ruang<span style="color:#d6edb7">salat.</span></div><span class="brand-sub">Waktu yang bermakna</span></div>
-      </div>
+      <div class="brand"><div class="brand-heading">ruang<span>salat.</span></div><span class="brand-sub">Jakarta</span></div>
       <div class="header-right">
-        <div class="location"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>DKI Jakarta, Indonesia</div>
-        <div class="clock-info" aria-live="off"><span class="top-time" id="clock">--:--:--</span><span class="top-zone">WIB</span></div>
+        <div class="location">DKI Jakarta, Indonesia</div>
+        <div class="clock-info"><span class="top-time" id="clock">--:--:--</span><span class="top-zone">WIB</span></div>
         <div class="inline-actions">
           <button id="soundBtn" class="pill-button sound-button" title="Aktifkan audio azan" aria-pressed="false"><svg id="soundIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19 6a9 9 0 0 1 0 12"/></svg><span id="soundText">Aktifkan azan</span></button>
-          <button id="settingsBtn" class="pill-button icon-only" aria-label="Pengaturan audio" title="Pengaturan audio"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M19.4 15a2 2 0 0 0 .4 2.3l.1.1-2.5 2.5-.1-.1a2 2 0 0 0-2.3-.4 2 2 0 0 0-1.2 1.9v.2h-3.6v-.2A2 2 0 0 0 9 19.4a2 2 0 0 0-2.3.4l-.1.1-2.5-2.5.1-.1a2 2 0 0 0 .4-2.3 2 2 0 0 0-1.9-1.2h-.2v-3.6h.2A2 2 0 0 0 4.6 9a2 2 0 0 0-.4-2.3l-.1-.1 2.5-2.5.1.1A2 2 0 0 0 9 4.6a2 2 0 0 0 1.2-1.9v-.2h3.6v.2A2 2 0 0 0 15 4.6a2 2 0 0 0 2.3-.4l.1-.1 2.5 2.5-.1.1a2 2 0 0 0-.4 2.3 2 2 0 0 0 1.9 1.2h.2v3.6h-.2A2 2 0 0 0 19.4 15Z"/></svg></button>
-          <button id="fullscreenBtn" class="pill-button icon-only" aria-label="Mode layar penuh" title="Layar penuh (atau F11)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3m13 5h3a2 2 0 0 0 2-2v-3"/></svg></button>
+          <button id="settingsBtn" class="pill-button icon-only" aria-label="Pengaturan azan" title="Pengaturan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a2 2 0 0 0 .4 2.3l.1.1-2.5 2.5-.1-.1a2 2 0 0 0-2.3-.4 2 2 0 0 0-1.2 1.9v.2h-3.6v-.2A2 2 0 0 0 9 19.4a2 2 0 0 0-2.3.4l-.1.1-2.5-2.5.1-.1a2 2 0 0 0 .4-2.3 2 2 0 0 0-1.9-1.2h-.2v-3.6h.2A2 2 0 0 0 4.6 9a2 2 0 0 0-.4-2.3l-.1-.1 2.5-2.5.1.1A2 2 0 0 0 9 4.6a2 2 0 0 0 1.2-1.9v-.2h3.6v.2A2 2 0 0 0 15 4.6a2 2 0 0 0 2.3-.4l.1-.1 2.5 2.5-.1.1a2 2 0 0 0-.4 2.3 2 2 0 0 0 1.9 1.2h.2v3.6h-.2A2 2 0 0 0 19.4 15Z"/></svg></button>
+          <button id="fullscreenBtn" class="pill-button icon-only" aria-label="Layar penuh" title="Layar penuh (F11)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3m13 5h3a2 2 0 0 0 2-2v-3"/></svg></button>
         </div>
       </div>
     </header>
-
-    <section class="hero" aria-label="Hitung mundur waktu salat berikutnya">
+    <section class="hero" aria-label="Waktu salat berikutnya">
       <div class="hero-left">
-        <div class="eyebrow"><i class="indicator" aria-hidden="true"></i><span id="kicker">WAKTU SALAT BERIKUTNYA</span></div>
+        <div id="weatherBadge" class="weather-badge"><span class="weather-dot" aria-hidden="true"></span><span class="weather-lines"><span class="weather-main" id="weatherText">Cuaca Jakarta</span><small class="weather-caption" id="weatherMeta">Memuat cuaca · Open-Meteo</small></span></div>
+        <div class="eyebrow"><span id="kicker">WAKTU SALAT BERIKUTNYA</span></div>
         <h1 id="nextPrayer" class="hero-title">—</h1>
         <div class="count-label" id="countLabel">Menghitung waktu menuju salat</div>
-        <div id="countdown" class="countdown" aria-label="Hitung mundur">--<span class="colon">:</span>--<span class="colon">:</span>--</div>
-        <div class="next-at"><svg width="18" height="18" fill="none" stroke="#c0e0b9" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="nextDescription">Menyiapkan jadwal Jakarta…</span><span class="tiny-sep" aria-hidden="true"></span><span id="nextDay">Asia/Jakarta</span></div>
-      </div>
-      <div class="scene" aria-hidden="true">
-        <svg class="scene-svg" viewBox="0 0 560 470" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs><radialGradient id="moonGlow"><stop offset="0" stop-color="#d7ebbb" stop-opacity=".48"/><stop offset=".28" stop-color="#d7ebbb" stop-opacity=".15"/><stop offset="1" stop-color="#d7ebbb" stop-opacity="0"/></radialGradient><linearGradient id="moon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0f7d9"/><stop offset="1" stop-color="#bdd89d"/></linearGradient><linearGradient id="building" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#6a9375"/><stop offset=".52" stop-color="#40634f"/><stop offset="1" stop-color="#16362b"/></linearGradient><linearGradient id="far" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2e5e48"/><stop offset="1" stop-color="#112f25"/></linearGradient></defs>
-          <circle cx="295" cy="171" r="165" fill="url(#moonGlow)"/><g class="orb-float"><circle cx="308" cy="137" r="43" fill="url(#moon)"/><circle cx="328" cy="119" r="38" fill="#274737"/></g>
-          <g fill="#c3dcb0" opacity=".75"><circle cx="174" cy="105" r="1.9"/><circle cx="430" cy="80" r="1.8"/><circle cx="482" cy="181" r="1.2"/><circle cx="105" cy="168" r="1.7"/><circle cx="385" cy="226" r="1.2"/><circle cx="229" cy="58" r="1.3"/><path d="m115 85 1.6 4.5 4.5 1.6-4.5 1.6-1.6 4.5-1.6-4.5-4.5-1.6 4.5-1.6z" opacity=".65"/><path d="m450 140 1.4 3.5 3.5 1.4-3.5 1.4-1.4 3.5-1.4-3.5-3.5-1.4 3.5-1.4z" opacity=".7"/></g>
-          <path d="M-25 372C77 351 155 377 224 357S401 344 590 362V478H-25Z" fill="#1c4434" opacity=".76"/>
-          <g fill="url(#far)" opacity=".72"><path d="M15 339h34v-94h12v94h29v139H15z"/><path d="M38 221l17 23H21z"/><path d="M455 330h28V212h12v118h29v150h-69z"/><path d="m489 185 16 27h-32z"/></g>
-          <path d="M154 473V316c0-75 59-116 131-132 72 16 131 57 131 132v157Z" fill="url(#building)"/><path d="M175 302c9-55 56-84 110-97 54 13 101 42 110 97" stroke="#b5d2a3" stroke-width="3" opacity=".38"/>
-          <path d="M272 181c0-13 9-20 13-27 4 7 13 14 13 27Z" fill="#adc6a3"/><path d="M283 150v-13" stroke="#c0d4ac" stroke-width="4" stroke-linecap="round"/>
-          <g fill="url(#building)"><path d="M87 470V273h41v197z"/><path d="M94 271v-45h27v45z"/><path d="M107.5 188c10 11 18 20 18 38h-36c0-18 8-27 18-38Z"/><path d="M101 190v-23h13v23z"/><path d="M107.5 153v15" stroke="#bfd7b0" stroke-width="3" stroke-linecap="round"/><path d="M442 470V273h41v197z"/><path d="M449 271v-45h27v45z"/><path d="M462.5 188c10 11 18 20 18 38h-36c0-18 8-27 18-38Z"/><path d="M456 190v-23h13v23z"/><path d="M462.5 153v15" stroke="#bfd7b0" stroke-width="3" stroke-linecap="round"/></g>
-          <path d="M244 473v-76c0-22 18-40 41-48 23 8 41 26 41 48v76" fill="#103329" stroke="#bdd3aa" stroke-opacity=".32" stroke-width="2"/>
-          <g fill="#12372b"><path d="M192 364c0-29 14-43 30-51 16 8 30 22 30 51v37h-60Z"/><path d="M318 364c0-29 14-43 30-51 16 8 30 22 30 51v37h-60Z"/></g><path d="M0 422c110-14 175 9 278 1s176-12 282 1v50H0Z" fill="#102a22" opacity=".92"/>
-          <path d="M12 449c109-10 167 13 273 2s175-11 270 0" stroke="#7e9b76" stroke-opacity=".24" stroke-width="2"/>
-        </svg>
-        <div class="scene-caption"><span class="scene-arabic" lang="ar" dir="rtl">الصلاة نور</span><small>Salat adalah cahaya.</small></div>
+        <div id="countdown" class="countdown" aria-label="Hitung mundur">--:--:--</div>
+        <div class="next-at"><span id="nextDescription">Menyiapkan jadwal Jakarta…</span><span class="tiny-sep" aria-hidden="true"></span><span id="nextDay">WIB</span></div>
       </div>
     </section>
-
     <section class="schedule-block" aria-labelledby="scheduleTitle">
-      <div class="section-header"><div class="section-title" id="scheduleTitle">Jadwal salat hari ini</div><div class="date-label" id="dateLabel">—</div></div>
+      <div class="section-header"><h2 class="section-title" id="scheduleTitle">Jadwal salat hari ini</h2><div class="date-label" id="dateLabel">—</div></div>
       <div class="schedule" id="schedule">
         <div class="prayer" data-prayer="subuh"><div class="prayer-name">Subuh <span class="mini-tag" hidden>Berikutnya</span></div><div class="prayer-time">--:--</div></div>
         <div class="prayer" data-prayer="dzuhur"><div class="prayer-name">Dzuhur <span class="mini-tag" hidden>Berikutnya</span></div><div class="prayer-time">--:--</div></div>
@@ -226,12 +87,8 @@ html[data-phase="night"] dialog{background:rgba(10,23,37,.94);color:#eef8fd;bord
         <div class="prayer" data-prayer="isya"><div class="prayer-name">Isya <span class="mini-tag" hidden>Berikutnya</span></div><div class="prayer-time">--:--</div></div>
       </div>
     </section>
-    <footer class="footbar">
-      <div class="foot-left"><span id="sourceDot" class="source-dot error"></span><span id="sourceText">Memuat jadwal waktu salat …</span></div>
-      <div class="foot-right"><button class="text-btn" id="testBtn">▶ Uji suara azan</button><span>Jakarta · UTC+7</span></div>
-    </footer>
+    <footer class="footbar"><div class="foot-left"><span class="source-dot error" id="sourceDot"></span><span id="sourceText">Memuat jadwal waktu salat …</span></div><div class="foot-right"><button class="text-btn" id="testBtn">Uji suara azan</button><span>Jakarta · UTC+7</span></div></footer>
   </main>
-
   <div class="azan-overlay" id="azanOverlay" role="dialog" aria-modal="true" aria-labelledby="azanName" aria-hidden="true">
     <button class="azan-close" id="azanClose" aria-label="Tutup pemberitahuan azan">✕</button>
     <div class="azan-content"><div class="azan-halo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3a8 8 0 0 1 16 0v3M2 15v4h5v-4H2Zm15 0v4h5v-4h-5Z"/><path d="M4 19c1 2 3 3 6 3h4c3 0 5-1 6-3"/></svg></div><div class="azan-kicker" id="azanKicker">TELAH TIBA WAKTU SALAT</div><div class="azan-name" id="azanName">Maghrib</div><p class="azan-message">Saatnya menunaikan salat.<br>Semoga hari ini dipenuhi keberkahan.</p><button class="azan-stop" id="stopAzanBtn">Hentikan azan</button></div>
@@ -422,162 +279,27 @@ html[data-phase="night"] dialog{background:rgba(10,23,37,.94);color:#eef8fd;bord
 
 <script>
 (() => {
-  const root = document.documentElement;
-  const heroLeft = document.querySelector('.hero-left');
-  const sceneTitle = document.querySelector('.scene-arabic');
-  const sceneNote = document.querySelector('.scene-caption small');
-  if (sceneTitle) sceneTitle.textContent = 'Langit Jakarta';
-  if (sceneNote) sceneNote.textContent = 'Tampilan otomatis sesuai waktu dan cuaca';
-
-  if (!heroLeft) return;
-
-  let badge = document.getElementById('weatherBadge');
-  if (!badge) {
-    badge = document.createElement('div');
-    badge.className = 'weather-badge';
-    badge.id = 'weatherBadge';
-    badge.innerHTML = '<span class="weather-dot" aria-hidden="true"></span><span class="weather-lines"><strong class="weather-main" id="weatherText">Sinkronisasi langit…</strong><small class="weather-caption"><span id="weatherMeta">Jakarta · otomatis</span> · <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></small></span>';
-    heroLeft.insertBefore(badge, heroLeft.firstChild);
-  }
-
-  const weatherText = document.getElementById('weatherText');
-  const weatherMeta = document.getElementById('weatherMeta');
-  const themeMeta = document.querySelector('meta[name="theme-color"]');
-  const API = 'https://api.open-meteo.com/v1/forecast?latitude=-6.2088&longitude=106.8456&current=temperature_2m,weather_code,cloud_cover,precipitation&daily=sunrise,sunset&timezone=Asia%2FJakarta&forecast_days=2';
-  const CACHE_KEY = 'ruangsalat:weather-sync-v3';
-  const labels = {
-    clear: 'Cerah',
-    cloudy: 'Berawan',
-    overcast: 'Mendung',
-    rain: 'Hujan',
-    storm: 'Badai petir',
-    fog: 'Berkabut',
-    unknown: 'Langit Jakarta'
-  };
-
-  const fmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
-  let weather = null;
-  let solar = null;
-  let loading = false;
-  let lastFetch = 0;
-
-  const getParts = (date = new Date()) => {
-    const map = Object.fromEntries(fmt.formatToParts(date).filter(x => x.type !== 'literal').map(x => [x.type, x.value]));
-    return { date: `${map.year}-${map.month}-${map.day}`, minute: Number(map.hour) * 60 + Number(map.minute) };
-  };
-
-  const parseSolarMinute = value => {
-    if (typeof value !== 'string') return null;
-    const m = value.match(/T(\d{2}):(\d{2})/);
-    return m ? Number(m[1]) * 60 + Number(m[2]) : null;
-  };
-
-  const classify = (code, cloud = 0) => {
-    if (code === 0 || code === 1) return 'clear';
-    if (code === 2) return 'cloudy';
-    if (code === 3) return 'overcast';
-    if (code === 45 || code === 48) return 'fog';
-    if (code >= 95) return 'storm';
-    if ((code >= 51 && code <= 82) || (code >= 85 && code <= 86)) return 'rain';
-    if (typeof cloud === 'number' && cloud >= 75) return 'overcast';
-    if (typeof cloud === 'number' && cloud >= 38) return 'cloudy';
-    return 'unknown';
-  };
-
-  const computePhase = () => {
-    const now = getParts();
-    let sunrise = 330;
-    let sunset = 1080;
-    if (solar && solar.date === now.date) {
-      sunrise = solar.sunrise ?? sunrise;
-      sunset = solar.sunset ?? sunset;
-    }
-    if (now.minute < sunrise || now.minute >= sunset) return 'night';
-    if (now.minute < sunrise + 35) return 'dawn';
-    if (now.minute >= sunset - 55) return 'sunset';
-    return 'day';
-  };
-
-  const applyTheme = (fromCache = false) => {
-    const phase = computePhase();
-    root.dataset.phase = phase;
-    const condition = weather ? classify(weather.weather_code, weather.cloud_cover) : 'unknown';
-    root.dataset.weather = condition;
-
-    if (themeMeta) {
-      const color = phase === 'night' ? '#0a1d2d' : condition === 'rain' || condition === 'storm' ? '#dfeaf1' : '#ebf7fd';
-      themeMeta.setAttribute('content', color);
-    }
-
-    const temp = weather && typeof weather.temperature_2m === 'number' ? `${Math.round(weather.temperature_2m)}°C` : 'WIB';
-    if (weatherText) weatherText.textContent = `${labels[condition]} · ${temp}`;
-    if (weatherMeta) weatherMeta.textContent = `${fromCache ? 'Cuaca tersimpan' : 'Cuaca Jakarta'} · ${phase === 'night' ? 'tema malam' : phase === 'sunset' ? 'tema senja' : phase === 'dawn' ? 'tema fajar' : 'tema siang'}`;
-    if (sceneNote) sceneNote.textContent = weather ? `${labels[condition]} · ${temp} · sinkron otomatis` : 'Tampilan otomatis sesuai waktu dan cuaca';
-  };
-
-  const readCache = () => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(CACHE_KEY));
-      if (!saved || !saved.data || typeof saved.savedAt !== 'number') return false;
-      if (Date.now() - saved.savedAt > 45 * 60 * 1000) return false;
-      weather = saved.data.current || null;
-      const today = getParts().date;
-      const idx = saved.data.daily?.time?.indexOf(today) ?? -1;
-      if (idx >= 0) {
-        solar = {
-          date: today,
-          sunrise: parseSolarMinute(saved.data.daily.sunrise?.[idx]),
-          sunset: parseSolarMinute(saved.data.daily.sunset?.[idx])
-        };
-      }
-      applyTheme(true);
-      return true;
-    } catch {
-      return false;
-    }
-  };
-
-  const fetchWeather = async (force = false) => {
-    if (loading) return;
-    if (!force && Date.now() - lastFetch < 8 * 60 * 1000) return;
-    loading = true;
-    lastFetch = Date.now();
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 9000);
-    try {
-      const res = await fetch(API, { signal: controller.signal, cache: 'no-store' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      weather = data.current || null;
-      const today = getParts().date;
-      const idx = data.daily?.time?.indexOf(today) ?? -1;
-      if (idx >= 0) {
-        solar = {
-          date: today,
-          sunrise: parseSolarMinute(data.daily.sunrise?.[idx]),
-          sunset: parseSolarMinute(data.daily.sunset?.[idx])
-        };
-      }
-      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ savedAt: Date.now(), data })); } catch {}
-      applyTheme(false);
-    } catch (err) {
-      console.warn('Weather sync failed:', err);
-      applyTheme(readCache());
-    } finally {
-      clearTimeout(timer);
-      loading = false;
-    }
-  };
-
-  applyTheme(false);
-  readCache();
-  fetchWeather(true);
-  setInterval(() => applyTheme(Boolean(weather)), 30000);
-  setInterval(() => fetchWeather(false), 10 * 60 * 1000);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) { applyTheme(Boolean(weather)); fetchWeather(false); } });
-  window.addEventListener('online', () => fetchWeather(true));
+  const root=document.documentElement;
+  const current=document.getElementById('weatherText');
+  const meta=document.getElementById('weatherMeta');
+  const theme=document.querySelector('meta[name="theme-color"]');
+  const endpoint='https://api.open-meteo.com/v1/forecast?latitude=-6.2088&longitude=106.8456&current=temperature_2m,weather_code,cloud_cover,precipitation&daily=sunrise,sunset&timezone=Asia%2FJakarta&forecast_days=2';
+  const key='ruangsalat:weather-apple-v4';
+  const fmt=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+  const labels={clear:'Cerah',cloudy:'Berawan',overcast:'Mendung',rain:'Hujan',storm:'Badai petir',fog:'Berkabut',unknown:'Jakarta'};
+  let weather=null,solar=null,lastAttempt=0,loading=false,cached=false;
+  function nowParts(){const p=Object.fromEntries(fmt.formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return{date:`${p.year}-${p.month}-${p.day}`,minute:+p.hour*60+(+p.minute)}}
+  function minute(s){const m=typeof s==='string'&&s.match(/T(\d\d):(\d\d)/);return m?(+m[1]*60+ +m[2]):null}
+  function phase(){const p=nowParts(),rise=solar?.date===p.date?solar.rise:330,set=solar?.date===p.date?solar.set:1080;return p.minute<rise||p.minute>=set?'night':p.minute<rise+35?'dawn':p.minute>=set-55?'sunset':'day'}
+  function condition(c,cloud){if(c===0||c===1)return'clear';if(c===2)return'cloudy';if(c===3)return'overcast';if(c===45||c===48)return'fog';if(c>=95)return'storm';if((c>=51&&c<=82)||(c>=85&&c<=86))return'rain';if(Number.isFinite(cloud))return cloud>=75?'overcast':cloud>=38?'cloudy':'clear';return'unknown'}
+  function paint(){const ph=phase(),cond=weather?condition(weather.weather_code,weather.cloud_cover):'unknown';root.dataset.phase=ph;root.dataset.weather=cond;const t=weather&&Number.isFinite(weather.temperature_2m)?` · ${Math.round(weather.temperature_2m)}°C`:'';current.textContent=weather?labels[cond]+t:(ph==='night'?'Malam di Jakarta':'Langit Jakarta');meta.textContent=cached?'Cuaca tersimpan · WIB':weather?'Cuaca Jakarta · WIB':'Tema otomatis · WIB';theme?.setAttribute('content',ph==='night'?'#0a1730':ph==='sunset'?'#a7699b':'#4489cd')}
+  function take(d,wasCached){if(!Number.isFinite(d?.current?.weather_code))return;weather=d.current;cached=wasCached;const i=d.daily?.time?.indexOf(nowParts().date)??-1;if(i>=0){const rise=minute(d.daily.sunrise?.[i]),set=minute(d.daily.sunset?.[i]);if(rise!==null&&set!==null&&rise<set)solar={date:nowParts().date,rise,set}}paint()}
+  try{const o=JSON.parse(localStorage.getItem(key));if(o&&Date.now()-o.ts<3600000)take(o.data,true)}catch{}
+  paint();
+  async function fetchWeather(force=false){if(loading||!force&&Date.now()-lastAttempt<(weather?600000:180000))return;lastAttempt=Date.now();loading=true;const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8500);try{const r=await fetch(endpoint,{signal:controller.signal,cache:'no-store'});if(!r.ok)throw Error('Cuaca '+r.status);const d=await r.json();take(d,false);try{localStorage.setItem(key,JSON.stringify({ts:Date.now(),data:d}))}catch{}}catch(err){console.warn('Cuaca Jakarta:',err)}finally{clearTimeout(timer);loading=false}}
+  fetchWeather();setInterval(()=>{paint();fetchWeather()},30000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden){paint();fetchWeather()}});
+  window.addEventListener('online',()=>fetchWeather(true));
 })();
 </script>
-
-</body>
-</html>
+</body></html>
