@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#4489cd" />
-<meta name="description" content="Ruang Salat Jakarta: jam WIB, waktu salat, hitung mundur, cuaca otomatis dan azan pilihan." />
-<title>ruangsalat. — Jakarta</title>
+<meta name="description" content="Ruang Salat TB Simatupang, Jakarta Selatan: jadwal salat Kemenag Kota Jakarta, cuaca lokal, hitung mundur dan azan otomatis." />
+<title>ruangsalat. — TB Simatupang, Jakarta Selatan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -69,6 +69,9 @@ html[data-weather="rain"] .atmosphere:after,html[data-weather="storm"] .atmosphe
 @media(max-width:760px){.arabic-line{margin-bottom:12px}.arabic-text{font-size:31px}.arabic-translation{font-size:10px;margin-top:-7px}.hero-left{padding-top:62px}.hero-title{font-size:clamp(72px,16vw,108px)}.countdown{font-size:clamp(43px,10vw,68px)}.app{grid-template-rows:auto minmax(355px,1fr) auto auto}.hero{min-height:355px}}
 @media(max-width:390px){.hero{min-height:345px}.arabic-text{font-size:28px}.hero-title{font-size:clamp(64px,15vw,85px)}.countdown{font-size:40px}}
 @media(max-height:800px) and (min-width:761px){.arabic-line{margin-bottom:10px}.arabic-text{font-size:clamp(29px,2.6vw,39px)}.hero-title{font-size:clamp(76px,8.2vw,128px)}.countdown{font-size:clamp(54px,5.8vw,91px)}.count-label{margin-top:7px}}
+
+/* Keep the precise weather location visible on mobile. */
+@media(max-width:760px){.weather-caption{display:block;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px}.hero-left{padding-top:68px}}
 </style>
 <!-- Bundled photographic sky assets; the page works without external image servers. -->
 <script id="skyAssetLoader">
@@ -355,9 +358,9 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
 <div class="atmosphere" aria-hidden="true"></div>
   <main class="app" id="app">
     <header class="topbar">
-      <div class="brand"><div class="brand-heading">ruang<span>salat.</span></div><span class="brand-sub">Jakarta</span></div>
+      <div class="brand"><div class="brand-heading">ruang<span>salat.</span></div><span class="brand-sub">Jakarta Selatan</span></div>
       <div class="header-right">
-        <div class="location">DKI Jakarta, Indonesia</div>
+        <div class="location" title="Titik cuaca sekitar ANTAM Office Building, Tanjung Barat, Jakarta Selatan">TB Simatupang · Jakarta Selatan</div>
         <div class="clock-info"><span class="top-time" id="clock">--:--:--</span><span class="top-zone">WIB</span></div>
         <div class="inline-actions">
           <button id="soundBtn" class="pill-button sound-button" title="Aktifkan audio azan" aria-pressed="false"><svg id="soundIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19 6a9 9 0 0 1 0 12"/></svg><span id="soundText">Aktifkan azan</span></button>
@@ -368,13 +371,13 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
     </header>
     <section class="hero" aria-label="Waktu salat berikutnya">
       <div class="hero-left">
-        <div id="weatherBadge" class="weather-badge"><span class="weather-dot" aria-hidden="true"></span><span class="weather-lines"><span class="weather-main" id="weatherText">Cuaca Jakarta</span><small class="weather-caption" id="weatherMeta">Memuat cuaca · Open-Meteo</small></span></div>
+        <div id="weatherBadge" class="weather-badge"><span class="weather-dot" aria-hidden="true"></span><span class="weather-lines"><span class="weather-main" id="weatherText">Cuaca TB Simatupang</span><small class="weather-caption" id="weatherMeta">Memuat cuaca · Open-Meteo</small></span></div>
         <div class="arabic-line" aria-label="Salat adalah cahaya"><span class="arabic-text" lang="ar" dir="rtl">الصَّلَاةُ نُورٌ</span><span class="arabic-translation">Salat adalah cahaya</span></div>
         <div class="eyebrow"><span id="kicker">WAKTU SALAT BERIKUTNYA</span></div>
         <h1 id="nextPrayer" class="hero-title">—</h1>
         <div class="count-label" id="countLabel">Menghitung waktu menuju salat</div>
         <div id="countdown" class="countdown" aria-label="Hitung mundur">--:--:--</div>
-        <div class="next-at"><span id="nextDescription">Menyiapkan jadwal Jakarta…</span><span class="tiny-sep" aria-hidden="true"></span><span id="nextDay">WIB</span></div>
+        <div class="next-at"><span id="nextDescription">Menyiapkan jadwal Kota Jakarta…</span><span class="tiny-sep" aria-hidden="true"></span><span id="nextDay">WIB</span></div>
       </div>
     </section>
     <section class="schedule-block" aria-labelledby="scheduleTitle">
@@ -387,14 +390,14 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
         <div class="prayer" data-prayer="isya"><div class="prayer-name">Isya <span class="mini-tag" hidden>Berikutnya</span></div><div class="prayer-time">--:--</div></div>
       </div>
     </section>
-    <footer class="footbar"><div class="foot-left"><span class="source-dot error" id="sourceDot"></span><span id="sourceText">Memuat jadwal waktu salat …</span></div><div class="foot-right"><button class="text-btn" id="testBtn">Uji suara azan</button><span>Jakarta · UTC+7</span></div></footer>
+    <footer class="footbar"><div class="foot-left"><span class="source-dot error" id="sourceDot"></span><span id="sourceText">Memuat jadwal waktu salat …</span></div><div class="foot-right"><button class="text-btn" id="testBtn">Uji suara azan</button><span>TB Simatupang · WIB</span></div></footer>
   </main>
   <div class="azan-overlay" id="azanOverlay" role="dialog" aria-modal="true" aria-labelledby="azanName" aria-hidden="true">
     <button class="azan-close" id="azanClose" aria-label="Tutup pemberitahuan azan">✕</button>
     <div class="azan-content"><div class="azan-halo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3a8 8 0 0 1 16 0v3M2 15v4h5v-4H2Zm15 0v4h5v-4h-5Z"/><path d="M4 19c1 2 3 3 6 3h4c3 0 5-1 6-3"/></svg></div><div class="azan-arabic" lang="ar" dir="rtl">حَيَّ عَلَى الصَّلَاةِ</div><div class="azan-kicker" id="azanKicker">TELAH TIBA WAKTU SALAT</div><div class="azan-name" id="azanName">Maghrib</div><p class="azan-message">Saatnya menunaikan salat.<br>Semoga hari ini dipenuhi keberkahan.</p><button class="azan-stop" id="stopAzanBtn">Hentikan azan</button></div>
   </div>
 
-  <dialog id="settingsDialog" aria-labelledby="settingsTitle"><div class="modal-in"><div class="modal-top"><div class="modal-title" id="settingsTitle">Pengaturan azan</div><button class="modal-close" aria-label="Tutup pengaturan" id="closeSettings">×</button></div><p class="modal-desc">Azan diputar otomatis untuk lima waktu salat Jakarta. Rekaman Kurdi Alafasy memakai versi Subuh tersendiri. Aktifkan audio melalui tombol di atas terlebih dahulu.</p><label for="volumeSlider" class="setting-label"><span>Volume azan</span><span id="volumeValue">250%</span></label><input type="range" id="volumeSlider" class="volume" min="0" max="400" step="10" value="250"><p class="volume-help">100% = normal · 250% = lebih keras · maksimal 400%. Penguat suara memakai pembatas puncak untuk mengurangi risiko suara pecah.</p><div class="setting-divider"></div><label class="setting-label">Pilih suara azan</label>
+  <dialog id="settingsDialog" aria-labelledby="settingsTitle"><div class="modal-in"><div class="modal-top"><div class="modal-title" id="settingsTitle">Pengaturan azan</div><button class="modal-close" aria-label="Tutup pengaturan" id="closeSettings">×</button></div><p class="modal-desc">Azan diputar otomatis mengikuti jadwal resmi Kemenag wilayah Kota Jakarta, yang digunakan untuk TB Simatupang, Jakarta Selatan. Cuaca menggunakan titik TB Simatupang. Rekaman Kurdi Alafasy memakai versi Subuh tersendiri. Aktifkan audio melalui tombol di atas terlebih dahulu.</p><label for="volumeSlider" class="setting-label"><span>Volume azan</span><span id="volumeValue">250%</span></label><input type="range" id="volumeSlider" class="volume" min="0" max="400" step="10" value="250"><p class="volume-help">100% = normal · 250% = lebih keras · maksimal 400%. Penguat suara memakai pembatas puncak untuk mengurangi risiko suara pecah.</p><div class="setting-divider"></div><label class="setting-label">Pilih suara azan</label>
       <div class="audio-options" role="group" aria-label="Pilih rekaman azan">
         <button class="audio-option active" type="button" data-azan-preset="kurdi" aria-pressed="true"><span><strong>Sheikh Mishary Alafasy · Kurdi</strong><small>Pilihan utama · Subuh &amp; salat lainnya (versi berbeda)</small></span><span class="audio-mark" aria-hidden="true"></span></button>
         <button class="audio-option" type="button" data-azan-preset="lantang" aria-pressed="false"><span><strong>Azan lengkap</strong><small>2:34 · Wikimedia Commons · CC0</small></span><span class="audio-mark" aria-hidden="true"></span></button>
@@ -452,8 +455,8 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
     function renderClock(now){$('clock').textContent=fmtTime.format(new Date(now));$('dateLabel').textContent=fmtDate.format(new Date(now))}
     function update(){const now=Date.now(),day=localDate(now);renderClock(now);if(state.date!==day){state.date=day;const prev=state.schedules.get(day);if(!prev){useCache(day);ensureSchedules().catch(err=>console.warn('Schedule:',err));}}
       const today=state.schedules.get(day),tomorrow=state.schedules.get(nextDate(day));
-      if(!today){$('nextPrayer').textContent='—';$('countdown').textContent='--:--:--';$('nextDescription').textContent='Jadwal Jakarta belum tersedia';state.lastTickMs=now;if(state.retryAt&&now>=state.retryAt){state.retryAt=now+60000;ensureSchedules().catch(()=>{})}return}
-      changeSource('Jadwal '+today.source+' · WIB',true);
+      if(!today){$('nextPrayer').textContent='—';$('countdown').textContent='--:--:--';$('nextDescription').textContent='Jadwal Kota Jakarta belum tersedia';state.lastTickMs=now;if(state.retryAt&&now>=state.retryAt){state.retryAt=now+60000;ensureSchedules().catch(()=>{})}return}
+      changeSource('Jadwal '+today.source+' · Kota Jakarta (Jaksel) · WIB',true);
       const timeline=getTimeline(day,today);const upcoming=timeline.find(p=>p.ms>now)|| (tomorrow?getTimeline(nextDate(day),tomorrow)[0]:null);
       const latest=[...timeline].reverse().find(p=>p.ms<=now);state.current=latest?.key||'';state.next=upcoming;state.nextMs=upcoming?.ms||0;
       for(const p of PRAYERS){const el=document.querySelector(`.prayer[data-prayer="${p.key}"]`);el.querySelector('.prayer-time').textContent=today[p.key];el.classList.toggle('is-current',p.key===state.current);const isNext=upcoming?.day===day&&upcoming.key===p.key;el.classList.toggle('is-next',isNext);el.querySelector('.mini-tag').hidden=!isNext;}
@@ -583,20 +586,21 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
   const current=document.getElementById('weatherText');
   const meta=document.getElementById('weatherMeta');
   const theme=document.querySelector('meta[name="theme-color"]');
-  const endpoint='https://api.open-meteo.com/v1/forecast?latitude=-6.2088&longitude=106.8456&current=temperature_2m,weather_code,cloud_cover,precipitation&daily=sunrise,sunset&timezone=Asia%2FJakarta&forecast_days=2';
-  const key='ruangsalat:weather-apple-v4';
+  // Titik acuan cuaca: sekitar ANTAM Office Building, Jl. TB Simatupang No. 1, Tanjung Barat, Jakarta Selatan.
+  const endpoint='https://api.open-meteo.com/v1/forecast?latitude=-6.3022&longitude=106.8429&current=temperature_2m,weather_code,cloud_cover,precipitation&daily=sunrise,sunset&timezone=Asia%2FJakarta&forecast_days=2';
+  const key='ruangsalat:weather-tb-simatupang-v1';
   const fmt=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
-  const labels={clear:'Cerah',cloudy:'Berawan',overcast:'Mendung',rain:'Hujan',storm:'Badai petir',fog:'Berkabut',unknown:'Jakarta'};
+  const labels={clear:'Cerah',cloudy:'Berawan',overcast:'Mendung',rain:'Hujan',storm:'Badai petir',fog:'Berkabut',unknown:'TB Simatupang'};
   let weather=null,solar=null,lastAttempt=0,loading=false,cached=false;
   function nowParts(){const p=Object.fromEntries(fmt.formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return{date:`${p.year}-${p.month}-${p.day}`,minute:+p.hour*60+(+p.minute)}}
   function minute(s){const m=typeof s==='string'&&s.match(/T(\d\d):(\d\d)/);return m?(+m[1]*60+ +m[2]):null}
   function phase(){const p=nowParts(),rise=solar?.date===p.date?solar.rise:330,set=solar?.date===p.date?solar.set:1080;return p.minute<rise||p.minute>=set?'night':p.minute<rise+35?'dawn':p.minute>=set-55?'sunset':'day'}
   function condition(c,cloud){if(c===0||c===1)return'clear';if(c===2)return'cloudy';if(c===3)return'overcast';if(c===45||c===48)return'fog';if(c>=95)return'storm';if((c>=51&&c<=82)||(c>=85&&c<=86))return'rain';if(Number.isFinite(cloud))return cloud>=75?'overcast':cloud>=38?'cloudy':'clear';return'unknown'}
-  function paint(){const ph=phase(),cond=weather?condition(weather.weather_code,weather.cloud_cover):'unknown';root.dataset.phase=ph;root.dataset.weather=cond;const t=weather&&Number.isFinite(weather.temperature_2m)?` · ${Math.round(weather.temperature_2m)}°C`:'';current.textContent=weather?labels[cond]+t:(ph==='night'?'Malam di Jakarta':'Langit Jakarta');meta.textContent=cached?'Cuaca tersimpan · WIB':weather?'Cuaca Jakarta · WIB':'Tema otomatis · WIB';theme?.setAttribute('content',ph==='night'?'#0a1730':ph==='sunset'?'#a7699b':'#4489cd')}
+  function paint(){const ph=phase(),cond=weather?condition(weather.weather_code,weather.cloud_cover):'unknown';root.dataset.phase=ph;root.dataset.weather=cond;const t=weather&&Number.isFinite(weather.temperature_2m)?` · ${Math.round(weather.temperature_2m)}°C`:'';current.textContent=weather?labels[cond]+t:(ph==='night'?'Malam di TB Simatupang':'Langit TB Simatupang');meta.textContent=cached?'Cuaca tersimpan · WIB':weather?'Cuaca TB Simatupang · WIB':'Tema otomatis · WIB';theme?.setAttribute('content',ph==='night'?'#0a1730':ph==='sunset'?'#a7699b':'#4489cd')}
   function take(d,wasCached){if(!Number.isFinite(d?.current?.weather_code))return;weather=d.current;cached=wasCached;const i=d.daily?.time?.indexOf(nowParts().date)??-1;if(i>=0){const rise=minute(d.daily.sunrise?.[i]),set=minute(d.daily.sunset?.[i]);if(rise!==null&&set!==null&&rise<set)solar={date:nowParts().date,rise,set}}paint()}
   try{const o=JSON.parse(localStorage.getItem(key));if(o&&Date.now()-o.ts<3600000)take(o.data,true)}catch{}
   paint();
-  async function fetchWeather(force=false){if(loading||!force&&Date.now()-lastAttempt<(weather?600000:180000))return;lastAttempt=Date.now();loading=true;const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8500);try{const r=await fetch(endpoint,{signal:controller.signal,cache:'no-store'});if(!r.ok)throw Error('Cuaca '+r.status);const d=await r.json();take(d,false);try{localStorage.setItem(key,JSON.stringify({ts:Date.now(),data:d}))}catch{}}catch(err){console.warn('Cuaca Jakarta:',err)}finally{clearTimeout(timer);loading=false}}
+  async function fetchWeather(force=false){if(loading||!force&&Date.now()-lastAttempt<(weather?600000:180000))return;lastAttempt=Date.now();loading=true;const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8500);try{const r=await fetch(endpoint,{signal:controller.signal,cache:'no-store'});if(!r.ok)throw Error('Cuaca '+r.status);const d=await r.json();take(d,false);try{localStorage.setItem(key,JSON.stringify({ts:Date.now(),data:d}))}catch{}}catch(err){console.warn('Cuaca TB Simatupang:',err)}finally{clearTimeout(timer);loading=false}}
   fetchWeather();setInterval(()=>{paint();fetchWeather()},30000);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden){paint();fetchWeather()}});
   window.addEventListener('online',()=>fetchWeather(true));
