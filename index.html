@@ -158,6 +158,11 @@ html[data-phase="night"]:is([data-weather="rain"],[data-weather="storm"]) .pilgr
  .foot-right{flex:0 0 auto;white-space:nowrap}
  #sourceText{font-size:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
 }
+
+/* New user-selected photo; original panorama remains as a fallback until asset is uploaded. */
+.pilgrim-scene{background-image:url("ruangsalat-photo.jpg"),var(--pilgrim-photo)!important;background-size:50% auto,cover!important;background-position:left center,center center!important;background-repeat:no-repeat!important;background-color:#172b3b!important}
+.pilgrim-scene:before{background:linear-gradient(90deg,transparent 0%,rgba(13,31,48,.08) 28%,rgba(12,30,49,.88) 51%,#0c1e31 75%)!important}
+@media(max-width:850px){.pilgrim-scene{background-size:cover,cover!important;background-position:40% center,left center!important}.pilgrim-scene:before{background:linear-gradient(180deg,rgba(9,21,38,.40),rgba(9,23,40,.55) 40%,rgba(7,19,34,.9))!important}}
 </style>
 <!-- Bundled photographic sky assets; the page works without external image servers. -->
 <script id="skyAssetLoader">
@@ -442,7 +447,7 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
 </head>
 <body>
 <div class="atmosphere" aria-hidden="true"></div>
-<div class="pilgrim-scene" role="img" aria-label="Suasana Masjidil Haram, orang berihram di atas unta, berlatar Kaaba dan cahaya matahari"><span class="photo-mark">MAKKAH AL-MUKARRAMAH</span></div>
+<div class="pilgrim-scene" role="img" aria-label="Foto seseorang menunggang unta dengan latar piramida Mesir"><span class="photo-mark">MAKKAH AL-MUKARRAMAH</span></div>
   <main class="app" id="app">
     <header class="topbar">
       <div class="brand"><div class="brand-heading">ruang<span>salat.</span></div><span class="brand-sub">Jakarta Selatan</span></div>
