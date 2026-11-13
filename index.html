@@ -131,25 +131,6 @@ html:is([data-weather="rain"],[data-weather="storm"]):not([data-phase="night"]) 
 @media(prefers-reduced-motion:reduce){.hero-left:before{animation:none}}
 
 
-/* V8: single panoramic image, not two rectangular panels. The photograph and
-   weather atmosphere are already blended in the asset: no overlapping masks. */
-.app:before,.app:after{display:none!important}
-.pilgrim-scene{inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;z-index:-1!important;isolation:auto!important;background-image:var(--pilgrim-photo)!important;background-size:cover!important;background-repeat:no-repeat!important;background-position:center center!important;box-shadow:none!important;opacity:1!important;-webkit-mask-image:none!important;mask-image:none!important;filter:none!important}
-.pilgrim-scene:before{content:""!important;position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 0%,rgba(13,31,48,.01) 36%,rgba(12,30,49,.10) 56%,rgba(10,28,49,.22) 100%)!important}
-.pilgrim-scene:after{display:none!important}
-html[data-phase="night"] .pilgrim-scene{filter:brightness(.76) saturate(.75)!important}
-html:is([data-weather="rain"],[data-weather="storm"]) .pilgrim-scene{filter:brightness(.82) saturate(.72)!important}
-html[data-phase="night"]:is([data-weather="rain"],[data-weather="storm"]) .pilgrim-scene{filter:brightness(.67) saturate(.60)!important}
-.hero{background:none!important}
-.schedule-block:before{display:none!important}
-/* Keep the panoramic lighting balanced on short desktop and laptop screens. */
-@media (min-width:851px) and (max-height:800px){.pilgrim-scene{background-position:center 46%!important}}
-/* Mobile: focus image subject instead of the desktop blank atmospheric region. */
-@media (max-width:850px){
- .pilgrim-scene{background-position:left center!important;opacity:.58!important}
- .pilgrim-scene:before{background:linear-gradient(180deg,rgba(9,21,38,.62),rgba(9,23,40,.56) 42%,rgba(7,19,34,.84))!important}
-}
-
 /* Compact the footer on phones so prayer rail and status never overlap. */
 @media (max-width:850px){
  .footbar{flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;min-height:22px!important;overflow:hidden}
@@ -159,34 +140,36 @@ html[data-phase="night"]:is([data-weather="rain"],[data-weather="storm"]) .pilgr
 }
 
 
-/* V10: image scale follows screen height and photo dissolves into the timer panel. */
-@media(min-width:851px){
- .pilgrim-scene{
-  background-color:#122233!important;
-  background-image:linear-gradient(90deg,#39536b 0%,#2b4159 27%,#1c3047 43%,#122233 58%,#122233 100%)!important;
-  background-size:100% 100%!important;
-  background-position:center!important;
-  background-repeat:no-repeat!important;
- }
- .pilgrim-scene:before{
-  content:""!important;position:absolute!important;inset:0!important;
-  background:url("./ruangsalat-photo.jpg") left top/auto 100% no-repeat!important;
-  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 23%,rgba(0,0,0,.94) 26%,rgba(0,0,0,.62) 30%,rgba(0,0,0,.21) 33%,transparent 36%)!important;
-  mask-image:linear-gradient(90deg,#000 0%,#000 23%,rgba(0,0,0,.94) 26%,rgba(0,0,0,.62) 30%,rgba(0,0,0,.21) 33%,transparent 36%)!important;
-  filter:none!important;pointer-events:none!important;
- }
- .pilgrim-scene:after{display:none!important}
- .hero-left{width:min(100%,clamp(310px,28vw,460px),calc(100dvh - 168px))!important}
+
+/* V11: photo-matched panoramic backdrop.
+   The portrait and navy atmosphere are blended in one optimized image.
+   No separate CSS fade, vertical seam, or conflicting pseudo-element layers. */
+.app:before,.app:after{display:none!important}
+.pilgrim-scene{
+ position:fixed!important;inset:0!important;width:100vw!important;
+ height:100vh!important;height:100dvh!important;z-index:-1!important;
+ background-color:#0f1c2c!important;
+ background-image:url("./assets/ruangsalat-panorama.webp")!important;
+ background-size:cover!important;background-position:center center!important;
+ background-repeat:no-repeat!important;
+ opacity:1!important;filter:none!important;box-shadow:none!important;
+ isolation:auto!important;-webkit-mask-image:none!important;mask-image:none!important;
 }
+.pilgrim-scene:before,.pilgrim-scene:after{display:none!important}
+.hero{background:none!important}
+.schedule-block:before{display:none!important}
+html[data-phase="night"] .pilgrim-scene{filter:brightness(.72) saturate(.73)!important}
+html:is([data-weather="rain"],[data-weather="storm"]):not([data-phase="night"]) .pilgrim-scene{filter:brightness(.86) saturate(.80)!important}
+html[data-phase="night"]:is([data-weather="rain"],[data-weather="storm"]) .pilgrim-scene{filter:brightness(.64) saturate(.63)!important}
 @media(max-width:850px){
  .pilgrim-scene{
-  background-image:linear-gradient(180deg,rgba(8,19,32,.41),rgba(8,21,35,.58) 46%,rgba(7,18,32,.91)),url("./ruangsalat-photo.jpg")!important;
+  background-image:linear-gradient(180deg,rgba(8,19,32,.49),rgba(8,21,35,.61) 46%,rgba(7,18,32,.92)),url("./ruangsalat-photo.jpg")!important;
   background-size:100% 100%,auto 100%!important;
-  background-position:center,24% center!important;
-  background-repeat:no-repeat!important;
+  background-position:center center,24% center!important;
+  opacity:1!important;
  }
+ .pilgrim-scene:before,.pilgrim-scene:after{display:none!important}
 }
-
 </style>
 <!-- Bundled photographic sky assets; the page works without external image servers. -->
 <script id="skyAssetLoader">
