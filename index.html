@@ -158,19 +158,35 @@ html[data-phase="night"]:is([data-weather="rain"],[data-weather="storm"]) .pilgr
  #sourceText{font-size:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
 }
 
-/* Actual image uploaded to GitHub; no second photographic fallback layer. */
-.pilgrim-scene{
- background-color:transparent!important;
- background-image:linear-gradient(90deg,rgba(18,34,51,.05) 0%,rgba(18,34,51,.02) 27%,rgba(18,34,51,.26) 36%,rgba(18,34,51,.76) 49%,#122233 63%,rgba(18,34,51,.92) 76%,rgba(18,34,51,.88) 100%),url("./ruangsalat-photo.jpg")!important;
- background-size:100% 100%,66% auto!important;
- background-position:center center,left 9%!important;
- background-repeat:no-repeat!important;
+
+/* V10: image scale follows screen height and photo dissolves into the timer panel. */
+@media(min-width:851px){
+ .pilgrim-scene{
+  background-color:#122233!important;
+  background-image:linear-gradient(90deg,#39536b 0%,#2b4159 27%,#1c3047 43%,#122233 58%,#122233 100%)!important;
+  background-size:100% 100%!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+ }
+ .pilgrim-scene:before{
+  content:""!important;position:absolute!important;inset:0!important;
+  background:url("./ruangsalat-photo.jpg") left top/auto 100% no-repeat!important;
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 23%,rgba(0,0,0,.94) 26%,rgba(0,0,0,.62) 30%,rgba(0,0,0,.21) 33%,transparent 36%)!important;
+  mask-image:linear-gradient(90deg,#000 0%,#000 23%,rgba(0,0,0,.94) 26%,rgba(0,0,0,.62) 30%,rgba(0,0,0,.21) 33%,transparent 36%)!important;
+  filter:none!important;pointer-events:none!important;
+ }
+ .pilgrim-scene:after{display:none!important}
+ .hero-left{width:min(100%,clamp(310px,28vw,460px),calc(100dvh - 168px))!important}
 }
-.pilgrim-scene:before{background:linear-gradient(180deg,rgba(6,17,29,.07),transparent 34%,rgba(7,19,34,.12))!important}
 @media(max-width:850px){
- .pilgrim-scene{background-image:linear-gradient(180deg,rgba(8,19,32,.47),rgba(8,21,35,.60) 45%,rgba(7,18,32,.91)),url("./ruangsalat-photo.jpg")!important;background-size:100% 100%,cover!important;background-position:center center,39% center!important}
- .pilgrim-scene:before{background:transparent!important}
+ .pilgrim-scene{
+  background-image:linear-gradient(180deg,rgba(8,19,32,.41),rgba(8,21,35,.58) 46%,rgba(7,18,32,.91)),url("./ruangsalat-photo.jpg")!important;
+  background-size:100% 100%,auto 100%!important;
+  background-position:center,24% center!important;
+  background-repeat:no-repeat!important;
+ }
 }
+
 </style>
 <!-- Bundled photographic sky assets; the page works without external image servers. -->
 <script id="skyAssetLoader">
