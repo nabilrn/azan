@@ -170,6 +170,21 @@ html[data-phase="night"]:is([data-weather="rain"],[data-weather="storm"]) .pilgr
  }
  .pilgrim-scene:before,.pilgrim-scene:after{display:none!important}
 }
+
+/* Ashar-only scene. Default image remains the existing seamless panorama. */
+html[data-next-prayer="ashar"] .pilgrim-scene{
+  background-image:url("./assets/ashar-panorama.webp")!important;
+  background-size:cover!important;
+  background-position:center center!important;
+  background-repeat:no-repeat!important;
+}
+@media(max-width:850px){
+  html[data-next-prayer="ashar"] .pilgrim-scene{
+    background-image:linear-gradient(180deg,rgba(8,19,32,.45),rgba(8,21,35,.60) 46%,rgba(7,18,32,.88)),url("./assets/ashar-panorama.webp")!important;
+    background-size:100% 100%,auto 100%!important;
+    background-position:center center,left center!important;
+  }
+}
 </style>
 <!-- Bundled photographic sky assets; the page works without external image servers. -->
 <script id="skyAssetLoader">
@@ -451,6 +466,7 @@ const css=Object.entries(imageB64).map(([k,v])=>`--sky-${k}:url("data:image/webp
 const style=document.createElement("style");style.id="embeddedSkyPhotos";style.textContent=`:root{${css}}`;document.head.appendChild(style);
 })();
 </script>
+  <link rel="preload" href="./assets/ashar-panorama.webp" as="image" />
 </head>
 <body>
 <div class="atmosphere" aria-hidden="true"></div>
@@ -554,9 +570,12 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
     function renderClock(now){$('clock').textContent=fmtTime.format(new Date(now));$('dateLabel').textContent=fmtDate.format(new Date(now))}
     function update(){const now=Date.now(),day=localDate(now);renderClock(now);if(state.date!==day){state.date=day;const prev=state.schedules.get(day);if(!prev){useCache(day);ensureSchedules().catch(err=>console.warn('Schedule:',err));}}
       const today=state.schedules.get(day),tomorrow=state.schedules.get(nextDate(day));
-      if(!today){$('nextPrayer').textContent='—';$('countdown').textContent='--:--:--';$('nextDescription').textContent='Jadwal Kota Jakarta belum tersedia';state.lastTickMs=now;if(state.retryAt&&now>=state.retryAt){state.retryAt=now+60000;ensureSchedules().catch(()=>{})}return}
+      if(!today){document.documentElement.dataset.nextPrayer='';$('nextPrayer').textContent='—';$('countdown').textContent='--:--:--';$('nextDescription').textContent='Jadwal Kota Jakarta belum tersedia';state.lastTickMs=now;if(state.retryAt&&now>=state.retryAt){state.retryAt=now+60000;ensureSchedules().catch(()=>{})}return}
       changeSource('Jadwal '+today.source+' · Kota Jakarta (Jaksel) · WIB',true);
       const timeline=getTimeline(day,today);const upcoming=timeline.find(p=>p.ms>now)|| (tomorrow?getTimeline(nextDate(day),tomorrow)[0]:null);
+      // Only show the alternate photo while the NEXT prayer is Ashar.
+      const photoMode=upcoming?.key==='ashar'?'ashar':'';
+      if(document.documentElement.dataset.nextPrayer!==photoMode)document.documentElement.dataset.nextPrayer=photoMode;
       const latest=[...timeline].reverse().find(p=>p.ms<=now);state.current=latest?.key||'';state.next=upcoming;state.nextMs=upcoming?.ms||0;
       for(const p of PRAYERS){const el=document.querySelector(`.prayer[data-prayer="${p.key}"]`);el.querySelector('.prayer-time').textContent=today[p.key];el.classList.toggle('is-current',p.key===state.current);const isNext=upcoming?.day===day&&upcoming.key===p.key;el.classList.toggle('is-next',isNext);el.querySelector('.mini-tag').hidden=!isNext;}
       if(upcoming){$('nextPrayer').textContent=upcoming.name;$('kicker').textContent='WAKTU SALAT BERIKUTNYA';$('countLabel').textContent='Waktu tersisa menuju '+upcoming.name;$('nextDescription').textContent=upcoming.time+' WIB';$('nextDay').textContent=upcoming.day===day?'Hari ini':'Besok';let seconds=Math.max(0,Math.ceil((upcoming.ms-now)/1000));const hrs=Math.floor(seconds/3600);seconds%=3600;const mins=Math.floor(seconds/60),secs=seconds%60;$('countdown').innerHTML=`${String(hrs).padStart(2,'0')}<span class="colon">:</span>${String(mins).padStart(2,'0')}<span class="colon">:</span>${String(secs).padStart(2,'0')}`;}else{$('nextPrayer').textContent='Subuh';$('countdown').textContent='--:--:--';$('nextDescription').textContent='Menyiapkan jadwal besok';$('nextDay').textContent='';if(!tomorrow&&now>=state.retryAt&&!state.loading){state.retryAt=now+60000;ensureSchedules().catch(()=>{})}}
