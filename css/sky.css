@@ -1,0 +1,7 @@
+/* Original sky artwork, extracted from the inline Base64 payload. */
+:root {
+  --sky-clear: url("../assets/sky/clear.webp");
+  --sky-cloudy: url("../assets/sky/cloudy.webp");
+  --sky-rain: url("../assets/sky/rain.webp");
+  --sky-night: url("../assets/sky/night.webp");
+}

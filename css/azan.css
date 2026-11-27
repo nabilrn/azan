@@ -1,0 +1,120 @@
+/* Azan mode: reuse the second panoramic image, without blurring the photograph. */
+.azan-overlay {
+  justify-content:flex-end;
+  isolation:isolate;
+  overflow:auto;
+  backdrop-filter:none;
+  background:#122335;
+  padding:clamp(24px,5vw,90px);
+  transition:opacity .45s ease,visibility .45s
+}
+
+.azan-overlay:before {
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:url("../assets/ashar-panorama.webp") center/cover no-repeat
+}
+
+.azan-content {
+  width:min(54%,740px);
+  margin:auto 0;
+  position:relative;
+  text-shadow:0 2px 22px #071321aa
+}
+
+.azan-halo {
+  display:none
+}
+
+.azan-arabic {
+  color:#fbe4b0;
+  margin:0 0 12px;
+  font-size:clamp(32px,4vw,60px)
+}
+
+.azan-kicker {
+  color:#fbe4b0;
+  letter-spacing:.17em
+}
+
+.azan-name {
+  font-size:clamp(64px,8vw,124px);
+  margin:8px 0 12px;
+  color:#fff9ed
+}
+
+.azan-time {
+  font-size:clamp(18px,2.2vw,32px);
+  font-variant-numeric:tabular-nums;
+  color:#fbe4b0;
+  margin:0 0 14px
+}
+
+.azan-message {
+  margin:0 0 24px;
+  color:#fff5e4;
+  font-size:clamp(13px,1.3vw,17px)
+}
+
+.azan-stop {
+  background:#fff1d5;
+  color:#25303c
+}
+
+.azan-close {
+  z-index:1;
+  width:44px;
+  height:44px;
+  border:1px solid #ffffff40;
+  border-radius:50%;
+  background:#14253799
+}
+
+@media(max-width:850px) {
+  .azan-overlay {
+    justify-content:center;
+    align-items:flex-end;
+    padding:24px 18px max(28px,env(safe-area-inset-bottom))
+  }
+  .azan-overlay:before {
+    background-image:linear-gradient(180deg,transparent 0%,rgba(10,23,39,.12) 25%,rgba(10,23,39,.94) 62%,#0a1727 100%),url("../assets/ashar-panorama.webp");
+    background-size:100% 100%,auto 100%;
+    background-position:center,left center
+  }
+  .azan-content {
+    width:100%;
+    margin:0 auto;
+    max-width:540px
+  }
+  .azan-name {
+    font-size:clamp(52px,12vw,86px)
+  }
+  .azan-arabic {
+    font-size:36px
+  }
+  .azan-message {
+    margin-bottom:18px
+  }
+}
+
+@media(max-height:520px) {
+  .azan-overlay {
+    align-items:center
+  }
+  .azan-content {
+    margin:auto 0
+  }
+  .azan-arabic {
+    font-size:28px;
+    margin-bottom:4px
+  }
+  .azan-name {
+    font-size:52px;
+    margin:4px 0
+  }
+  .azan-time,.azan-message {
+    margin-bottom:8px
+  }
+}
