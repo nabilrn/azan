@@ -76,3 +76,27 @@ html:is([data-next-prayer="ashar"], [data-next-prayer="maghrib"]) .pilgrim-scene
     background-position:center center,left center!important;
   }
 }
+
+/* Feather only the baked panorama seam. The original image stays aligned
+   pixel-for-pixel: no change to the cover sizing, crop, or dashboard layout. */
+@media (min-width: 851px) {
+  .pilgrim-scene {
+    overflow: hidden;
+  }
+
+  .pilgrim-scene::before {
+    content: "";
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: inherit;
+    filter: blur(clamp(16px, 1.8vw, 34px));
+    -webkit-mask-image: linear-gradient(90deg, transparent 24%, #000 35%, #000 49%, transparent 62%);
+    mask-image: linear-gradient(90deg, transparent 24%, #000 35%, #000 49%, transparent 62%);
+  }
+
+  .pilgrim-scene .photo-mark {
+    z-index: 1;
+  }
+}
