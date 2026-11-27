@@ -6,7 +6,22 @@
   backdrop-filter:none;
   background: transparent;
   padding:clamp(24px,5vw,90px);
-  transition:opacity .45s ease,visibility .45s
+  transition:none
+}
+
+/* The scene is shared, but the dashboard is not part of the azan screen.
+   Hide the entire dashboard in one operation, including its ring and schedule. */
+html[data-azan-active="true"] #app {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: none !important;
+}
+
+/* Reveal the azan content only after the dashboard has been hidden.
+   Closing is instantaneous, so the two text layouts never overlap. */
+.azan-overlay.visible {
+  transition: opacity .35s ease;
 }
 
 .azan-overlay:before {
@@ -18,7 +33,8 @@
 }
 
 .azan-content {
-  width:min(54%,740px);
+  width:min(49%,740px);
+  min-width:0;
   margin:auto 0;
   position:relative;
   text-shadow:0 2px 22px #071321aa
@@ -40,7 +56,9 @@
 }
 
 .azan-name {
-  font-size:clamp(64px,8vw,124px);
+  font-size:clamp(52px,6.2vw,104px);
+  letter-spacing:-.055em;
+  overflow-wrap:anywhere;
   margin:8px 0 12px;
   color:#fff9ed
 }
@@ -87,7 +105,7 @@
     max-width:540px
   }
   .azan-name {
-    font-size:clamp(52px,12vw,86px)
+    font-size:clamp(44px,10vw,76px)
   }
   .azan-arabic {
     font-size:36px
@@ -115,4 +133,8 @@
   .azan-time,.azan-message {
     margin-bottom:8px
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .azan-overlay.visible { transition: none; }
 }

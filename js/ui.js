@@ -46,12 +46,12 @@ function keepSilentOverlay(onClose){
 function hideOverlay(){
   clearTimeout(overlayTimer);
   const wasVisible=$('azanOverlay').classList.contains('visible');
+  $('azanOverlay').classList.remove('visible');
+  $('azanOverlay').setAttribute('aria-hidden','true');
+  delete document.documentElement.dataset.azanActive;
   $('app').inert=false;
   if(wasVisible)$('soundBtn').focus({
     preventScroll:true
   });
-  $('azanOverlay').classList.remove('visible');
-  delete document.documentElement.dataset.azanActive;
-  $('azanOverlay').setAttribute('aria-hidden','true')
 }
 export { toast, changeSource, renderClock, showOverlay, keepSilentOverlay, hideOverlay };
