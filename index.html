@@ -185,6 +185,20 @@ html[data-next-prayer="ashar"] .pilgrim-scene{
     background-position:center center,left center!important;
   }
 }
+/* Azan mode: reuse the second panoramic image, without blurring the photograph. */
+.azan-overlay{justify-content:flex-end;isolation:isolate;overflow:auto;backdrop-filter:none;background:#122335;padding:clamp(24px,5vw,90px);transition:opacity .45s ease,visibility .45s}
+.azan-overlay:before{content:"";position:fixed;inset:0;z-index:-1;background:url("./assets/ashar-panorama.webp") center/cover no-repeat}
+.azan-content{width:min(54%,740px);margin:auto 0;position:relative;text-shadow:0 2px 22px #071321aa}
+.azan-halo{display:none}
+.azan-arabic{color:#fbe4b0;margin:0 0 12px;font-size:clamp(32px,4vw,60px)}
+.azan-kicker{color:#fbe4b0;letter-spacing:.17em}
+.azan-name{font-size:clamp(64px,8vw,124px);margin:8px 0 12px;color:#fff9ed}
+.azan-time{font-size:clamp(18px,2.2vw,32px);font-variant-numeric:tabular-nums;color:#fbe4b0;margin:0 0 14px}
+.azan-message{margin:0 0 24px;color:#fff5e4;font-size:clamp(13px,1.3vw,17px)}
+.azan-stop{background:#fff1d5;color:#25303c}
+.azan-close{z-index:1;width:44px;height:44px;border:1px solid #ffffff40;border-radius:50%;background:#14253799}
+@media(max-width:850px){.azan-overlay{justify-content:center;align-items:flex-end;padding:24px 18px max(28px,env(safe-area-inset-bottom))}.azan-overlay:before{background-image:linear-gradient(180deg,transparent 0%,rgba(10,23,39,.12) 25%,rgba(10,23,39,.94) 62%,#0a1727 100%),url("./assets/ashar-panorama.webp");background-size:100% 100%,auto 100%;background-position:center,left center}.azan-content{width:100%;margin:0 auto;max-width:540px}.azan-name{font-size:clamp(52px,12vw,86px)}.azan-arabic{font-size:36px}.azan-message{margin-bottom:18px}}
+@media(max-height:520px){.azan-overlay{align-items:center}.azan-content{margin:auto 0}.azan-arabic{font-size:28px;margin-bottom:4px}.azan-name{font-size:52px;margin:4px 0}.azan-time,.azan-message{margin-bottom:8px}}
 </style>
 <!-- Bundled photographic sky assets; the page works without external image servers. -->
 <script id="skyAssetLoader">
@@ -509,7 +523,7 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
   </main>
   <div class="azan-overlay" id="azanOverlay" role="dialog" aria-modal="true" aria-labelledby="azanName" aria-hidden="true">
     <button class="azan-close" id="azanClose" aria-label="Tutup pemberitahuan azan">✕</button>
-    <div class="azan-content"><div class="azan-halo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3a8 8 0 0 1 16 0v3M2 15v4h5v-4H2Zm15 0v4h5v-4h-5Z"/><path d="M4 19c1 2 3 3 6 3h4c3 0 5-1 6-3"/></svg></div><div class="azan-arabic" lang="ar" dir="rtl">حَيَّ عَلَى الصَّلَاةِ</div><div class="azan-kicker" id="azanKicker">TELAH TIBA WAKTU SALAT</div><div class="azan-name" id="azanName">Maghrib</div><p class="azan-message">Saatnya menunaikan salat.<br>Semoga hari ini dipenuhi keberkahan.</p><button class="azan-stop" id="stopAzanBtn">Hentikan azan</button></div>
+    <div class="azan-content"><div class="azan-halo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3a8 8 0 0 1 16 0v3M2 15v4h5v-4H2Zm15 0v4h5v-4h-5Z"/><path d="M4 19c1 2 3 3 6 3h4c3 0 5-1 6-3"/></svg></div><div class="azan-arabic" lang="ar" dir="rtl">حَيَّ عَلَى الصَّلَاةِ</div><div class="azan-kicker" id="azanKicker">TELAH TIBA WAKTU SALAT</div><div class="azan-name" id="azanName">Maghrib</div><div class="azan-time" id="azanTime" hidden></div><p class="azan-message">Saatnya menunaikan salat.<br>Semoga hari ini dipenuhi keberkahan.</p><button class="azan-stop" id="stopAzanBtn">Hentikan azan</button></div>
   </div>
 
   <dialog id="settingsDialog" aria-labelledby="settingsTitle"><div class="modal-in"><div class="modal-top"><div class="modal-title" id="settingsTitle">Pengaturan azan</div><button class="modal-close" aria-label="Tutup pengaturan" id="closeSettings">×</button></div><p class="modal-desc">Azan mengikuti jadwal Kemenag Kota Jakarta dan cuaca memakai titik TB Simatupang. Rekaman Kurdi Alafasy memakai versi Subuh tersendiri. Aktifkan audio melalui tombol di atas terlebih dahulu.</p><label for="volumeSlider" class="setting-label"><span>Volume azan</span><span id="volumeValue">250%</span></label><input type="range" id="volumeSlider" class="volume" min="0" max="400" step="10" value="250"><p class="volume-help">100% = normal · 250% = lebih keras · maksimal 400%. Penguat suara memakai pembatas puncak untuk mengurangi risiko suara pecah.</p><div class="setting-divider"></div><label class="setting-label">Pilih suara azan</label>
@@ -523,7 +537,7 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
       <button class="audio-preview" type="button" id="previewFajr" style="margin-top:-6px;background:transparent">▶ Dengarkan versi Subuh</button>
       <p class="audio-license" id="audioLicense">Sumber: <a id="audioCreditLink" target="_blank" rel="noopener noreferrer" href="https://alafasyinshad.blogspot.com/2014/07/azan-kard-al-fajr-mp3.html">Mishary Alafasy · MP3 Kurdi 2014 (Internet Archive)</a></p>
       <p class="audio-license" id="audioRightsNote">Rekaman tersedia publik untuk didengarkan. Izin redistribusi tidak diverifikasi; audio diputar langsung dari host asli dan tidak disertakan dalam ZIP.</p>
-      <label class="file-btn">Atau pakai MP3 / audio sendiri<input type="file" id="audioFile" accept="audio/*"></label><div class="audio-state"><span id="audioSource">Sheikh Mishary Alafasy · Kurdi</span><button id="resetAudio" class="reset" type="button">Kembalikan bawaan</button></div><p class="modal-help">Untuk penggunaan layar masjid/kantor, unggah file azan lokal agar tidak bergantung koneksi audio. File disimpan hanya di browser perangkat ini. Jangan tutup tab jika ingin azan berbunyi tepat waktu.</p></div></dialog>
+      <label class="file-btn">Atau pakai MP3 / audio sendiri<input type="file" id="audioFile" accept="audio/*"></label><div class="audio-state"><span id="audioSource">Sheikh Mishary Alafasy · Kurdi</span><button id="resetAudio" class="reset" type="button">Kembalikan bawaan</button></div><p class="modal-help">Untuk penggunaan layar masjid/kantor, unggah file azan lokal agar tidak bergantung koneksi audio. File disimpan hanya di browser perangkat ini. Rekaman pilihan juga diunduh ke cache lokal jika host mengizinkan. Jangan tutup tab jika ingin azan berbunyi tepat waktu.</p></div></dialog>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <audio id="azanAudio" preload="auto" crossorigin="anonymous"></audio>
@@ -547,6 +561,9 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
     const $ = id => document.getElementById(id);
     const state = { schedules:new Map(), yearJobs:new Map(), monthJobs:new Map(), date:'', next:null, nextMs:0, current:'', audioEnabled:false, playing:false, demo:false, lastTickMs:Date.now(), source:'', customUrl:null, audioPreset:savedPreset(), audioContext:null, audioNode:null, audioGain:null, audioLimiter:null, retryAt:0, loading:false };
     const audio=$('azanAudio');
+    let overlayTimer, playbackToken=0, activeTrackUrl=null, activeTrackKey=null;
+    const audioJobs=new Map(), cachedTracks=new Map();
+    const silentAzanMs=180000;
     audio.src=AUDIO_PRESETS[state.audioPreset].url;
     audio.preload='auto';
     const fmtTime=new Intl.DateTimeFormat('en-GB',{timeZone:TZ,hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
@@ -558,17 +575,17 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
     function nextDate(date){return localDate(Date.parse(date+'T12:00:00+07:00')+86400000)}
     function toMs(date,time){return Date.parse(`${date}T${time}:00+07:00`)}
     function isHHMM(s){return typeof s==='string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(s)}
-    function normalise(obj){const d={};for(const p of PRAYERS){if(!isHHMM(obj[p.key]))return null;d[p.key]=obj[p.key]}return d}
+    function normalise(obj){if(!obj||typeof obj!=='object')return null;const d={};for(const p of PRAYERS){if(!isHHMM(obj[p.key]))return null;d[p.key]=obj[p.key]}return d}
     function changeSource(text,ok){$('sourceText').textContent=text;$('sourceDot').classList.toggle('error',!ok)}
-    function setSchedule(date,values,source){const d=normalise(values);if(!d)return false;const old=state.schedules.get(date);if(!old||source==='Kemenag RI · Sajadah'){state.schedules.set(date,{...d,source});try{localStorage.setItem('ruangsalat:'+date,JSON.stringify({...d,source}))}catch{}}return true}
+    function setSchedule(date,values,source){const d=normalise(values);if(!d)return false;const old=state.schedules.get(date);if(!old||source==='Kemenag RI · Sajadah'||(old.source.startsWith('Cache lokal')&&!old.source.includes('Sajadah'))){state.schedules.set(date,{...d,source});try{localStorage.setItem('ruangsalat:'+date,JSON.stringify({...d,source}))}catch{}}return true}
     function useCache(date){if(state.schedules.has(date))return true;try{const v=JSON.parse(localStorage.getItem('ruangsalat:'+date));const d=v&&normalise(v);if(d){state.schedules.set(date,{...d,source:'Cache lokal · '+(v.source||'jadwal tersimpan')});return true}}catch{}return false}
     async function fetchJson(url){const c=new AbortController(),timer=setTimeout(()=>c.abort(),9000);try{const res=await fetch(url,{signal:c.signal,cache:'no-cache'});if(!res.ok)throw Error('HTTP '+res.status);return await res.json()}finally{clearTimeout(timer)}}
     async function loadYear(year){if(state.yearJobs.has(year))return state.yearJobs.get(year);const job=(async()=>{const j=await fetchJson(`https://sajadah.org/api/v1/times/id/kota-jakarta/${year}.json`);if(j.schema!==1||j.region?.id!=='kota-jakarta'||!Array.isArray(j.fields)||!Array.isArray(j.days))throw Error('Format data Sajadah tidak valid');let count=0;for(const day of j.days){const o=Object.fromEntries(j.fields.map((k,i)=>[k,day[i]]));if(/^\d{4}-\d{2}-\d{2}$/.test(o.date)&&setSchedule(o.date,{subuh:o.fajr,dzuhur:o.dhuhr,ashar:o.asr,maghrib:o.maghrib,isya:o.isha},'Kemenag RI · Sajadah'))count++}if(count<300)throw Error('Data belum lengkap');})();state.yearJobs.set(year,job);try{return await job}catch(err){state.yearJobs.delete(year);throw err}}
     async function loadMonth(year,month){const key=year+'-'+month;if(state.monthJobs.has(key))return state.monthJobs.get(key);const job=(async()=>{const j=await fetchJson(`https://api.myquran.com/v2/sholat/jadwal/1301/${year}/${month}`);if(j.status!==true||!j.data?.jadwal)throw Error('Data myQuran tidak valid');const rows=Array.isArray(j.data.jadwal)?j.data.jadwal:Object.values(j.data.jadwal);let count=0;for(const o of rows){const date=/^\d{4}-\d{2}-\d{2}$/.test(o.tanggal)?o.tanggal:(/^\d{4}-\d{2}-\d{2}$/.test(o.date)?o.date:null);if(date&&setSchedule(date,{subuh:o.subuh,dzuhur:o.dzuhur,ashar:o.ashar,maghrib:o.maghrib,isya:o.isya},'Kemenag RI · myQuran'))count++}if(!count)throw Error('Jadwal kosong');})();state.monthJobs.set(key,job);try{return await job}catch(err){state.monthJobs.delete(key);throw err}}
-    async function ensureSchedules(){if(state.loading)return;state.loading=true;try{const today=localDate(),tomorrow=nextDate(today);useCache(today);useCache(tomorrow);if(state.schedules.has(today)&&state.schedules.has(tomorrow))update();const years=[...new Set([Number(today.slice(0,4)),Number(tomorrow.slice(0,4))])];try{await Promise.all(years.map(loadYear))}catch(err){console.warn('Sajadah tidak tersedia:',err.message)}if(!state.schedules.has(today)||!state.schedules.has(tomorrow)){const months=[...new Set([today.slice(0,7),tomorrow.slice(0,7)])];await Promise.allSettled(months.map(s=>loadMonth(Number(s.slice(0,4)),Number(s.slice(5,7)))))}update();if(!state.schedules.has(today)){changeSource('Jadwal gagal dimuat · cek koneksi internet',false);state.retryAt=Date.now()+60000}else state.retryAt=0}finally{state.loading=false}}
+    async function ensureSchedules(){if(state.loading)return;state.loading=true;try{const today=localDate(),tomorrow=nextDate(today);useCache(today);useCache(tomorrow);if(state.schedules.has(today)&&state.schedules.has(tomorrow))update();let fresh=false;try{fresh=localStorage.getItem('ruangsalat:refreshed')===today}catch{}if(fresh&&state.schedules.has(today)&&state.schedules.has(tomorrow)){state.retryAt=0;return}const years=[...new Set([Number(today.slice(0,4)),Number(tomorrow.slice(0,4))])];let refreshed=false;try{await Promise.all(years.map(loadYear));refreshed=true}catch(err){console.warn('Sajadah tidak tersedia:',err.message)}if(!refreshed||!state.schedules.has(today)||!state.schedules.has(tomorrow)){const months=[...new Set([today.slice(0,7),tomorrow.slice(0,7)])];const results=await Promise.allSettled(months.map(s=>loadMonth(Number(s.slice(0,4)),Number(s.slice(5,7)))));refreshed=refreshed||results.every(r=>r.status==='fulfilled')}if(refreshed&&state.schedules.has(today)&&state.schedules.has(tomorrow)){try{localStorage.setItem('ruangsalat:refreshed',today)}catch{}}update();if(!state.schedules.has(today)){changeSource('Jadwal gagal dimuat · cek koneksi internet',false);state.retryAt=Date.now()+60000}else state.retryAt=0}finally{state.loading=false}}
     function getTimeline(day, data){return PRAYERS.map(p=>({...p,day,time:data[p.key],ms:toMs(day,data[p.key])}))}
     function renderClock(now){$('clock').textContent=fmtTime.format(new Date(now));$('dateLabel').textContent=fmtDate.format(new Date(now))}
-    function update(){const now=Date.now(),day=localDate(now);renderClock(now);if(state.date!==day){state.date=day;const prev=state.schedules.get(day);if(!prev){useCache(day);ensureSchedules().catch(err=>console.warn('Schedule:',err));}}
+    function update(){const now=Date.now(),day=localDate(now);renderClock(now);if(state.date!==day){state.date=day;const prev=state.schedules.get(day);if(!prev)useCache(day);useCache(nextDate(day));ensureSchedules().catch(err=>console.warn('Schedule:',err));}
       const today=state.schedules.get(day),tomorrow=state.schedules.get(nextDate(day));
       if(!today){document.documentElement.dataset.nextPrayer='';$('nextPrayer').textContent='—';$('countdown').textContent='--:--:--';$('nextDescription').textContent='Jadwal Kota Jakarta belum tersedia';state.lastTickMs=now;if(state.retryAt&&now>=state.retryAt){state.retryAt=now+60000;ensureSchedules().catch(()=>{})}return}
       changeSource('Jadwal '+today.source+' · Kota Jakarta (Jaksel) · WIB',true);
@@ -586,10 +603,11 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
     }
     function storeLastFired(p){try{localStorage.setItem('ruangsalat:lastazan',p.day+'-'+p.key)}catch{}}
     function alreadyFired(p){try{return localStorage.getItem('ruangsalat:lastazan')===p.day+'-'+p.key}catch{return false}}
-    function onPrayerStarts(p){if(alreadyFired(p))return;storeLastFired(p);if(state.audioEnabled){playAzan(p.name,false)}else{toast('Waktu '+p.name+' telah tiba · aktifkan suara untuk azan berikutnya')}}
-    function showOverlay(name,isDemo){$('azanName').textContent=name;$('azanKicker').textContent=isDemo?'PRATINJAU SUARA AZAN':'TELAH TIBA WAKTU SALAT';$('azanOverlay').classList.add('visible');$('azanOverlay').setAttribute('aria-hidden','false');$('stopAzanBtn').focus({preventScroll:true})}
-    function hideOverlay(){ $('azanOverlay').classList.remove('visible');$('azanOverlay').setAttribute('aria-hidden','true') }
-    function stopAzan(){audio.pause();try{audio.currentTime=0}catch{}state.playing=false;state.demo=false;hideOverlay()}
+    function onPrayerStarts(p){if(alreadyFired(p))return;storeLastFired(p);if(state.audioEnabled){playAzan(p.name,false,p.time)}else{stopAzan();showOverlay(p.name,false,p.time);keepSilentOverlay();toast('Waktu '+p.name+' telah tiba · suara belum diaktifkan')}}
+    function showOverlay(name,isDemo,time=''){clearTimeout(overlayTimer);$('azanName').textContent=name;$('azanKicker').textContent=isDemo?'PRATINJAU SUARA AZAN':'TELAH TIBA WAKTU SALAT';$('azanTime').textContent=time?time+' WIB':'';$('azanTime').hidden=!time;$('stopAzanBtn').textContent='Hentikan azan';$('azanOverlay').classList.add('visible');$('azanOverlay').setAttribute('aria-hidden','false');$('app').inert=true;$('stopAzanBtn').focus({preventScroll:true})}
+    function keepSilentOverlay(){$('stopAzanBtn').textContent='Tutup pemberitahuan';clearTimeout(overlayTimer);overlayTimer=setTimeout(stopAzan,silentAzanMs)}
+    function hideOverlay(){clearTimeout(overlayTimer);const wasVisible=$('azanOverlay').classList.contains('visible');$('app').inert=false;if(wasVisible)$('soundBtn').focus({preventScroll:true});$('azanOverlay').classList.remove('visible');$('azanOverlay').setAttribute('aria-hidden','true')}
+    function stopAzan(){playbackToken++;audio.pause();try{audio.currentTime=0}catch{}state.playing=false;state.demo=false;hideOverlay()}
     async function activateAudio(){if(state.audioEnabled){state.audioEnabled=false;stopAzan();setSoundUi();toast('Audio azan dinonaktifkan');return}try{
         // Resume Web Audio in the user's gesture. Media is connected so subsequent
         // scheduled playbacks are still audible in browsers with gesture restrictions.
@@ -611,7 +629,7 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
           applyVolume();
         }
         if(state.audioContext?.state==='suspended')await state.audioContext.resume();
-        state.audioEnabled=true;setSoundUi();toast('Azan aktif · pastikan tab tetap terbuka');
+        state.audioEnabled=true;setSoundUi();warmAudio();toast('Azan aktif · pastikan tab tetap terbuka');
       }catch(err){console.warn(err);state.audioEnabled=false;setSoundUi();toast('Gagal mengaktifkan audio. Coba lagi.')}
     }
     function setSoundUi(){const on=state.audioEnabled;$('soundBtn').classList.toggle('activated',on);$('soundBtn').setAttribute('aria-pressed',String(on));$('soundText').textContent=on?'Azan aktif':'Aktifkan azan';$('soundBtn').title=on?'Nonaktifkan audio':'Aktifkan audio azan';$('soundIcon').innerHTML=on?'<path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19 6a9 9 0 0 1 0 12"/>':'<path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m16 9 5 6m0-6-5 6"/>'}
@@ -620,12 +638,29 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
       const entry=AUDIO_PRESETS[state.audioPreset];
       return name==='Subuh'&&entry.fajrUrl?entry.fajrUrl:entry.url;
     }
-    async function playAzan(name,demo){
-      if(state.playing)stopAzan();
+    async function playAzan(name,demo,time=''){
+      stopAzan();const token=playbackToken;
+      showOverlay(name,demo,time);state.demo=demo;
       const track=currentTrack(name);
-      if(audio.src!==track){audio.src=track;audio.load()}
-      showOverlay(name,demo);state.demo=demo;applyVolume();audio.muted=false;try{audio.currentTime=0}catch{}try{if(state.audioContext?.state==='suspended')await state.audioContext.resume();await audio.play();state.playing=true}catch(err){console.warn('Audio tidak dapat diputar:',err);hideOverlay();state.playing=false;toast('Audio gagal diputar. Cek koneksi, browser, atau pilih audio lokal di pengaturan.')}}
-    audio.addEventListener('ended',()=>{state.playing=false;state.demo=false;hideOverlay()});audio.addEventListener('error',()=>{if(state.playing){state.playing=false;hideOverlay();toast('Rekaman azan tidak dapat dimuat; pilih file lokal di pengaturan.')}});
+      try{
+        const blob=state.customUrl?null:await readCachedTrack(track);
+        if(token!==playbackToken)return;
+        if(activeTrackKey!==track||(!activeTrackUrl&&blob)){
+          if(activeTrackUrl)URL.revokeObjectURL(activeTrackUrl);
+          activeTrackUrl=blob?URL.createObjectURL(blob):null;activeTrackKey=track;
+        }
+        const src=activeTrackUrl||track;
+        if(audio.src!==src){audio.src=src;audio.load()}
+        applyVolume();audio.muted=false;try{audio.currentTime=0}catch{}
+        if(state.audioContext?.state==='suspended')await state.audioContext.resume();
+        if(token!==playbackToken)return;
+        await audio.play();
+        if(token!==playbackToken)return;
+        state.playing=true;
+      }catch(err){if(token!==playbackToken)return;console.warn('Audio tidak dapat diputar:',err);state.playing=false;if(demo)hideOverlay();else keepSilentOverlay();toast('Audio gagal diputar. Cek koneksi atau pilih audio lokal di pengaturan.')}
+    }
+    audio.addEventListener('ended',()=>{if(state.playing)stopAzan()});
+    audio.addEventListener('error',()=>{if(state.playing){state.playing=false;if(state.demo)stopAzan();else keepSilentOverlay();toast('Rekaman azan tidak dapat dimuat.')}});
     $('soundBtn').addEventListener('click',activateAudio);
     $('testBtn').addEventListener('click',async()=>{if(!state.audioEnabled){await activateAudio();if(!state.audioEnabled)return}playAzan('Tes Azan',true)});
     $('stopAzanBtn').addEventListener('click',stopAzan);$('azanClose').addEventListener('click',stopAzan);
@@ -658,7 +693,26 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
       const link=$('audioCreditLink');link.href=entry.page;link.textContent=entry.credit;
       $('audioLicense').hidden=Boolean(state.customUrl);
     }
-    function openDB(){return new Promise((resolve,reject)=>{if(!('indexedDB'in window))return reject(Error('IndexedDB tidak tersedia'));const req=indexedDB.open('RuangSalatAudio',1);req.onupgradeneeded=()=>req.result.createObjectStore('audio');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+    function openDB(){return new Promise((resolve,reject)=>{if(!('indexedDB'in window))return reject(Error('IndexedDB tidak tersedia'));const req=indexedDB.open('RuangSalatAudio',1);req.onupgradeneeded=()=>req.result.createObjectStore('audio');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);req.onblocked=()=>reject(Error('IndexedDB terkunci'))})}
+    // Local browser audio cache; no base64 in localStorage and no redistribution in the repository.
+    async function readCachedTrack(url){
+      if(cachedTracks.has(url))return cachedTracks.get(url);
+      let db;try{db=await openDB();const row=await new Promise((resolve,reject)=>{const req=db.transaction('audio','readonly').objectStore('audio').get('preset:'+url);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});if(row?.blob?.size){cachedTracks.set(url,row.blob);return row.blob}}catch(err){console.warn('Cache audio:',err)}finally{db?.close()}return null;
+    }
+    async function cacheTrack(url){
+      if(audioJobs.has(url))return audioJobs.get(url);
+      const job=(async()=>{if(await readCachedTrack(url))return true;const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),30000);let db;
+        try{const res=await fetch(url,{signal:controller.signal,mode:'cors'});if(!res.ok)throw Error('HTTP '+res.status);const blob=await res.blob();if(!blob.size||blob.size>20*1024*1024||!/^(audio\/|application\/(ogg|octet-stream))/i.test(blob.type))throw Error('Format audio tidak valid');db=await openDB();await new Promise((resolve,reject)=>{const tx=db.transaction('audio','readwrite');tx.objectStore('audio').put({blob},'preset:'+url);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});cachedTracks.set(url,blob);return true}
+        catch(err){console.warn('Prefetch azan:',err);return false}finally{clearTimeout(timer);db?.close()}
+      })();audioJobs.set(url,job);try{return await job}finally{audioJobs.delete(url)}
+    }
+    async function warmAudio(){
+      if(state.customUrl)return;
+      const preset=state.audioPreset,entry=AUDIO_PRESETS[preset];
+      const tracks=[...new Set([entry.url,entry.fajrUrl].filter(Boolean))];
+      const results=await Promise.all(tracks.map(cacheTrack));
+      if(state.audioPreset===preset&&!state.customUrl){$('audioSource').textContent=entry.name+' · '+(results.every(Boolean)?'Audio tersimpan lokal':'Streaming / cache belum lengkap')}
+    }
     async function saveAudio(file){const db=await openDB();await new Promise((resolve,reject)=>{const tx=db.transaction('audio','readwrite');tx.objectStore('audio').put({blob:file,name:file.name},'custom');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});db.close()}
     async function removeCustom(){
       try{const db=await openDB();await new Promise((resolve,reject)=>{const tx=db.transaction('audio','readwrite');tx.objectStore('audio').delete('custom');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});db.close()}catch(err){console.warn('Reset audio lokal:',err)}
@@ -671,7 +725,7 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
       try{localStorage.setItem('ruangsalat:audioPreset:v2',key)}catch{}
       if(state.customUrl)URL.revokeObjectURL(state.customUrl);
       state.customUrl=null;
-      audio.src=AUDIO_PRESETS[key].url;audio.load();reflectPreset();
+      audio.src=AUDIO_PRESETS[key].url;audio.load();activeTrackKey=null;reflectPreset();warmAudio();
     }
     async function loadCustom(){try{const db=await openDB();const data=await new Promise((resolve,reject)=>{const req=db.transaction('audio','readonly').objectStore('audio').get('custom');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});db.close();if(data?.blob){if(state.customUrl)URL.revokeObjectURL(state.customUrl);state.customUrl=URL.createObjectURL(data.blob);audio.src=state.customUrl;audio.load();reflectPreset();$('audioSource').textContent=data.name;return true}}catch(err){console.warn('Local audio:',err)}reflectPreset();return false}
     document.querySelectorAll('[data-azan-preset]').forEach(btn=>btn.addEventListener('click',async()=>{
@@ -689,11 +743,11 @@ const style=document.createElement("style");style.id="embeddedSkyPhotos";style.t
     $('resetAudio').addEventListener('click',async()=>{await removeCustom();setPreset(DEFAULT_PRESET);toast('Azan bawaan dipulihkan')});
     reflectPreset();
     document.addEventListener('visibilitychange',()=>{if(!document.hidden){update();if(!state.schedules.has(localDate()))ensureSchedules().catch(()=>{})}});
-    window.addEventListener('online',()=>ensureSchedules().catch(()=>{}));
+    window.addEventListener('online',()=>{ensureSchedules().catch(()=>{});warmAudio()});
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('azanOverlay').classList.contains('visible'))stopAzan()});
     // Keep an explicit last-tick boundary (no retrospective alert when tab is first opened).
     state.lastTickMs=Date.now();
-    setSoundUi();loadCustom();update();ensureSchedules().catch(err=>{console.warn(err);changeSource('Jadwal gagal dimuat · cek koneksi internet',false);state.retryAt=Date.now()+60000});
+    setSoundUi();loadCustom().then(found=>{if(!found)warmAudio()});update();ensureSchedules().catch(err=>{console.warn(err);changeSource('Jadwal gagal dimuat · cek koneksi internet',false);state.retryAt=Date.now()+60000});
     setInterval(update,500);
   })();
   </script>
