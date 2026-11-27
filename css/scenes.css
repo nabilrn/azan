@@ -77,20 +77,29 @@ html:is([data-next-prayer="ashar"], [data-next-prayer="maghrib"]) .pilgrim-scene
   }
 }
 
-/* Preserve the original photo detail. Never blur or duplicate the subject.
-   The panorama already contains its own transition to the navy background.
-   A light color-only veil finishes the far-right background, not the photo. */
+/* The default panorama has a baked-in fade over the camel's face.
+   Use the unfiltered original on desktop and extend only its empty edge.
+   Keep mobile, the alternate panorama, and the countdown layout intact. */
+.original-photo-scene {
+  display: none;
+}
+
 @media (min-width: 851px) {
-  .pilgrim-scene::before {
-    content: "";
-    display: block !important;
+  .pilgrim-scene {
+    overflow: hidden;
+  }
+
+  .original-photo-scene {
+    display: block;
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
-    background: linear-gradient(90deg, transparent 52%, rgba(15, 28, 44, .025) 62%, rgba(15, 28, 44, .08) 80%, rgba(15, 28, 44, .12) 100%);
-    filter: none;
-    -webkit-mask-image: none;
-    mask-image: none;
+  }
+
+  html:is([data-next-prayer="ashar"], [data-next-prayer="maghrib"]) .original-photo-scene {
+    display: none;
   }
 
   .pilgrim-scene .photo-mark {
