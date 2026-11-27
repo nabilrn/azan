@@ -1,152 +1,145 @@
-/* V11: photo-matched panoramic backdrop.
-   The portrait and navy atmosphere are blended in one optimized image.
-   No separate CSS fade, vertical seam, or conflicting pseudo-element layers. */
-.app:before,.app:after {
-  display:none!important
+/* Full-screen photographic scene: sky, transparent foreground and UI scrim.
+   The sky and foreground share a single 1672:941 canvas, preventing seams
+   or independently cropped layers when the viewport changes. */
+.app:before, .app:after, .pilgrim-scene:before, .pilgrim-scene:after,
+.schedule-block:before {
+  display: none !important;
+}
+
+.atmosphere {
+  display: none !important;
 }
 
 .pilgrim-scene {
-  position:fixed!important;
-  inset:0!important;
-  width:100vw!important;
-  height:100vh!important;
-  height:100dvh!important;
-  z-index:-1!important;
-  background-color:#0f1c2c!important;
-  background-image:url("../assets/ruangsalat-panorama.webp")!important;
-  background-size:cover!important;
-  background-position:center center!important;
-  background-repeat:no-repeat!important;
-  opacity:1!important;
-  filter:none!important;
-  box-shadow:none!important;
-  isolation:auto!important;
-  -webkit-mask-image:none!important;
-  mask-image:none!important;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  z-index: -1 !important;
+  overflow: hidden;
+  background: #263c55 !important;
+  opacity: 1 !important;
+  filter: none !important;
+  isolation: isolate;
+  box-shadow: none !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
 }
 
-.pilgrim-scene:before,.pilgrim-scene:after {
-  display:none!important
+.scene-plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100vw, 177.6833vh);
+  height: max(100vh, 56.2799vw);
+  width: max(100vw, 177.6833dvh);
+  height: max(100dvh, 56.2799vw);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
-.hero {
-  background:none!important
+.scene-skies {
+  position: absolute;
+  inset: 0;
+  height: 59%;
+  background: #7298ba;
+  transition: filter 1.4s ease;
 }
 
-.schedule-block:before {
-  display:none!important
+.scene-sky {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.scene-sky[data-sky="day"] { opacity: 1; }
+html[data-sky="dawn"] .scene-sky[data-sky="dawn"],
+html[data-sky="sunset"] .scene-sky[data-sky="sunset"],
+html[data-sky="night"] .scene-sky[data-sky="night"],
+html[data-sky="cloudy"] .scene-sky[data-sky="cloudy"],
+html[data-sky="rain"] .scene-sky[data-sky="rain"] { opacity: 1; }
+
+.scene-foreground {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(1) saturate(1);
+  transition: filter 1.4s ease, opacity .55s ease;
+}
+.scene-foreground-1 { opacity: 1; }
+.scene-foreground-2 { opacity: 0; }
+
+/* Preserve the established prayer-based photo selection. */
+html:is([data-next-prayer="ashar"], [data-next-prayer="maghrib"], [data-azan-active="true"]) .scene-foreground-1 {
+  opacity: 0;
+}
+html:is([data-next-prayer="ashar"], [data-next-prayer="maghrib"], [data-azan-active="true"]) .scene-foreground-2 {
+  opacity: 1;
 }
 
-html[data-phase="night"] .pilgrim-scene {
-  filter:brightness(.72) saturate(.73)!important
+/* Color grade the land and subject, not their sharpness or geometry. */
+html[data-phase="dawn"] .scene-foreground {
+  filter: brightness(.84) saturate(.83) sepia(.09);
+}
+html[data-phase="sunset"] .scene-foreground {
+  filter: brightness(.79) saturate(1.13) sepia(.2);
+}
+html:is([data-sky="cloudy"], [data-sky="rain"]) .scene-foreground {
+  filter: brightness(.81) saturate(.72) contrast(.92);
+}
+html[data-sky="rain"] .scene-foreground {
+  filter: brightness(.62) saturate(.62) contrast(.95);
+}
+html[data-phase="night"] .scene-foreground {
+  filter: brightness(.30) saturate(.5) contrast(.97);
+}
+html[data-phase="night"][data-sky="rain"] .scene-skies {
+  filter: brightness(.38) saturate(.72);
 }
 
-html:is([data-weather="rain"],[data-weather="storm"]):not([data-phase="night"]) .pilgrim-scene {
-  filter:brightness(.86) saturate(.80)!important
+/* The scene remains photographic from edge to edge. A translucent veil
+   is only for text contrast; it never replaces the sky or sand. */
+.scene-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(12,24,38,.03) 0%, rgba(12,24,38,.06) 28%, rgba(12,24,38,.24) 47%, rgba(12,24,38,.46) 70%, rgba(12,24,38,.58) 100%),
+    linear-gradient(180deg, rgba(12,24,38,.30), transparent 18%, transparent 77%, rgba(12,24,38,.28));
+  transition: background-color .4s ease;
+}
+html[data-phase="night"] .scene-shade {
+  background-color: rgba(3,10,20,.06);
 }
 
-html[data-phase="night"]:is([data-weather="rain"],[data-weather="storm"]) .pilgrim-scene {
-  filter:brightness(.64) saturate(.63)!important
+.pilgrim-scene .photo-mark {
+  z-index: 2;
+  text-shadow: 0 1px 8px rgba(0,0,0,.85);
 }
 
-@media(max-width:850px) {
-  .pilgrim-scene {
-    background-image:linear-gradient(180deg,rgba(8,19,32,.49),rgba(8,21,35,.61) 46%,rgba(7,18,32,.92)),url("../ruangsalat-photo.jpg")!important;
-    background-size:100% 100%,auto 100%!important;
-    background-position:center center,24% center!important;
-    opacity:1!important;
+.hero { background: none !important; }
+
+@media (max-aspect-ratio: 16/9) {
+  .scene-plane {
+    left: clamp(calc(100vw - 177.6833vh), calc(50vw - 45vh), 0px);
+    left: clamp(calc(100vw - 177.6833dvh), calc(50vw - 45dvh), 0px);
+    transform: translateY(-50%);
   }
-  .pilgrim-scene:before,.pilgrim-scene:after {
-    display:none!important
+}
+
+@media (max-width: 850px) {
+  .scene-shade {
+    background: linear-gradient(180deg, rgba(12,24,38,.35), rgba(12,24,38,.43) 30%, rgba(12,24,38,.65) 78%, rgba(12,24,38,.76));
   }
 }
 
-/* Alternate panorama while waiting for Ashar or Maghrib. */
-html:is([data-next-prayer="ashar"], [data-next-prayer="maghrib"]) .pilgrim-scene {
-  background-image:url("../assets/ashar-panorama.webp")!important;
-  background-size:cover!important;
-  background-position:center center!important;
-  background-repeat:no-repeat!important;
-}
-
-@media(max-width:850px) {
-  html:is([data-next-prayer="ashar"], [data-next-prayer="maghrib"]) .pilgrim-scene {
-    background-image:linear-gradient(180deg,rgba(8,19,32,.45),rgba(8,21,35,.60) 46%,rgba(7,18,32,.88)),url("../assets/ashar-panorama.webp")!important;
-    background-size:100% 100%,auto 100%!important;
-    background-position:center center,left center!important;
-  }
-}
-
-/* Desktop default: a soft slate palette bridges the original photograph
-   and the dashboard. The image remains a single, unfiltered layer.
-   Feather its opacity into the actual background, rather than painting
-   an opaque gradient over a framed picture or extending its edge pixels. */
-.original-photo-scene {
-  display: none;
-}
-
-@media (min-width: 851px) {
-  html:not([data-next-prayer="ashar"]):not([data-next-prayer="maghrib"]) .pilgrim-scene {
-    --scene-width: min(45vw, 70.77dvh);
-    background-color: #304354 !important;
-    background-image: linear-gradient(
-      90deg,
-      #798b97 0%,
-      #798b97 25%,
-      #647987 36%,
-      #506675 45%,
-      #405666 58%,
-      #35495a 76%,
-      #304354 100%
-    ) !important;
-    overflow: hidden;
-  }
-
-  .original-photo-scene {
-    display: block;
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: var(--scene-width);
-    height: 100%;
-    margin: 0;
-    border: 0;
-    border-radius: 0;
-    overflow: hidden;
-    box-shadow: none;
-    background: none;
-  }
-
-  .original-photo-scene img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 68% center;
-    -webkit-mask-image: linear-gradient(90deg,
-      #000 0%, #000 76%,
-      rgba(0,0,0,.98) 80%,
-      rgba(0,0,0,.90) 85%,
-      rgba(0,0,0,.70) 90%,
-      rgba(0,0,0,.32) 95%,
-      transparent 100%);
-    mask-image: linear-gradient(90deg,
-      #000 0%, #000 76%,
-      rgba(0,0,0,.98) 80%,
-      rgba(0,0,0,.90) 85%,
-      rgba(0,0,0,.70) 90%,
-      rgba(0,0,0,.32) 95%,
-      transparent 100%);
-  }
-
-  .original-photo-scene figcaption {
-    display: none;
-  }
-
-  .pilgrim-scene .photo-mark {
-    z-index: 1;
-  }
-
-  html:is([data-next-prayer="ashar"], [data-next-prayer="maghrib"]) .original-photo-scene {
-    display: none;
-  }
+@media (prefers-reduced-motion: reduce) {
+  .scene-sky, .scene-foreground, .scene-skies, .scene-shade { transition: none; }
 }

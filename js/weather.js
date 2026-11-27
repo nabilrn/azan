@@ -36,10 +36,18 @@
     if(Number.isFinite(cloud))return cloud>=75?'overcast':cloud>=38?'cloudy':'clear';
     return'unknown'
   }
+  // Weather takes priority for rain; night otherwise retains its own starry sky.
+  function chooseSky(phase, condition) {
+    if (condition === 'rain' || condition === 'storm') return 'rain';
+    if (phase === 'night') return 'night';
+    if (['cloudy', 'overcast', 'fog'].includes(condition)) return 'cloudy';
+    return phase;
+  }
   function paint(){
     const ph=phase(),cond=weather?condition(weather.weather_code,weather.cloud_cover):'unknown';
     root.dataset.phase=ph;
     root.dataset.weather=cond;
+    root.dataset.sky=chooseSky(ph,cond);
     const t=weather&&Number.isFinite(weather.temperature_2m)?` · ${Math.round(weather.temperature_2m)}°C`:'';
     current.textContent=weather?labels[cond]+t:(ph==='night'?'Malam di TB Simatupang':'Langit TB Simatupang');
     meta.textContent=cached?'Cuaca tersimpan · WIB':weather?'Cuaca TB Simatupang · WIB':'Tema otomatis · WIB';

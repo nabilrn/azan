@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-phase="day" data-weather="clear">
+<html lang="id" data-phase="day" data-weather="clear" data-sky="day">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -15,16 +15,25 @@
 <link rel="stylesheet" href="./css/scenes.css" />
 <link rel="stylesheet" href="./css/azan.css" />
 
-  <link rel="preload" href="./assets/ashar-panorama.webp" as="image" />
+  <link rel="preload" href="./assets/scenes/foreground-1.webp" as="image" />
+  <link rel="preload" href="./assets/sky/day.webp" as="image" />
 </head>
 <body>
 <div class="atmosphere" aria-hidden="true"></div>
-<div class="pilgrim-scene" role="img" aria-label="Foto seseorang menunggang unta dengan latar piramida Mesir">
-  <!-- The original image is displayed without artificial extensions or masking. -->
-  <figure class="original-photo-scene">
-    <img src="./ruangsalat-photo.jpg" width="1024" height="1447" alt="" decoding="async" />
-    <figcaption>GIZA · MESIR</figcaption>
-  </figure>
+<div class="pilgrim-scene" role="img" aria-label="Panorama gurun dan piramida Mesir dengan langit adaptif">
+  <div class="scene-plane" aria-hidden="true">
+    <div class="scene-skies">
+      <img class="scene-sky" data-sky="day" src="./assets/sky/day.webp" alt="" fetchpriority="high" />
+      <img class="scene-sky" data-sky="dawn" src="./assets/sky/dawn.webp" alt="" />
+      <img class="scene-sky" data-sky="sunset" src="./assets/sky/sunset.webp" alt="" />
+      <img class="scene-sky" data-sky="night" src="./assets/sky/night.webp" alt="" />
+      <img class="scene-sky" data-sky="cloudy" src="./assets/sky/cloudy.webp" alt="" />
+      <img class="scene-sky" data-sky="rain" src="./assets/sky/rain.webp" alt="" />
+    </div>
+    <img class="scene-foreground scene-foreground-1" src="./assets/scenes/foreground-1.webp" width="1672" height="941" alt="" fetchpriority="high" />
+    <img class="scene-foreground scene-foreground-2" src="./assets/scenes/foreground-2.webp" width="1672" height="941" alt="" />
+  </div>
+  <div class="scene-shade" aria-hidden="true"></div>
   <span class="photo-mark">GIZA · MESIR</span>
 </div>
   <main class="app" id="app">

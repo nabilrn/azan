@@ -10,7 +10,7 @@ css/
   sky.css            # Referensi gambar langit
   base.css           # Token, komponen dasar, tema awal
   dashboard.css      # Layout dashboard dan breakpoint
-  scenes.css         # Panorama normal dan Ashar
+  scenes.css         # Komposisi foreground, langit, dan pencahayaan
   azan.css           # Tampilan ketika azan
 js/
   config.js          # Konfigurasi, preset, state
@@ -21,8 +21,9 @@ js/
   ui.js              # Toast, jam dan overlay
   weather.js         # Cuaca dan fase matahari
 assets/
-  sky/               # Gambar cuaca WebP
-  *.webp             # Panorama dashboard
+  sky/               # Enam langit WebP (dawn, day, sunset, night, cloudy, rain)
+  scenes/            # Dua foreground transparan WebP
+  *.webp             # Panorama lama (arsip)
 ```
 
 ## Menjalankan secara lokal
@@ -41,4 +42,5 @@ Buka http://localhost:8000. Untuk deployment, GitHub Pages dapat menyajikan dire
 - Rekaman yang berhasil diunduh dari host audio disimpan di IndexedDB. CORS, kuota browser, dan izin autoplay tetap berlaku.
 - Aktifkan suara melalui tombol dashboard dan biarkan tab terbuka.
 - Cuaca menggunakan Open-Meteo. Tidak meminta lokasi perangkat.
-- Foto versi 2 (panorama Ashar) dipakai saat menunggu Ashar atau Maghrib, dan selama mode azan.
+- Foto versi 2 dipakai saat menunggu Ashar atau Maghrib, dan selama mode azan.
+- Langit otomatis: hujan/petir memakai rain; malam memakai night; siang berawan/mendung/kabut memakai cloudy; kondisi lain mengikuti dawn, day, atau sunset. Foreground memakai color grading yang sesuai dan transisi langit berjalan tanpa reload.

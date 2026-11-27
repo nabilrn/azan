@@ -30,6 +30,7 @@ function showOverlay(name,isDemo,time=''){
   $('azanTime').textContent=time?time+' WIB':'';
   $('azanTime').hidden=!time;
   $('stopAzanBtn').textContent='Hentikan azan';
+  document.documentElement.dataset.azanActive = 'true';
   $('azanOverlay').classList.add('visible');
   $('azanOverlay').setAttribute('aria-hidden','false');
   $('app').inert=true;
@@ -50,6 +51,7 @@ function hideOverlay(){
     preventScroll:true
   });
   $('azanOverlay').classList.remove('visible');
+  delete document.documentElement.dataset.azanActive;
   $('azanOverlay').setAttribute('aria-hidden','true')
 }
 export { toast, changeSource, renderClock, showOverlay, keepSilentOverlay, hideOverlay };

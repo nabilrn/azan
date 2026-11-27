@@ -1,10 +1,10 @@
-/* Azan mode: reuse the second panoramic image, without blurring the photograph. */
+/* Azan mode: reuse the shared adaptive scene with foreground version 2. */
 .azan-overlay {
   justify-content:flex-end;
   isolation:isolate;
   overflow:auto;
   backdrop-filter:none;
-  background:#122335;
+  background: transparent;
   padding:clamp(24px,5vw,90px);
   transition:opacity .45s ease,visibility .45s
 }
@@ -14,7 +14,7 @@
   position:fixed;
   inset:0;
   z-index:-1;
-  background:url("../assets/ashar-panorama.webp") center/cover no-repeat
+  background:linear-gradient(90deg,rgba(8,20,35,.05) 0%,rgba(8,20,35,.12) 35%,rgba(8,20,35,.36) 63%,rgba(8,20,35,.46) 100%)
 }
 
 .azan-content {
@@ -79,9 +79,7 @@
     padding:24px 18px max(28px,env(safe-area-inset-bottom))
   }
   .azan-overlay:before {
-    background-image:linear-gradient(180deg,transparent 0%,rgba(10,23,39,.12) 25%,rgba(10,23,39,.94) 62%,#0a1727 100%),url("../assets/ashar-panorama.webp");
-    background-size:100% 100%,auto 100%;
-    background-position:center,left center
+    background:linear-gradient(180deg,transparent 0%,rgba(10,23,39,.12) 25%,rgba(10,23,39,.36) 62%,rgba(10,23,39,.65) 100%)
   }
   .azan-content {
     width:100%;
