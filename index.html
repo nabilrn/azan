@@ -20,47 +20,11 @@
 <body>
 <div class="atmosphere" aria-hidden="true"></div>
 <div class="pilgrim-scene" role="img" aria-label="Foto seseorang menunggang unta dengan latar piramida Mesir">
-  <!-- Desktop: sharp source photo with a continuous, one-directional fade.
-       Ambient colors extend the sky and desert without stretching photo pixels. -->
-  <svg class="original-photo-scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-    <defs>
-      <linearGradient id="scene-ambient-colors" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="900">
-        <stop offset="0" stop-color="#83a9ca"/>
-        <stop offset=".19" stop-color="#8baec9"/>
-        <stop offset=".32" stop-color="#a7aaac"/>
-        <stop offset=".49" stop-color="#bca182"/>
-        <stop offset=".68" stop-color="#c2a17b"/>
-        <stop offset="1" stop-color="#d0ae82"/>
-      </linearGradient>
-      <linearGradient id="scene-ambient-fade" gradientUnits="userSpaceOnUse" x1="530" y1="0" x2="850" y2="0">
-        <stop offset="0" stop-color="white"/>
-        <stop offset=".16" stop-color="#f0f0f0"/>
-        <stop offset=".33" stop-color="#c9c9c9"/>
-        <stop offset=".50" stop-color="#858585"/>
-        <stop offset=".67" stop-color="#414141"/>
-        <stop offset=".84" stop-color="#101010"/>
-        <stop offset="1" stop-color="black"/>
-      </linearGradient>
-      <mask id="scene-ambient-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="850" height="900" style="mask-type:luminance">
-        <rect width="850" height="900" fill="url(#scene-ambient-fade)"/>
-      </mask>
-      <!-- One smooth horizontal mask for the entire photo, no camel-shaped halo. -->
-      <linearGradient id="scene-photo-fade" gradientUnits="userSpaceOnUse" x1="552" y1="0" x2="637" y2="0">
-        <stop offset="0" stop-color="white"/>
-        <stop offset=".2" stop-color="#fafafa"/>
-        <stop offset=".4" stop-color="#e6e6e6"/>
-        <stop offset=".6" stop-color="#b0b0b0"/>
-        <stop offset=".8" stop-color="#565656"/>
-        <stop offset="1" stop-color="black"/>
-      </linearGradient>
-      <mask id="scene-photo-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="637" height="900" style="mask-type:luminance">
-        <rect width="637" height="900" fill="url(#scene-photo-fade)"/>
-      </mask>
-    </defs>
-    <rect width="1600" height="900" fill="#0f1c2c"/>
-    <rect width="850" height="900" fill="url(#scene-ambient-colors)" mask="url(#scene-ambient-mask)"/>
-    <image href="./ruangsalat-photo.jpg" width="637" height="900" preserveAspectRatio="xMidYMid meet" mask="url(#scene-photo-mask)"/>
-  </svg>
+  <!-- The original image is displayed without artificial extensions or masking. -->
+  <figure class="original-photo-scene">
+    <img src="./ruangsalat-photo.jpg" width="1024" height="1447" alt="" decoding="async" />
+    <figcaption>GIZA · MESIR</figcaption>
+  </figure>
   <span class="photo-mark">GIZA · MESIR</span>
 </div>
   <main class="app" id="app">
