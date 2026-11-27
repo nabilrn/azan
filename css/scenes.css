@@ -77,70 +77,76 @@ html:is([data-next-prayer="ashar"], [data-next-prayer="maghrib"]) .pilgrim-scene
   }
 }
 
-/* Desktop default: an editorial photo panel instead of a synthetic panorama.
-   The portrait retains its intrinsic ratio; the frame is inset from the UI
-   and its entire subject remains visible at different aspect ratios. */
+/* Desktop default: a soft slate palette bridges the original photograph
+   and the dashboard. The image remains a single, unfiltered layer.
+   Feather its opacity into the actual background, rather than painting
+   an opaque gradient over a framed picture or extending its edge pixels. */
 .original-photo-scene {
   display: none;
 }
 
 @media (min-width: 851px) {
   html:not([data-next-prayer="ashar"]):not([data-next-prayer="maghrib"]) .pilgrim-scene {
-    --scene-gutter: clamp(12px, 1.35vw, 24px);
-    --scene-column: 40.8vw;
-    background-image: none !important;
-    background-color: #0f1c2c !important;
+    --scene-width: min(45vw, 70.77dvh);
+    background-color: #304354 !important;
+    background-image: linear-gradient(
+      90deg,
+      #798b97 0%,
+      #798b97 25%,
+      #647987 36%,
+      #506675 45%,
+      #405666 58%,
+      #35495a 76%,
+      #304354 100%
+    ) !important;
     overflow: hidden;
   }
 
   .original-photo-scene {
     display: block;
     position: absolute;
-    left: var(--scene-gutter);
-    top: 50%;
-    transform: translateY(-50%);
+    inset: 0 auto 0 0;
+    width: var(--scene-width);
+    height: 100%;
     margin: 0;
-    width: min(calc(var(--scene-column) - 2 * var(--scene-gutter)), calc((100dvh - 2 * var(--scene-gutter)) * 1024 / 1447));
-    aspect-ratio: 1024 / 1447;
+    border: 0;
+    border-radius: 0;
     overflow: hidden;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 229, 185, .16);
-    background-color: #0f1c2c;
-    box-shadow: 0 14px 40px rgba(0, 0, 0, .16);
+    box-shadow: none;
+    background: none;
   }
 
   .original-photo-scene img {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    object-position: center;
+    object-fit: cover;
+    object-position: 68% center;
+    -webkit-mask-image: linear-gradient(90deg,
+      #000 0%, #000 76%,
+      rgba(0,0,0,.98) 80%,
+      rgba(0,0,0,.90) 85%,
+      rgba(0,0,0,.70) 90%,
+      rgba(0,0,0,.32) 95%,
+      transparent 100%);
+    mask-image: linear-gradient(90deg,
+      #000 0%, #000 76%,
+      rgba(0,0,0,.98) 80%,
+      rgba(0,0,0,.90) 85%,
+      rgba(0,0,0,.70) 90%,
+      rgba(0,0,0,.32) 95%,
+      transparent 100%);
   }
 
   .original-photo-scene figcaption {
-    position: absolute;
-    left: 18px;
-    bottom: 16px;
-    padding: 5px 9px;
-    border-radius: 4px;
-    background: rgba(12, 25, 38, .68);
-    color: #fff9ed;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: .12em;
+    display: none;
   }
 
-  html:not([data-next-prayer="ashar"]):not([data-next-prayer="maghrib"]) .pilgrim-scene > .photo-mark {
-    display: none;
+  .pilgrim-scene .photo-mark {
+    z-index: 1;
   }
 
   html:is([data-next-prayer="ashar"], [data-next-prayer="maghrib"]) .original-photo-scene {
     display: none;
-  }
-}
-
-@media (min-width: 851px) and (max-width: 1140px) {
-  html:not([data-next-prayer="ashar"]):not([data-next-prayer="maghrib"]) .pilgrim-scene {
-    --scene-column: 38.5vw;
   }
 }
