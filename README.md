@@ -41,4 +41,4 @@ Buka http://localhost:8000. Untuk deployment, GitHub Pages dapat menyajikan dire
 - Rekaman yang berhasil diunduh dari host audio disimpan di IndexedDB. CORS, kuota browser, dan izin autoplay tetap berlaku.
 - Aktifkan suara melalui tombol dashboard dan biarkan tab terbuka.
 - Cuaca menggunakan Open-Meteo. Tidak meminta lokasi perangkat.
-- Mode azan memakai panorama Ashar sebagai foto versi 2.
+- Foto versi 2 (panorama Ashar) dipakai saat menunggu Ashar atau Maghrib, dan selama mode azan.

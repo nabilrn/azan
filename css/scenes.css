@@ -61,8 +61,8 @@ html[data-phase="night"]:is([data-weather="rain"],[data-weather="storm"]) .pilgr
   }
 }
 
-/* Ashar-only scene. Default image remains the existing seamless panorama. */
-html[data-next-prayer="ashar"] .pilgrim-scene {
+/* Alternate panorama while waiting for Ashar or Maghrib. */
+html:is([data-next-prayer="ashar"], [data-next-prayer="maghrib"]) .pilgrim-scene {
   background-image:url("../assets/ashar-panorama.webp")!important;
   background-size:cover!important;
   background-position:center center!important;
@@ -70,7 +70,7 @@ html[data-next-prayer="ashar"] .pilgrim-scene {
 }
 
 @media(max-width:850px) {
-  html[data-next-prayer="ashar"] .pilgrim-scene {
+  html:is([data-next-prayer="ashar"], [data-next-prayer="maghrib"]) .pilgrim-scene {
     background-image:linear-gradient(180deg,rgba(8,19,32,.45),rgba(8,21,35,.60) 46%,rgba(7,18,32,.88)),url("../assets/ashar-panorama.webp")!important;
     background-size:100% 100%,auto 100%!important;
     background-position:center center,left center!important;

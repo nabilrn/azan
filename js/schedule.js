@@ -189,8 +189,8 @@ function update(){
   changeSource('Jadwal '+today.source+' · Kota Jakarta (Jaksel) · WIB',true);
   const timeline=getTimeline(day,today);
   const upcoming=timeline.find(p=>p.ms>now)|| (tomorrow?getTimeline(nextDate(day),tomorrow)[0]:null);
-  // Only show the alternate photo while the NEXT prayer is Ashar.
-  const photoMode=upcoming?.key==='ashar'?'ashar':'';
+  // Use the alternate photo while waiting for Ashar or Maghrib.
+  const photoMode = ['ashar', 'maghrib'].includes(upcoming?.key) ? upcoming.key : '';
   if(document.documentElement.dataset.nextPrayer!==photoMode)document.documentElement.dataset.nextPrayer=photoMode;
   const latest=[...timeline].reverse().find(p=>p.ms<=now);
   state.current=latest?.key||'';
