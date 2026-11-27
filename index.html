@@ -20,41 +20,46 @@
 <body>
 <div class="atmosphere" aria-hidden="true"></div>
 <div class="pilgrim-scene" role="img" aria-label="Foto seseorang menunggang unta dengan latar piramida Mesir">
-  <!-- Desktop: keep the original photograph sharp; blend only its outer background. -->
+  <!-- Desktop: a subject-aware opacity mask; no stretched pixels or image blur. -->
   <svg class="original-photo-scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
     <defs>
-      <linearGradient id="scene-photo-fade" gradientUnits="userSpaceOnUse" x1="615" y1="0" x2="637" y2="0">
+      <!-- The sky and desert fade gradually into the same navy as the dashboard. -->
+      <linearGradient id="scene-wide-fade" gradientUnits="userSpaceOnUse" x1="402" y1="0" x2="637" y2="0">
         <stop offset="0" stop-color="white"/>
+        <stop offset=".20" stop-color="#f4f4f4"/>
+        <stop offset=".40" stop-color="#d1d1d1"/>
+        <stop offset=".60" stop-color="#929292"/>
+        <stop offset=".80" stop-color="#3c3c3c"/>
         <stop offset="1" stop-color="black"/>
       </linearGradient>
+      <!-- Retain the camel's head with a soft, localized opacity adjustment. -->
+      <radialGradient id="scene-camel-detail" gradientUnits="userSpaceOnUse" cx="515" cy="561" r="1" gradientTransform="translate(515 561) scale(150 190) translate(-515 -561)">
+        <stop offset="0" stop-color="white"/>
+        <stop offset=".61" stop-color="white"/>
+        <stop offset=".78" stop-color="white" stop-opacity=".68"/>
+        <stop offset=".9" stop-color="white" stop-opacity=".22"/>
+        <stop offset="1" stop-color="white" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Always reach zero opacity before the real photograph ends. -->
+      <linearGradient id="scene-photo-boundary" gradientUnits="userSpaceOnUse" x1="611" y1="0" x2="637" y2="0">
+        <stop offset="0" stop-color="white"/>
+        <stop offset=".20" stop-color="#f3f3f3"/>
+        <stop offset=".50" stop-color="#a0a0a0"/>
+        <stop offset=".80" stop-color="#303030"/>
+        <stop offset="1" stop-color="black"/>
+      </linearGradient>
+      <mask id="scene-boundary-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="637" height="900">
+        <rect width="637" height="900" fill="url(#scene-photo-boundary)"/>
+      </mask>
       <mask id="scene-photo-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="637" height="900">
-        <rect width="637" height="900" fill="url(#scene-photo-fade)"/>
+        <g mask="url(#scene-boundary-mask)">
+          <rect width="637" height="900" fill="url(#scene-wide-fade)"/>
+          <rect width="637" height="900" fill="url(#scene-camel-detail)"/>
+        </g>
       </mask>
-      <linearGradient id="scene-edge-fade" gradientUnits="userSpaceOnUse" x1="630" y1="0" x2="875" y2="0">
-        <stop offset="0" stop-color="white"/>
-        <stop offset=".24" stop-color="#e6e6e6"/>
-        <stop offset=".57" stop-color="#777"/>
-        <stop offset=".85" stop-color="#111"/>
-        <stop offset="1" stop-color="black"/>
-      </linearGradient>
-      <mask id="scene-edge-mask" maskUnits="userSpaceOnUse" x="600" y="0" width="290" height="900">
-        <rect x="600" width="290" height="900" fill="url(#scene-edge-fade)"/>
-      </mask>
-      <filter id="scene-edge-soften" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
-        <feGaussianBlur stdDeviation="12" edgeMode="duplicate"/>
-      </filter>
     </defs>
     <rect width="1600" height="900" fill="#0f1c2c"/>
-    <!-- Only the empty rightmost strip of the source image is extended and softened. -->
-    <g mask="url(#scene-edge-mask)">
-      <g filter="url(#scene-edge-soften)">
-        <svg x="600" y="-25" width="300" height="950" viewBox="1000 -40 24 1527" preserveAspectRatio="none" overflow="hidden">
-          <image href="./ruangsalat-photo.jpg" width="1024" height="1447" preserveAspectRatio="none"/>
-        </svg>
-      </g>
-    </g>
-    <!-- Unfiltered original, including the entire camel head. -->
-    <image href="./ruangsalat-photo.jpg" width="637" height="900" preserveAspectRatio="none" mask="url(#scene-photo-mask)"/>
+    <image href="./ruangsalat-photo.jpg" width="637" height="900" preserveAspectRatio="xMidYMid meet" mask="url(#scene-photo-mask)"/>
   </svg>
   <span class="photo-mark">GIZA · MESIR</span>
 </div>
